@@ -70,15 +70,6 @@ const schema = a.schema({
     .authorization((allow) => [allow.publicApiKey().to(["read", "create", "delete"])])
     .secondaryIndexes((index) => [index("userProfileId").queryField("byUser")]),
 
-  SystemStatus: a
-    .model({
-      id: a.string().required(),
-      status: a.enum(["ready", "busy", "down"]),
-      activeUsers: a.integer().required(),
-      avgResponseMs: a.integer().required(),
-    })
-    .authorization((allow) => [allow.publicApiKey().to(["read", "update"])]),
-
   AgentSession: a
     .model({
       walletAddress: a.string().required(),

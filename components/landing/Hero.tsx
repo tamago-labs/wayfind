@@ -9,45 +9,44 @@ export default function Hero() {
     <section className="max-w-6xl mx-auto px-6 pt-10 pb-24 relative grid-bg">
       <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-accent/8 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="relative grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <Section>
-            <h1 className="font-display text-3xl md:text-5xl font-bold tracking-tight leading-[1.1]">
-              Your AI Risk Engine for<br />
-              <span className="bg-gradient-to-r from-zenblue via-accent to-accent2 bg-clip-text text-transparent">
-                Tokenized Equities
-              </span>
-            </h1>
-          </Section>
+      <div className="relative flex flex-col items-center text-center">
+        <Section className="max-w-2xl">
+          <h1 className="font-display text-3xl md:text-5xl font-bold tracking-tight leading-[1.1]">
+            Find Your Way Through<br />
+            <span className="bg-gradient-to-r from-zenblue via-accent to-accent2 bg-clip-text text-transparent">
+              Tokenized Equities
+            </span>
+          </h1>
+        </Section>
 
-          <Section>
-              <p className="mt-5 text-[15px] text-white/50 leading-relaxed">
-              Hyper-personalized AI Risk Engine for tokenized equities on <a href="https://solana.com/" target="_blank" rel="noopener noreferrer" className="text-accent font-semibold hover:underline">Solana</a>. Discover, rank, and understand risk on <a href="https://xstocks.fi/" target="_blank" rel="noopener noreferrer" className="text-accent font-semibold hover:underline">xStocks</a>, <a href="https://ondo.finance/ondo-stocks" target="_blank" rel="noopener noreferrer" className="text-accent font-semibold hover:underline">Ondo</a>, <a href="https://prestocks.com" target="_blank" rel="noopener noreferrer" className="text-accent font-semibold hover:underline">PreStocks</a> then turn them into productive collateral and yield.
-            </p>
-          </Section>
+        <Section className="max-w-2xl">
+          <p className="mt-5 text-[15px] text-white/50 leading-relaxed">
+            Hyper-personalized AI risk intelligence for <span className="text-accent font-semibold">tokenized equities</span>. Understand your portfolio, uncover hidden risks, find personalized ways to rebalance and put your assets to work.
+          </p>
+        </Section>
 
-          <Section>
-            <ul className="mt-6 space-y-2 text-[13px] text-white/35">
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent2" />
-                Trading-ready on <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png" alt="Solana" className="w-4 h-4 inline-block rounded-full" /> <span className="text-accent font-semibold">Solana + OKX Router</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent2" />
-                Data supplied by <img src="data:image/webp;base64,UklGRpABAABXRUJQVlA4IIQBAACQCACdASocABwAPtEutFooIagoGAEAGglsAJ0yhHVmgr0u2A3AG8jbyMSqrxp/Q2/A/YAVxwJw+yloJ8smrpKqFYWRvVgPnY0CG+B4AAD+Ctjsye/cX1TUx/xyKUIg9Ud32p9rJksmCygByiPDZFVXIusKLNlU/ZYW654rHaxRl+81N+ap6z5/+JUP85O4X9LOTiHyYhIS+Uv0SbUMOlRY5nwz++/kUpwVj7HrZvaoS6CMjojqhvH70H0o2n+lj1mVb8fn4F//afX8GlQuLQ++sH/FV/wsDf0/sw7GHQkWO9SfjH5O7wBfAYag/NcAisPc06GbPrnCrictkX8eI2RAd6t4KuNhlUlp2SGRV1LTnkMrY8Weg17US9j97ZZMSCoqc37qX4VhuMeYDv/xXYCbiJwHo/7m/9tn1N/6Lxa0GzOaixvJugxQ1/fMJncLK31Qx0a/dRjeeaySYZCWqSBrAU4Gn9gwt+x/z/zSoUNDUfjex7f0/z6I3nYWKUpL+weT4AAA" alt="CoinMarketCap" className="w-4 h-4 inline-block rounded-full" /> <span className="text-accent font-semibold">CoinMarketCap Pro</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent2" />
-                Frontier AI reasoning with <span className="w-4 h-4 rounded-full bg-white inline-flex items-center justify-center"><img src="https://openrouter.ai/images/icons/OpenAI.svg" alt="OpenAI" className="w-3 h-3" /></span> <span className="text-accent font-semibold">GPT-6 Astra</span>
-              </li>
-            </ul>
-          </Section>
-        </div>
+        <Section className="w-full max-w-3xl mx-auto">
+          <HeroPrompt />
+        </Section>
 
-        <HeroPrompt />
+        <Section>
+          <ul className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13px] text-white/35">
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent2" />
+              Trading-ready on <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png" alt="Solana" className="w-4 h-4 inline-block rounded-full" /> <span className="text-accent font-semibold">Solana + OKX Router</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent2" />
+              Data supplied by <img src="data:image/webp;base64,UklGRpABAABXRUJQVlA4IIQBAACQCACdASocABwAPtEutFooIagoGAEAGglsAJ0yhHVmgr0u2A3AG8jbyMSqrxp/Q2/A/YAVxwJw+yloJ8smrpKqFYWRvVgPnY0CG+B4AAD+Ctjsye/cX1TUx/xyKUIg9Ud32p9rJksmCygByiPDZFVXIusKLNlU/ZYW654rHaxRl+81N+ap6z5/+JUP85O4X9LOTiHyYhIS+Uv0SbUMOlRY5nwz++/kUpwVj7HrZvaoS6CMjojqhvH70H0o2n+lj1mVb8fn4F//afX8GlQuLQ++sH/FV/wsDf0/sw7GHQkWO9SfjH5O7wBfAYag/NcAisPc06GbPrnCrictkX8eI2RAd6t4KuNhlUlp2SGRV1LTnkMrY8Weg17US9j97ZZMSCoqc37qX4VhuMeYDv/xXYCbiJwHo/7m/9tn1N/6Lxa0GzOaixvJugxQ1/fMJncLK31Qx0a/dRjeeaySYZCWqSBrAU4Gn9gwt+x/z/zSoUNDUfjex7f0/z6I3nYWKUpL+weT4AAA" alt="CoinMarketCap" className="w-4 h-4 inline-block rounded-full" /> <span className="text-accent font-semibold">CoinMarketCap Pro</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent2" />
+              Frontier AI reasoning with <span className="w-4 h-4 rounded-full bg-white inline-flex items-center justify-center"><img src="https://openrouter.ai/images/icons/OpenAI.svg" alt="OpenAI" className="w-3 h-3" /></span> <span className="text-accent font-semibold">GPT-6 Astra</span>
+            </li>
+          </ul>
+        </Section>
       </div>
-
-      <TokenShowcase />
+ 
     </section>
   );
 }
