@@ -5,40 +5,40 @@ import Section from './Section';
 const steps = [
   {
     num: '01',
-    title: 'Ask Zivic',
+    title: 'Build your portfolio',
     description: (
       <>
-        Ask anything about tokenized stocks. <span className="text-white/70 font-medium">What should I buy? Why is a stock moving? Which stocks fit my goals and risk appetite?</span>
+        Connect your wallet to discover your <span className="text-white/70 font-medium">tokenized equity holdings</span>, or simulate a portfolio to explore assets without connecting.
       </>
     ),
     example: null,
   },
   {
     num: '02',
-    title: 'Get a personalized answer',
+    title: 'Tell us about you',
     description: (
       <>
-        Zivic combines your preferences with market data to <span className="text-white/70 font-medium">rank, compare, and explain</span> the tokenized stocks that matter to you.
+        Answer a short AI questionnaire about your <span className="text-white/70 font-medium">goals, time horizon, and risk tolerance</span>. Wayfind uses your answers to understand what risk means <span className="text-accent font-semibold">for you</span>.
       </>
     ),
     example: null,
   },
   {
     num: '03',
-    title: 'Find the best trade',
+    title: 'Understand your risk',
     description: (
       <>
-        When you&apos;re ready, Zivic finds the <span className="text-white/70 font-medium">best available route</span> for your trade across Solana liquidity through <span className="text-white/70 font-medium">OKX DEX Router</span>.
+        AI evaluates your holdings across company fundamentals, market exposure, concentration, liquidity, issuer, and onchain factors — then gives you a <span className="text-white/70 font-medium">personalized risk score</span>.
       </>
     ),
     example: null,
   },
   {
     num: '04',
-    title: 'Trade on Solana',
+    title: 'Find your path',
     description: (
       <>
-        Review the details and execute on <span className="text-white/70 font-medium">Solana Mainnet</span>. No fully autonomous agents — you approve what you trade.
+        Get tailored options to reduce risk, rebalance your portfolio, or put eligible assets to work — with the <span className="text-white/70 font-medium">reasoning behind each strategy</span>.
       </>
     ),
     example: null,
@@ -57,7 +57,7 @@ export default function HowItWorks() {
 
         <Section>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-center tracking-tight mb-12">
-            Simple steps to your first trade
+            Your path starts here
           </h2>
         </Section>
 

@@ -11,17 +11,17 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex font-display items-center gap-7 text-[13px] text-white/50 font-medium">
-          <Link href="/dashboard" className="hover:text-white transition-colors">Chat</Link>
+          <Link href="#how-it-works" className="hover:text-white transition-colors">How it works</Link>
+          <Link href="/dashboard/portfolio" className="hover:text-white transition-colors">Portfolio</Link>
+
           <Link href="/dashboard/explore" className="hover:text-white transition-colors">Explore</Link>
-          <Link href="/dashboard/pre-ipo" className="hover:text-white transition-colors">Pre-IPO</Link>
-          <Link href="/dashboard/compare" className="hover:text-white transition-colors">Compare</Link>
           <Link href="#faq" className="hover:text-white transition-colors">FAQ</Link>
 
         </nav>
 
         <div className="flex items-center gap-4">
           <Link href="/dashboard" className="text-[13px] font-display font-medium bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent/80 transition-colors">
-            Dashboard
+            Launch App
           </Link>
         </div>
       </div>

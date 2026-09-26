@@ -14,7 +14,7 @@ export default function Problem() {
             </Section>
             <Section>
               <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
-                More tokenized stocks.<br />More decisions.
+                Crypto habits meet real-world assets
               </h2>
             </Section>
           </div>
@@ -23,19 +23,19 @@ export default function Problem() {
           <div className="md:col-span-3">
             <Section>
               <p className="text-[15px] text-white/50 leading-relaxed">
-                Tokenized stocks are bringing equities onchain, but having more markets and more information doesn't make investing easier. Investors still have to research what is moving, understand why, and figure out what actually fits their goals and risk appetite.
+                Crypto markets have trained investors to make decisions around price, liquidity, and narrative. But a <span className="text-accent font-semibold">tokenized stock</span> represents exposure to a <span className="text-accent font-semibold">real company</span> with revenue, earnings, valuation, and traditional market dynamics behind it.
               </p>
             </Section>
 
             <Section>
               <p className="mt-6 text-lg md:text-xl font-display font-semibold text-white/80 leading-snug">
-                The challenge isn&apos;t access. It&apos;s knowing what to choose.
+                The tools shouldn't treat them the same way.
               </p>
             </Section>
 
             <Section>
               <p className="mt-6 text-[15px] text-white/50 leading-relaxed">
-                Zivic brings AI-powered market research, personalized recommendations, and onchain trading into one place — helping users go from <span className="text-accent font-semibold">what should I buy?</span> to <span className="text-accent font-semibold">let&apos;s trade it.</span>
+                Wayfind looks beyond what you hold. Connect your wallet, answer questions, and get a <span className="text-accent font-semibold">personalized</span> understanding of your holdings. See the risks that matter, then find paths to <span className="text-accent font-semibold">rebalance</span> or put assets to work.
               </p>
             </Section>
           </div>

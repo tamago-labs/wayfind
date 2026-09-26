@@ -6,34 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Section from './Section';
 
 const faqs = [
-  {
-    q: 'What is Zivic?',
-    a: 'Zivic is an AI-powered risk engine for tokenized equities on Solana. It analyzes your portfolio across concentration, market volatility, and token liquidity to give you a risk score and actionable recommendations.',
-  },
-  {
-    q: 'How does Zivic personalize my experience?',
-    a: 'Zivic connects to your wallet, reads your on-chain holdings, and uses your portfolio composition to power AI analysis. Risk scores, rebalancing suggestions, and yield opportunities are all tailored to the assets you actually hold.',
-  },
-  {
-    q: 'What are tokenized stocks?',
-    a: 'Tokenized stocks are on-chain tokens backed by real-world equities. On Solana, xStocks (by Backed Assets) and Ondo Stocks track stocks like NVIDIA, Apple, Tesla, and Circle. Zivic tracks prices, market cap, and volume via CoinMarketCap data.',
-  },
-  {
-    q: 'What are PreStocks?',
-    a: 'PreStocks are tokens representing economic exposure to private companies (pre-IPO) like Anthropic, OpenAI, SpaceX, and Neuralink. Each PreStock is independently attested by BlockOffice (ACCA-certified) to verify token supply against offchain backing.',
-  },
-  {
-    q: 'How do credits work?',
-    a: 'Zivic uses AI credits to power analysis. Running a risk evaluation or asking complex questions consumes credits based on token usage. You can purchase credits via the dashboard.',
-  },
-  {
-    q: 'What is the AI Risk Engine?',
-    a: 'The Risk Engine evaluates your portfolio across three dimensions: concentration risk (position sizing), market risk (equity volatility, sector concentration), and token/liquidity risk (issuer quality, trading volume). It produces a 0-100 risk score.',
-  },
-  {
-    q: 'What are Yield & DeFi opportunities?',
-    a: 'Zivic shows you how to earn yield on tokens you hold via Kamino lending and Byreal liquidity pools, with real-time APY and APR data.',
-  },
+  { q: 'What is Wayfind?', a: 'Wayfind is an AI-powered risk intelligence platform for tokenized equities. It helps you understand what you hold, evaluate portfolio risk against your personal profile, and find personalized ways to rebalance or put eligible assets to work.', }, { q: 'How does Wayfind personalize my risk?', a: 'Wayfind combines your portfolio with your goals, time horizon, and risk tolerance. After connecting your wallet or simulating a portfolio, you answer a short questionnaire so the AI can evaluate risk in the context of what matters to you.', }, { q: 'How does the AI Risk Engine work?', a: 'The AI Risk Engine evaluates your portfolio across factors such as company fundamentals, market exposure, concentration, liquidity, issuer risk, and onchain considerations. It combines these signals with your personal risk profile to produce a personalized risk assessment and explain what is driving it.', }, { q: 'What are tokenized equities?', a: 'Tokenized equities are onchain assets that provide exposure to real-world companies and stocks. They bring traditional equity exposure into Web3, while adding considerations such as issuer structure, liquidity, and onchain infrastructure.', }, { q: 'Can I use Wayfind without connecting my wallet?', a: 'Yes. You can simulate a portfolio by adding tokenized equities you want to explore. This lets you evaluate potential holdings and see how they could affect your portfolio risk without connecting a wallet.', }, { q: 'What does the risk score mean?', a: 'Your risk score is a personalized view of the risk in your portfolio based on your holdings, market conditions, and risk profile. Wayfind also breaks the score down into the factors contributing to it, so you can understand what is driving your portfolio risk.', }, { q: 'What can I do with Wayfind after the risk analysis?', a: 'Wayfind turns the risk analysis into actionable options. Depending on your portfolio and goals, you may see ways to reduce concentration, rebalance your holdings, diversify exposure, or put eligible assets to work through available DeFi opportunities.', }, { q: 'What are Yield & DeFi opportunities?', a: 'Wayfind can identify ways eligible tokenized assets may be used in DeFi, including lending or liquidity opportunities. Each opportunity can be evaluated alongside its potential yield and associated risks so you can decide whether it fits your portfolio.', }, { q: 'How do AI credits work?', a: 'AI credits power deeper analysis and AI-powered features in Wayfind. Credit usage depends on the complexity of the analysis, and available credits can be managed from your dashboard.', },
 ];
 
 export default function FAQ() {

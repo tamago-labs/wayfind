@@ -16,9 +16,7 @@ const navItems = [
   { href: '/dashboard/portfolio', label: 'Portfolio', icon: PieChart },
   { href: '/dashboard/explore', label: 'Explore', icon: Compass },
   { href: '/dashboard/pre-ipo', label: 'Pre-IPO', icon: Rocket },
-  { href: '/dashboard/compare', label: 'Compare', icon: Columns2 },
-  // { href: '/dashboard/alerts', label: 'Alerts', icon: Bell },
-  // { href: '/dashboard/top-news', label: 'Top News', icon: Newspaper },
+  { href: '/dashboard/compare', label: 'Compare', icon: Columns2 }
 ];
 
 const dataClient = generateClient<Schema>();
@@ -53,10 +51,10 @@ export default function Sidebar() {
   return (
     <aside className="w-56 h-screen border-r border-border3/50 bg-surface flex flex-col fixed left-0 top-0">
       <Link href="/" className="px-5 h-14 flex items-center gap-2 border-b border-border3/50 hover:bg-white/[0.02] transition-colors">
-        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-zenblue to-zenpurple flex items-center justify-center">
-          <span className="text-[18px] font-brand">Z</span>
-        </div>
-        <span className="font-display text-lg font-semibold tracking-tight">Zivic</span>
+         <div className="w-7 h-7 rounded-full bg-gradient-to-br from-zenblue to-zenpurple flex">
+           <span className="text-[20px] font-brand text-center mx-auto rotate-[-10deg] ml-[5px] mt-[1px]">W</span>
+         </div>
+         <span className="font-display text-lg font-semibold tracking-tight">Wayfind</span>
       </Link>
 
       <nav className="flex-1 py-4 px-3 space-y-1">

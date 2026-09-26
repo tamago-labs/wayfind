@@ -13,16 +13,16 @@ export default function CTA() {
             </div>
             <div className="relative bg-surface rounded-2xl p-10 text-center z-10">
               <h2 className="font-display text-3xl md:text-4xl font-semibold tracking-tight">
-                Make the market yours
+                Find your way forward
               </h2>
               <p className="mt-4 text-[15px] text-white/45">
-                Explore public equities and private pre-IPO opportunities with AI-ranked tokenized stocks tailored to your goals, plus the data and tools to trade them on Solana.
+                Understand your tokenized equity portfolio with personalized AI risk intelligence, then discover clearer paths to rebalance and put your assets to work.
               </p>
               <Link
                 href="/dashboard"
                 className="mt-8 inline-block text-[15px] font-medium bg-accent text-white px-8 py-4 rounded-lg hover:bg-accent/80 transition-colors"
               >
-                Free AI Credits <ArrowRight className="inline-block w-4 h-4 ml-1" />
+                Start with Free AI Credits <ArrowRight className="inline-block w-4 h-4 ml-1" />
               </Link>
             </div>
           </div>
