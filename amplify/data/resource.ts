@@ -116,22 +116,7 @@ const schema = a.schema({
     .authorization((allow) => [allow.publicApiKey()])
     .handler(a.handler.function(ohlcvFetcherFunction)),
 
-  NewsArticle: a
-    .model({
-      title: a.string().required(),
-      source: a.string().required(),
-      theme: a.string().required(),
-      summary: a.string().required(),
-      url: a.string(),
-      publishedAt: a.datetime().required(),
-    })
-    .authorization((allow) => [allow.publicApiKey().to(["read"])])
-    .secondaryIndexes((index) => [
-      index("theme").queryField("byTheme"),
-      index("publishedAt").queryField("byPublishedAt"),
-    ]),
-
-  RiskEvaluation: a
+RiskEvaluation: a
     .model({
       id: a.string().required(),
       report: a.string().required(),

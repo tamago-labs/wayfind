@@ -12,7 +12,6 @@ import { getGradient } from "@/lib/wallet";
 import { WalletModal } from "./WalletModal";
 import { ConnectedPopover } from "./ConnectedPopover";
 import { CreditsModal } from "./CreditsModal";
-import TokenStrip from "./TokenStrip";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import listData from "@/lib/data/rwa-v1-list.json";
@@ -35,11 +34,12 @@ for (const asset of (listData as any).assets) {
 const dataClient = generateClient<Schema>();
 
 const PAGE_TITLES: Record<string, string> = {
-  "/dashboard/portfolio": "Your AI-Powered Portfolio",
+  "/dashboard": "New Portfolio Review",
+  "/dashboard/portfolio": "Portfolio Overview",
   "/dashboard/explore": "Explore Tokenized Stocks on Solana",
   "/dashboard/pre-ipo": "Pre-IPO Markets via PreStocks",
-  "/dashboard/compare": "Side-by-Side Token Comparison",
   "/dashboard/alerts": "Stay Notified",
+  "/dashboard/strategies": "Strategies",
 };
 
 export default function Topbar() {
@@ -197,9 +197,7 @@ export default function Topbar() {
             </div>
           )}
         </motion.div>
-      ) : (
-        <TokenStrip />
-      )}
+      ) : null}
 
       <div className="flex items-center gap-3 relative shrink-0 ml-2">
         <button

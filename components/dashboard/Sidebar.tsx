@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { MessageSquare, PieChart, Compass, Rocket, Bell, Newspaper, List, ChevronDown, Columns2, SlidersHorizontal } from 'lucide-react';
+import { MessageSquare, PieChart, Compass, Rocket, Bell, List, ChevronDown, SlidersHorizontal, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useClient } from '@solana/react';
 import { useConnectedWallet } from '@solana/kit-plugin-wallet/react';
@@ -12,11 +12,12 @@ import type { Schema } from '@/amplify/data/resource';
 import type { AppClient } from '@/components/SolanaWalletProvider';
 
 const navItems = [
-  { href: '/dashboard', label: 'New Risk', icon: MessageSquare },
+  { href: '/dashboard', label: 'New Review', icon: MessageSquare },
   { href: '/dashboard/portfolio', label: 'Portfolio', icon: PieChart },
   { href: '/dashboard/explore', label: 'Explore', icon: Compass },
   { href: '/dashboard/pre-ipo', label: 'Pre-IPO', icon: Rocket },
-  { href: '/dashboard/compare', label: 'Compare', icon: Columns2 }
+  { href: '/dashboard/strategies', label: 'Strategies', icon: BookOpen },
+
 ];
 
 const dataClient = generateClient<Schema>();
@@ -88,7 +89,7 @@ export default function Sidebar() {
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-display font-medium text-white/50 hover:text-white hover:bg-white/[0.03] transition-colors"
           >
             <SlidersHorizontal className="w-4 h-4" />
-            <span className="flex-1 text-left">My Risks</span>
+            <span className="flex-1 text-left">My Reviews</span>
             <motion.div
               animate={{ rotate: chatsOpen ? 180 : 0 }}
               transition={{ duration: 0.2 }}
