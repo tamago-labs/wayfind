@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Send } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function HeroPrompt() {
   const router = useRouter();
@@ -38,7 +38,7 @@ export default function HeroPrompt() {
             onClick={handleSubmit}
             className="absolute bottom-4 right-4 w-9 h-9 rounded-lg bg-accent flex items-center justify-center hover:bg-accent/80 transition-colors shrink-0"
           >
-            <Send className="w-4 h-4 text-white" />
+            <ArrowRight className="w-4 h-4 text-white" />
           </button>
         </div>
       </div>

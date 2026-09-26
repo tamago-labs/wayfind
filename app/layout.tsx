@@ -6,8 +6,9 @@ import { PriceProvider } from "@/contexts/PriceContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Zivic — AI Risk Engine for Tokenized Equities on Solana",
-  description: "Zivic's AI Risk Engine turns tokenized equities on Solana into productive assets. Research, risk analysis, collateral readiness, and smart routing for xStocks, Ondo Stocks, and PreStocks — all in one place.",
+  title: "Wayfind | AI Risk Engine for Tokenized Equities",
+  description:
+  "Wayfind uses AI to evaluate tokenized equity portfolios, uncover hidden risks, and find personalized ways to rebalance and put your assets to work across Web3.",
 };
 
 export default function RootLayout({
