@@ -38,7 +38,7 @@ const steps = [
     title: 'Find your path',
     description: (
       <>
-        Get tailored options to reduce risk, rebalance your portfolio, or put eligible assets to work — with the <span className="text-white/70 font-medium">reasoning behind each strategy</span>.
+        Get tailored options to reduce risk, rebalance your portfolio, with direct execution through <span className="text-white/70 font-medium">OKX DEX Router</span>.
       </>
     ),
     example: null,
