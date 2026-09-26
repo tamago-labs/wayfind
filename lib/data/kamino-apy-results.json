@@ -1,0 +1,110 @@
+{
+  "fetched_at": "2026-09-24T12:48:09.509Z",
+  "results": [
+    {
+      "symbol": "CRCLX",
+      "name": "Circle tokenized stock (xStock)",
+      "mint": "XsueG8BtpquVJX9LVLLEGuViXUungE6WmK5YZ3p3bd1",
+      "source": "rwa",
+      "type": "MARKET",
+      "market": {
+        "supplyApy": "0",
+        "borrowApy": "0.05846333986943408",
+        "totalSupply": "11789.22629882",
+        "totalBorrow": "0"
+      }
+    },
+    {
+      "symbol": "MSTRX",
+      "name": "MicroStrategy tokenized stock (xStock)",
+      "mint": "XsP7xzNPvEHS1m6qfanPUGjNmdnmsLKEoNAnHjdxxyZ",
+      "source": "rwa",
+      "type": "MARKET",
+      "market": {
+        "supplyApy": "0",
+        "borrowApy": "0.05846333986943408",
+        "totalSupply": "29627.84555341",
+        "totalBorrow": "0"
+      }
+    },
+    {
+      "symbol": "NVDAX",
+      "name": "NVIDIA tokenized stock (xStock)",
+      "mint": "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh",
+      "source": "rwa",
+      "type": "MARKET",
+      "market": {
+        "supplyApy": "0.00021837263487745062",
+        "borrowApy": "0.058607449549639146",
+        "totalSupply": "11318.474655609197614",
+        "totalBorrow": "43.39106160919761376553616300660864979477"
+      }
+    },
+    {
+      "symbol": "TSLAX",
+      "name": "Tesla tokenized stock (xStock)",
+      "mint": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
+      "source": "rwa",
+      "type": "MARKET",
+      "market": {
+        "supplyApy": "0.00009523715655856968",
+        "borrowApy": "0.05852628259585213",
+        "totalSupply": "7555.5560108583634416",
+        "totalBorrow": "12.64992301836344162659951328303575834866"
+      }
+    },
+    {
+      "symbol": "GOOGLX",
+      "name": "Alphabet tokenized stock (xStock)",
+      "mint": "XsCPL9dNWBMvFtTmwcCA5v3xWPSMEBCszbQdiLLq6aN",
+      "source": "rwa",
+      "type": "MARKET",
+      "market": {
+        "supplyApy": "0",
+        "borrowApy": "0.05846333986943408",
+        "totalSupply": "8283.36390309",
+        "totalBorrow": "0"
+      }
+    },
+    {
+      "symbol": "AAPLX",
+      "name": "Apple tokenized stock (xStock)",
+      "mint": "XsbEhLAtcf6HdfpFZ5xEMdqW8nfAvcsP5bdudRLJzJp",
+      "source": "rwa",
+      "type": "MARKET",
+      "market": {
+        "supplyApy": "0",
+        "borrowApy": "0.05846333986943408",
+        "totalSupply": "1356.85123433",
+        "totalBorrow": "0"
+      }
+    },
+    {
+      "symbol": "METAX",
+      "name": "Meta tokenized stock (xStock)",
+      "mint": "Xsa62P5mvPszXL1krVUnU5ar38bBSVcWAB6fmPCo5Zu",
+      "source": "rwa",
+      "type": "MARKET",
+      "market": {
+        "supplyApy": "0",
+        "borrowApy": "0.05846333986943408",
+        "totalSupply": "0.001",
+        "totalBorrow": "0"
+      }
+    },
+    {
+      "symbol": "HOODX",
+      "name": "Robinhood tokenized stock (xStock)",
+      "mint": "XsvNBAYkrDRNhA7wPHQfX3ZUXZyZLdnCQDfHZ56bzpg",
+      "source": "rwa",
+      "type": "MARKET",
+      "market": {
+        "supplyApy": "0",
+        "borrowApy": "0.05846333986943408",
+        "totalSupply": "5661.96784557",
+        "totalBorrow": "0"
+      }
+    }
+  ],
+  "active_count": 8
+}

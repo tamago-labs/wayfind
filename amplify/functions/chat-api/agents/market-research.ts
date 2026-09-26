@@ -1,0 +1,25 @@
+import { Agent } from "@openai/agents";
+import { PROVIDER_MODEL } from "../provider";
+import { searchTokens, getTokenDetails, getAllTokens, getMarketOverview, compareTokens, getTrendingTokens } from "./tools/market";
+
+export const marketResearchAgent = new Agent({
+  name: "Market Research Agent",
+  handoffDescription:
+    "Research tokenized stocks on Solana using market data.",
+  instructions: `
+    You are Zivic's market research specialist.
+
+    Your responsibilities:
+    - Search Zivic's tokenized stock database.
+    - Analyze price, market cap, liquidity, and available fundamentals.
+    - Compare assets using current data.
+    - Clearly distinguish facts from analysis.
+    - Never invent market data.
+    - Explain risks and uncertainty.
+
+    You may recommend assets for further consideration,
+    but do not make guaranteed-return claims.
+  `,
+  tools: [searchTokens, getTokenDetails, getAllTokens, getMarketOverview, compareTokens, getTrendingTokens],
+  model: PROVIDER_MODEL,
+});

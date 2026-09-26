@@ -1,0 +1,170 @@
+import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import { priceTracker } from "../functions/price-tracker/resource";
+import { chatApiFunction } from "../functions/chat-api/resource";
+import { prestockTracker } from "../functions/prestock-tracker/resource";
+import { evaluateRiskFunction } from "../functions/evaluate-risk/resource";
+import { ohlcvFetcherFunction } from "../functions/ohlcv-fetcher/resource";
+
+const schema = a.schema({
+  PriceSnapshot: a
+    .model({
+      symbol: a.string().required(),
+      rwa_id: a.integer().required(),
+      token_symbol: a.string().required(),
+      crypto_id: a.integer().required(),
+      price: a.float(),
+      market_cap: a.float(),
+      volume_24h: a.float(),
+      percent_1h: a.float(),
+      percent_24h: a.float(),
+      percent_7d: a.float(),
+      percent_30d: a.float(),
+      circulating_supply: a.float(),
+      total_supply: a.float(),
+    })
+    .authorization((allow) => [
+      allow.publicApiKey().to(["read"]),
+    ])
+    .secondaryIndexes((index) => [
+      index("rwa_id").queryField("byRwaId"),
+      index("token_symbol").queryField("byTokenSymbol"),
+    ]),
+  PreStock: a
+    .model({
+      symbol: a.string().required(),
+      markPrice: a.float(),
+      markValuation: a.float(),
+      tokenPrice: a.float(),
+      impliedValuation: a.float(),
+      supply: a.float(),
+    })
+    .authorization((allow) => [
+      allow.publicApiKey().to(["read"]),
+    ])
+    .secondaryIndexes((index) => [
+      index("symbol").queryField("bySymbol"),
+    ]),
+  UserProfile: a
+    .model({
+      walletAddress: a.string().required(),
+      profileName: a.string(),
+      credits: a.float().required(),
+      experience: a.enum(["newcomer", "regular", "lite_degen", "full_degen"]),
+      writingStyle: a.enum(["default", "journalist", "storytelling", "ct_vibes", "concise"]),
+      sources: a.string().array(),
+      tokenRegistries: a.hasMany("UserTokenRegistry", "userProfileId"),
+    })
+    .authorization((allow) => [allow.publicApiKey().to(["read", "create", "update"])])
+    .secondaryIndexes((index) => [index("walletAddress").queryField("byWallet")]),
+
+  UserTokenRegistry: a
+    .model({
+      userProfileId: a.id().required(),
+      userProfile: a.belongsTo("UserProfile", "userProfileId"),
+      mintAddress: a.string().required(),
+      symbol: a.string().required(),
+      name: a.string(),
+      decimals: a.integer(),
+      addedAt: a.datetime(),
+    })
+    .authorization((allow) => [allow.publicApiKey().to(["read", "create", "delete"])])
+    .secondaryIndexes((index) => [index("userProfileId").queryField("byUser")]),
+
+  SystemStatus: a
+    .model({
+      id: a.string().required(),
+      status: a.enum(["ready", "busy", "down"]),
+      activeUsers: a.integer().required(),
+      avgResponseMs: a.integer().required(),
+    })
+    .authorization((allow) => [allow.publicApiKey().to(["read", "update"])]),
+
+  AgentSession: a
+    .model({
+      walletAddress: a.string().required(),
+      sessionName: a.string().required(),
+      items: a.json().required(),
+      transactions: a.json(),
+    })
+    .authorization((allow) => [allow.publicApiKey().to(["read", "create", "update", "delete"])])
+    .secondaryIndexes((index) => [
+      index("walletAddress").queryField("bySessionWallet"),
+    ]),
+
+  RiskReportType: a.customType({
+    overallScore: a.integer(),
+    overallLabel: a.string(),
+    overallDescription: a.string(),
+    concentration: a.json(),
+    marketRisk: a.json(),
+    tokenRisk: a.json(),
+    rebalanceSuggestions: a.json(),
+    yieldStrategies: a.json(),
+  }),
+
+  evaluateRisk: a
+    .mutation()
+    .arguments({
+      walletAddress: a.string(),
+      holdings: a.string(),
+      portfolioValue: a.float(),
+    })
+    .returns(a.ref("RiskReportType"))
+    .authorization((allow) => [allow.publicApiKey()])
+    .handler(a.handler.function(evaluateRiskFunction)),
+
+  ohlcvFetcher: a
+    .query()
+    .arguments({
+      cryptoId: a.string(),
+      interval: a.string(),
+      timeStart: a.string(),
+      timeEnd: a.string(),
+    })
+    .returns(a.json())
+    .authorization((allow) => [allow.publicApiKey()])
+    .handler(a.handler.function(ohlcvFetcherFunction)),
+
+  NewsArticle: a
+    .model({
+      title: a.string().required(),
+      source: a.string().required(),
+      theme: a.string().required(),
+      summary: a.string().required(),
+      url: a.string(),
+      publishedAt: a.datetime().required(),
+    })
+    .authorization((allow) => [allow.publicApiKey().to(["read"])])
+    .secondaryIndexes((index) => [
+      index("theme").queryField("byTheme"),
+      index("publishedAt").queryField("byPublishedAt"),
+    ]),
+
+  RiskEvaluation: a
+    .model({
+      id: a.string().required(),
+      report: a.string().required(),
+      overallScore: a.integer().required(),
+      rebalanceSuggestions: a.string(),
+      yieldStrategies: a.string(),
+    })
+    .authorization((allow) => [allow.publicApiKey().to(["read", "create", "update"])]),
+
+}).authorization((allow) => [
+  allow.resource(priceTracker),
+  allow.resource(chatApiFunction),
+  allow.resource(prestockTracker),
+  allow.resource(evaluateRiskFunction),
+]);
+
+export type Schema = ClientSchema<typeof schema>;
+
+export const data = defineData({
+  schema,
+  authorizationModes: {
+    defaultAuthorizationMode: "apiKey",
+    apiKeyAuthorizationMode: {
+      expiresInDays: 30,
+    },
+  },
+});
