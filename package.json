@@ -19,6 +19,7 @@
     "@tailwindcss/typography": "^0.5.20",
     "aws-amplify": "^6.6.6",
     "dotenv": "^17.4.2",
+    "ethers": "^6.17.0",
     "framer-motion": "^13.2.0",
     "lambda-stream": "^0.6.0",
     "lightweight-charts": "^5.2.1",

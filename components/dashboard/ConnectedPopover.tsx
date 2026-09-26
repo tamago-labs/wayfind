@@ -13,9 +13,9 @@ const popover = {
   exit: { opacity: 0, scale: 0.95, y: -8 },
 };
 
-export function ConnectedPopover({ address }: { address: string }) {
+export function ConnectedPopover({ address, onDisconnect, isEVM }: { address: string; onDisconnect?: () => void; isEVM?: boolean }) {
   const client = useClient<AppClient>();
-  const disconnect = useDisconnect(client);
+  const solanaDisconnect = useDisconnect(client);
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(() => {
@@ -23,6 +23,14 @@ export function ConnectedPopover({ address }: { address: string }) {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }, [address]);
+
+  const handleDisconnect = () => {
+    if (isEVM && onDisconnect) {
+      onDisconnect();
+    } else {
+      void solanaDisconnect.dispatch();
+    }
+  };
 
   return (
     <motion.div
@@ -51,7 +59,7 @@ export function ConnectedPopover({ address }: { address: string }) {
       </button>
 
       <button
-        onClick={() => void disconnect.dispatch()}
+        onClick={handleDisconnect}
         className="w-full flex items-center gap-2.5 px-4 py-3 text-[13px] text-red-400 hover:bg-red-500/5 transition-colors border-t border-border3/30"
       >
         <LogOut className="w-3.5 h-3.5" />

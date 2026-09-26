@@ -12,6 +12,7 @@ import { getGradient } from "@/lib/wallet";
 import { WalletModal } from "./WalletModal";
 import { ConnectedPopover } from "./ConnectedPopover";
 import { CreditsModal } from "./CreditsModal";
+import { useWallet } from "@/contexts/WalletContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import listData from "@/lib/data/rwa-v1-list.json";
@@ -47,6 +48,7 @@ export default function Topbar() {
   const { prices } = usePrices();
   const client = useClient<AppClient>();
   const connected = useConnectedWallet(client);
+  const { type: walletType, address: evmAddress, disconnect: disconnectEVM } = useWallet();
   const [walletModalOpen, setWalletModalOpen] = useState(false);
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [creditsModalOpen, setCreditsModalOpen] = useState(false);
@@ -65,8 +67,10 @@ export default function Topbar() {
     })();
   }, [connected, creditsModalOpen, pathname]);
 
-  const address = connected ? String(connected.account.address) : null;
-  const gradient = address ? getGradient(address) : null;
+  const solanaAddress = connected ? String(connected.account.address) : null;
+  const gradient = solanaAddress ? getGradient(solanaAddress) : null;
+  const displayAddress = solanaAddress || evmAddress;
+  const isConnected = !!solanaAddress || (walletType === "evm" && !!evmAddress);
 
   const tokenMatch = pathname.match(/^\/dashboard\/token\/([^/]+)\/([^/]+)$/);
   const tokenSlug = tokenMatch?.[1];
@@ -209,13 +213,15 @@ export default function Topbar() {
           <span className="text-white/30">credits</span>
         </button>
 
-        {address ? (
+         {isConnected ? (
           <button onClick={() => setPopoverOpen((v) => !v)} className="relative flex items-center gap-2">
             <div
-              style={{ background: `linear-gradient(135deg, ${gradient?.from}, ${gradient?.to})` }}
+              style={{ background: solanaAddress ? `linear-gradient(135deg, ${gradient?.from}, ${gradient?.to})` : "#627EEA" }}
               className="w-7 h-7 rounded-full flex items-center justify-center"
             >
-              <span className="text-[10px] font-bold text-white/90">{address.slice(2, 4).toUpperCase()}</span>
+              <span className="text-[10px] font-bold text-white/90">
+                {displayAddress.slice(2, 4).toUpperCase()}
+              </span>
             </div>
             <ChevronDown className={`w-3 h-3 text-white/30 transition-transform ${popoverOpen ? "rotate-180" : ""}`} />
           </button>
@@ -230,7 +236,9 @@ export default function Topbar() {
         )}
 
         <AnimatePresence>
-          {popoverOpen && address && <ConnectedPopover address={address} />}
+          {popoverOpen && displayAddress && (
+            <ConnectedPopover address={displayAddress} onDisconnect={walletType === "evm" ? disconnectEVM : undefined} isEVM={walletType === "evm"} />
+          )}
         </AnimatePresence>
       </div>
 
