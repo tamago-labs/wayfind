@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const RPC_URL =
-  process.env.NEXT_PUBLIC_SOLANA_RPC_URL ?? 'https://api.mainnet.solana.com';
+const RPC_URL = process.env.NEXT_PUBLIC_SOLANA_RPC_URL ?? 'https://api.mainnet.solana.com';
 
 const cache = new Map<string, { data: any; ts: number }>();
 const CACHE_MS = 15_000;
@@ -76,6 +75,7 @@ export async function GET(request: NextRequest) {
 
     const response = { sol: solBalance, spl: splBalances };
     cache.set(address, { data: response, ts: Date.now() });
+
     return NextResponse.json(response);
   } catch (err) {
     console.error('[solana-balance] error:', err);

@@ -15,7 +15,8 @@ function register(symbol: string, mint: string, decimals: number) {
 }
 
 for (const token of BASE_TOKENS) {
-  register(token.symbol, token.address, token.decimals);
+  const addr = token.addresses.solana;
+  if (addr) register(token.symbol, addr, token.decimals);
 }
 
 for (const asset of (rwaList as any).assets ?? []) {

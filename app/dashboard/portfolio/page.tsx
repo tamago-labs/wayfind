@@ -13,11 +13,11 @@ export default function Portfolio() {
   const client = useClient<AppClient>();
   const connected = useConnectedWallet(client);
   const solanaAddress = connected ? String(connected.account.address) : null;
-  const { address: evmAddress } = useWallet();
+  const { type, address: evmAddress } = useWallet();
 
   const walletAddress = solanaAddress || evmAddress;
 
-  const { balances, loading } = useSolanaBalances(walletAddress);
+  const { balances, loading } = useSolanaBalances(solanaAddress);
   const { tokens: knownTokens, loading: knownLoading } = useKnownTokens(walletAddress);
 
   return (
@@ -27,6 +27,8 @@ export default function Portfolio() {
         knownTokens={knownTokens}
         loading={loading}
         knownLoading={knownLoading}
+        walletAddress={walletAddress}
+        walletType={type}
       />
       <div className="flex-1 bg-surface border border-border3/50 rounded-xl p-5 flex flex-col min-h-0 overflow-hidden">
         <HoldingsList

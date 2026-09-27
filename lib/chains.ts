@@ -3,6 +3,7 @@ export interface ChainConfig {
   name: string;
   shortName: string;
   rpcUrl: string;
+  fallbackRpcs?: string[];
   explorerUrl: string;
   nativeCurrency: { name: string; symbol: string; decimals: number };
   color: string;
@@ -12,7 +13,7 @@ export const ETHEREUM: ChainConfig = {
   id: 1,
   name: "Ethereum",
   shortName: "ETH",
-  rpcUrl: "https://eth.llamarpc.com",
+  rpcUrl: "https://eth.blockrazor.xyz",
   explorerUrl: "https://etherscan.io",
   nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
   color: "#627EEA",
@@ -38,7 +39,17 @@ export const X_LAYER: ChainConfig = {
   color: "#275FEE",
 };
 
-export const SUPPORTED_CHAINS: ChainConfig[] = [ETHEREUM, BNB_CHAIN, X_LAYER];
+export const ARBITRUM: ChainConfig = {
+  id: 42161,
+  name: "Arbitrum One",
+  shortName: "ARB",
+  rpcUrl: "https://arb1.arbitrum.io/rpc",
+  explorerUrl: "https://arbiscan.io",
+  nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
+  color: "#28A0F0",
+};
+
+export const SUPPORTED_CHAINS: ChainConfig[] = [ETHEREUM, BNB_CHAIN, ARBITRUM, X_LAYER];
 
 export function getChainById(id: number): ChainConfig | undefined {
   return SUPPORTED_CHAINS.find((c) => c.id === id);

@@ -5,7 +5,7 @@ import { useSignAndSendTransaction } from '@solana/react';
 import type { UiWalletAccount } from '@wallet-standard/ui';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronDown, X, Loader2, RefreshCw, ExternalLink } from 'lucide-react';
-import { BASE_TOKENS, type BaseToken } from '@/lib/tokens/base-tokens';
+import { BASE_TOKENS, getTokenAddress, type BaseToken } from '@/lib/tokens/base-tokens';
 import RouteVisualization from '../token-detail/RouteVisualization';
 
 type Tab = 'Buy' | 'Sell';
@@ -100,7 +100,7 @@ export default function PreIpoSwapPanel({ mint, symbol, image, name, walletAccou
 
   useEffect(() => {
     if (!walletAccount) { setBalance(null); return; }
-    const tokenMint = tab === 'Buy' ? baseToken.address : mint;
+    const tokenMint = tab === 'Buy' ? getTokenAddress(baseToken, 'solana') : mint;
     setBalanceSymbol(tab === 'Buy' ? baseToken.symbol : symbol);
 
     if (!tokenMint || tokenMint === '11111111111111111111111111111111') {
@@ -131,8 +131,8 @@ export default function PreIpoSwapPanel({ mint, symbol, image, name, walletAccou
     const decimals = tab === 'Buy' ? baseToken.decimals : 9;
     const rawAmount = Math.round(Number(amount) * Math.pow(10, decimals)).toString();
 
-    const fromAddr = tab === 'Buy' ? baseToken.address : mint;
-    const toAddr = tab === 'Buy' ? mint : baseToken.address;
+    const fromAddr = tab === 'Buy' ? getTokenAddress(baseToken, 'solana') : mint;
+    const toAddr = tab === 'Buy' ? mint : getTokenAddress(baseToken, 'solana');
 
     try {
       const params = new URLSearchParams({
@@ -179,8 +179,8 @@ export default function PreIpoSwapPanel({ mint, symbol, image, name, walletAccou
     const decimals = tab === 'Buy' ? baseToken.decimals : 9;
     const rawAmount = Math.round(Number(quoteAmount) * Math.pow(10, decimals)).toString();
 
-    const fromAddr = tab === 'Buy' ? baseToken.address : mint;
-    const toAddr = tab === 'Buy' ? mint : baseToken.address;
+    const fromAddr = tab === 'Buy' ? getTokenAddress(baseToken, 'solana') : mint;
+    const toAddr = tab === 'Buy' ? mint : getTokenAddress(baseToken, 'solana');
 
     setSwapStatus('swapping');
     setSwapSig('');
@@ -364,9 +364,9 @@ export default function PreIpoSwapPanel({ mint, symbol, image, name, walletAccou
                       <p className="text-[11px] text-white/40 truncate">{bt.name}</p>
                     </div>
                     <span className="text-[11px] text-white/40 shrink-0">
-                      {bt.address === '11111111111111111111111111111111'
+                      {getTokenAddress(bt, 'solana') === '11111111111111111111111111111111'
                         ? solBal.toLocaleString(undefined, { maximumFractionDigits: 6 })
-                        : (allBalances[bt.address] ?? 0).toLocaleString(undefined, { maximumFractionDigits: 6 })
+                        : (allBalances[getTokenAddress(bt, 'solana')] ?? 0).toLocaleString(undefined, { maximumFractionDigits: 6 })
                       }
                     </span>
                     {baseToken.symbol === bt.symbol && (

@@ -11,9 +11,10 @@ interface HoldingsListProps {
   loading: boolean;
   knownLoading: boolean;
   walletAddress: string | null;
+  walletType?: 'solana' | 'evm' | null;
 }
 
-export default function HoldingsList({ balances, knownTokens, loading, knownLoading, walletAddress }: HoldingsListProps) {
+export default function HoldingsList({ balances, knownTokens, loading, knownLoading, walletAddress, walletType }: HoldingsListProps) {
   const router = useRouter();
   const { getPrice, getChange24h, loading: pricesLoading } = useBaseTokenPrices();
 

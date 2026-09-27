@@ -38,8 +38,9 @@ function buildTokenIndex(): Record<string, TokenMeta> {
 
   for (const asset of (rwaList as any).assets ?? []) {
     for (const token of asset.tokens ?? []) {
-      if (token.mint) {
-        index[token.mint] = {
+      const mint = token.addresses?.solana ?? token.mint;
+      if (mint) {
+        index[mint] = {
           symbol: token.symbol ?? asset.symbol,
           name: token.name ?? asset.name,
           image: token.logo ?? asset.logo ?? '',

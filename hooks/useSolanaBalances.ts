@@ -32,7 +32,7 @@ export function useSolanaBalances(address: string | null) {
         for (const token of BASE_TOKENS) {
           if (token.symbol === 'SOL') continue;
           for (const [mint, amount] of Object.entries(data?.spl ?? {})) {
-            if (mint === token.address) {
+            if (mint === token.addresses.solana) {
               result[token.symbol] = String(amount);
             }
           }

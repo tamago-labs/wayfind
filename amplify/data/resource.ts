@@ -63,7 +63,7 @@ const schema = a.schema({
       symbol: a.string().required(),
       name: a.string(),
       decimals: a.integer(),
-      chain: a.enum(["solana", "ethereum", "bnb", "xlayer"]),
+      chain: a.enum(["solana", "ethereum", "bnb", "arbitrum", "xlayer"]),
       customValue: a.float(),
       portfolioName: a.string(),
     })

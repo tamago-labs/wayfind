@@ -1,23 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useConnectedWallet } from '@solana/kit-plugin-wallet/react';
-import { useClient } from '@solana/react';
 import { useBaseTokenPrices } from '../../../contexts/BaseTokenPriceProvider';
 import { BASE_TOKENS } from '@/lib/tokens/base-tokens';
-import type { AppClient } from '@/components/SolanaWalletProvider';
 
 interface PortfolioStatsProps {
   balances: Record<string, string>;
   knownTokens: any[];
   loading: boolean;
   knownLoading: boolean;
+  walletAddress: string | null;
+  walletType: 'solana' | 'evm' | null;
 }
 
-export default function PortfolioStats({ balances, knownTokens, loading, knownLoading }: PortfolioStatsProps) {
-  const client = useClient<AppClient>();
-  const connected = useConnectedWallet(client);
-  const walletAddress = connected ? String(connected.account.address) : null;
+export default function PortfolioStats({ balances, knownTokens, loading, knownLoading, walletAddress, walletType }: PortfolioStatsProps) {
   const { getPrice, getChange24h } = useBaseTokenPrices();
 
   if (loading || knownLoading) {
