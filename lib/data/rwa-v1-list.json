@@ -40,10 +40,10 @@
           "slug": "circle-tokenized-stock-xstock",
           "addresses": {
             "solana": "XsueG8BtpquVJX9LVLLEGuViXUungE6WmK5YZ3p3bd1",
-            "ethereum": null,
-            "arbitrum": null,
-            "bnb": null,
-            "xlayer": null
+            "ethereum": "0xfebded1b0986a8ee107f5ab1a1c5a813491deceb",
+            "arbitrum": "0xfebded1b0986a8ee107f5ab1a1c5a813491deceb",
+            "bnb": "0xfebded1b0986a8ee107f5ab1a1c5a813491deceb",
+            "xlayer": "0xfEbDEd1B0986a8ee107f5AB1a1c5a813491DeCEB"
           }
         },
         {
@@ -76,9 +76,9 @@
           "slug": "circle-internet-group-tokenized-stock-ondo",
           "addresses": {
             "solana": "6xHEyem9hmkGtVq6XGCiQUGpPsHBaoYuYdFNZa5ondo",
-            "ethereum": null,
+            "ethereum": "0x3632DEa96A953C11dac2f00b4A05a32CD1063fAE",
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0x992879cd8ce0c312d98648875b5a8d6d042cbf34",
             "xlayer": null
           }
         },
@@ -111,7 +111,7 @@
             "solana": null,
             "ethereum": null,
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0x80f3d493ebce97e343c53d29a137942416b4ffc0",
             "xlayer": null
           }
         },
@@ -142,7 +142,7 @@
           "addresses": {
             "solana": null,
             "ethereum": null,
-            "arbitrum": null,
+            "arbitrum": "0x861a85a78c371bc0a02675bbe00a4cbc0826b421",
             "bnb": null,
             "xlayer": null
           }
@@ -312,7 +312,7 @@
             "solana": null,
             "ethereum": null,
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0xbe9d156892e55e7154bcd3cb0fea677f9d3103e1",
             "xlayer": null
           }
         },
@@ -348,9 +348,9 @@
           "slug": "spacex-tokenized-stock-xtock",
           "addresses": {
             "solana": "Xs3oZwbHvqis4NYcf4YKWmEia2eC84wSiVrcYcTqpH8",
-            "ethereum": null,
-            "arbitrum": null,
-            "bnb": null,
+            "ethereum": "0x68fa48b1c2fe52b3d776e1953e0e782b5044ce28",
+            "arbitrum": "0x68fa48b1c2fe52b3d776e1953e0e782b5044ce28",
+            "bnb": "0x68fa48b1c2fe52b3d776e1953e0e782b5044ce28",
             "xlayer": "0x8e2eed8b8b5e13ea7bf38e50d7821d2c57309072"
           }
         },
@@ -381,9 +381,9 @@
           "slug": "spacex-tokenized-stock-ondo",
           "addresses": {
             "solana": "wzAyQTorWyoVXuJKj2x8EqKEGJpS13z6EWE9z5Aondo",
-            "ethereum": null,
+            "ethereum": "0xc9eef266834730340A55B6CC24621B31BAF55581",
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0xd0a58BC9D88D3FF48C0294Cb7e45937d0E41A928",
             "xlayer": null
           }
         },
@@ -410,7 +410,7 @@
           "date_added": "2026-06-13T13:02:26.000Z",
           "slug": "spacex-tokenized-stock-backpack",
           "addresses": {
-            "solana": null,
+            "solana": "SPCXxcqXj6e5dJDVNovHN8744zkbhM2bYudU45BimGb",
             "ethereum": null,
             "arbitrum": null,
             "bnb": null,
@@ -590,10 +590,10 @@
           "slug": "microstrategy-tokenized-stock-xstock",
           "addresses": {
             "solana": "XsP7xzNPvEHS1m6qfanPUGjNmdnmsLKEoNAnHjdxxyZ",
-            "ethereum": null,
-            "arbitrum": null,
-            "bnb": null,
-            "xlayer": null
+            "ethereum": "0xae2f842ef90c0d5213259ab82639d5bbf649b08e",
+            "arbitrum": "0xae2f842ef90c0d5213259ab82639d5bbf649b08e",
+            "bnb": "0xae2f842ef90c0d5213259ab82639d5bbf649b08e",
+            "xlayer": "0xAE2f842EF90C0d5213259Ab82639D5BBF649b08E"
           }
         },
         {
@@ -626,9 +626,9 @@
           "slug": "microstrategy-tokenized-stock-ondo",
           "addresses": {
             "solana": "FSz4ouiqXpHuGPcpacZfTzbMjScoj5FfzHkiyu2ondo",
-            "ethereum": null,
+            "ethereum": "0xCabD955322dfbf94C084929ac5E9Eca3fEB5556F",
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0x7313ea16493b2f55054df0131a3a14b043ec8992",
             "xlayer": null
           }
         },
@@ -661,7 +661,7 @@
             "solana": null,
             "ethereum": null,
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0xe87afb3076aeb0f9b14e368de8145ae6a2826a14",
             "xlayer": null
           }
         },
@@ -692,7 +692,7 @@
           "addresses": {
             "solana": null,
             "ethereum": null,
-            "arbitrum": null,
+            "arbitrum": "0x10fe806857055d3b5ae00d2eabafd3e61f0e89aa",
             "bnb": null,
             "xlayer": null
           }
@@ -803,10 +803,10 @@
           "slug": "nvidia-tokenized-stock-xstock",
           "addresses": {
             "solana": "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh",
-            "ethereum": null,
+            "ethereum": "0xc845b2894dbddd03858fd2d643b4ef725fe0849d",
             "arbitrum": null,
-            "bnb": null,
-            "xlayer": null
+            "bnb": "0xc845b2894dbddd03858fd2d643b4ef725fe0849d",
+            "xlayer": "0xc845b2894dBddd03858fd2D643B4eF725fE0849d"
           }
         },
         {
@@ -839,9 +839,9 @@
           "slug": "nvidia-tokenized-stock-ondo",
           "addresses": {
             "solana": "gEGtLTPNQ7jcg25zTetkbmF7teoDLcrfTnQfmn2ondo",
-            "ethereum": null,
+            "ethereum": "0x2D1F7226Bd1F780AF6B9A49DCC0aE00E8Df4bDEE",
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0xa9ee28c80f960b889dfbd1902055218cba016f75",
             "xlayer": null
           }
         },
@@ -874,7 +874,7 @@
             "solana": null,
             "ethereum": null,
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0x02fca66c1d1afb4e2a7884261eb00f63598a7436",
             "xlayer": null
           }
         },
@@ -905,7 +905,7 @@
           "addresses": {
             "solana": null,
             "ethereum": null,
-            "arbitrum": null,
+            "arbitrum": "0x0a85b6ebe3c150a1979a65656e304033d62b1e12",
             "bnb": null,
             "xlayer": null
           }
@@ -1015,9 +1015,9 @@
           "slug": "micron-technology-tokenized-stock-ondo",
           "addresses": {
             "solana": "Fz9edBpaURPPzpKVRR1A8PENYDEgHqwx5D5th28ondo",
-            "ethereum": null,
+            "ethereum": "0x050362Ab1072Cb2Ce74d74770E22A3203Ad04ee5",
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0x8b6acf6041a81567f012ff6a4c6d96d5818d74bf",
             "xlayer": null
           }
         },
@@ -1053,9 +1053,9 @@
           "slug": "micron-technology-tokenized-stock-xstock",
           "addresses": {
             "solana": "XsQLZycSZ7QnBBdBXQaTbQdiUcbRqjNJgyBGAMzhHav",
-            "ethereum": null,
-            "arbitrum": null,
-            "bnb": null,
+            "ethereum": "0xf6a873bae4ba1b304e45df52a4b7d176e1c6a8c4",
+            "arbitrum": "0xf6a873bae4ba1b304e45df52a4b7d176e1c6a8c4",
+            "bnb": "0xf6a873bae4ba1b304e45df52a4b7d176e1c6a8c4",
             "xlayer": "0xe2047ee3bddb5c99ae428ab83df63f8730698e30"
           }
         },
@@ -1088,7 +1088,7 @@
             "solana": null,
             "ethereum": null,
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0xcdf2f3e0fa43c47a6662a91c9e4a7c5f69762699",
             "xlayer": null
           }
         },
@@ -1119,7 +1119,7 @@
           "addresses": {
             "solana": null,
             "ethereum": null,
-            "arbitrum": null,
+            "arbitrum": "0x548cc634a64301a346f174071a90efa93dae4eb3",
             "bnb": null,
             "xlayer": null
           }
@@ -1176,7 +1176,7 @@
           "date_added": "2026-06-13T13:02:26.000Z",
           "slug": "micron-technology-inc-tokenized-stock-backpack",
           "addresses": {
-            "solana": null,
+            "solana": "MUxEsUKSMACyw5fZf68wxf5FLnZVhtU9CwH8uNNGay1",
             "ethereum": null,
             "arbitrum": null,
             "bnb": null,
@@ -1260,10 +1260,10 @@
           "slug": "tesla-tokenized-stock-xstock",
           "addresses": {
             "solana": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
-            "ethereum": null,
-            "arbitrum": null,
-            "bnb": null,
-            "xlayer": null
+            "ethereum": "0x8ad3c73f833d3f9a523ab01476625f269aeb7cf0",
+            "arbitrum": "0x8ad3c73f833d3f9a523ab01476625f269aeb7cf0",
+            "bnb": "0x8ad3c73f833d3f9a523ab01476625f269aeb7cf0",
+            "xlayer": "0x8aD3c73F833d3F9A523aB01476625F269aEB7Cf0"
           }
         },
         {
@@ -1296,9 +1296,9 @@
           "slug": "tesla-tokenized-stock-ondo",
           "addresses": {
             "solana": "KeGv7bsfR4MheC1CkmnAVceoApjrkvBhHYjWb67ondo",
-            "ethereum": null,
+            "ethereum": "0xf6b1117ec07684D3958caD8BEb1b302bfD21103f",
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0x2494b603319d4d9f9715c9f4496d9e0364b59d93",
             "xlayer": null
           }
         },
@@ -1362,7 +1362,7 @@
             "solana": null,
             "ethereum": null,
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0x5b1910eaad6450e50f816082aa078c41f10c292f",
             "xlayer": null
           }
         },
@@ -1393,7 +1393,7 @@
           "addresses": {
             "solana": null,
             "ethereum": null,
-            "arbitrum": null,
+            "arbitrum": "0xf912911c9c8d5131929c758e66e6dc54e65cf3ba",
             "bnb": null,
             "xlayer": null
           }
@@ -1504,10 +1504,10 @@
           "slug": "alphabet-tokenized-stock-xstock",
           "addresses": {
             "solana": "XsCPL9dNWBMvFtTmwcCA5v3xWPSMEBCszbQdiLLq6aN",
-            "ethereum": null,
-            "arbitrum": null,
-            "bnb": null,
-            "xlayer": null
+            "ethereum": "0xe92f673ca36c5e2efd2de7628f815f84807e803f",
+            "arbitrum": "0xe92f673Ca36C5E2Efd2DE7628f815f84807e803F",
+            "bnb": "0xe92f673ca36c5e2efd2de7628f815f84807e803f",
+            "xlayer": "0xe92f673Ca36C5E2Efd2DE7628f815f84807e803F"
           }
         },
         {
@@ -1540,9 +1540,9 @@
           "slug": "alphabet-class-a-tokenized-stock-ondo",
           "addresses": {
             "solana": "bbahNA5vT9WJeYft8tALrH1LXWffjwqVoUbqYa1ondo",
-            "ethereum": null,
+            "ethereum": "0xbA47214eDd2bb43099611b208f75E4b42FDcfEDc",
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0x091fc7778e6932d4009b087b191d1ee3bac5729a",
             "xlayer": null
           }
         },
@@ -1604,7 +1604,7 @@
           "addresses": {
             "solana": null,
             "ethereum": null,
-            "arbitrum": null,
+            "arbitrum": "0xca1942edeb697a85af98ef8c74c4910fe9587afb",
             "bnb": null,
             "xlayer": null
           }
@@ -1667,7 +1667,7 @@
             "solana": null,
             "ethereum": null,
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0x3f53de71c126bdabae20f9cd64848d317f6c3238",
             "xlayer": null
           }
         },
@@ -1729,9 +1729,9 @@
           "slug": "alphabet-class-c-tokenized-stock-ondo",
           "addresses": {
             "solana": "jcA9zXHWuTuDFDDDDYJTNhersed1B5etkuB6X9Eondo",
-            "ethereum": null,
+            "ethereum": "0x36B90aDcDC99Be31BF39A3c031288bAa0B457E10",
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0x817f1f6780F99BCaAc394A59CB0261962df5Da8b",
             "xlayer": null
           }
         }
@@ -1780,9 +1780,9 @@
           "slug": "intel-tokenized-stock-ondo",
           "addresses": {
             "solana": "cJpUMp5R7rZ6fGeLHbHhrRuJzK9mkyKDjZqNpT3ondo",
-            "ethereum": null,
+            "ethereum": "0xFdA09936DbD717368De0835bA441d9E62069d36f",
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0xa528caaa2f96090e379d43f90834c75df54d6e74",
             "xlayer": null
           }
         },
@@ -1817,10 +1817,10 @@
           "slug": "intel-tokenized-stock-xstock",
           "addresses": {
             "solana": "XshPgPdXFRWB8tP1j82rebb2Q9rPgGX37RuqzohmArM",
-            "ethereum": null,
-            "arbitrum": null,
-            "bnb": null,
-            "xlayer": null
+            "ethereum": "0xf8a80d1cb9cfd70d03d655d9df42339846f3b3c8",
+            "arbitrum": "0xf8a80d1cb9cfd70d03d655d9df42339846f3b3c8",
+            "bnb": "0xf8a80d1cb9cfd70d03d655d9df42339846f3b3c8",
+            "xlayer": "0xf8A80D1cb9cFD70D03D655D9dF42339846F3B3C8"
           }
         },
         {
@@ -1852,7 +1852,7 @@
             "solana": null,
             "ethereum": null,
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0xe614e2fc6c787035ff51f452e8e826bfd32d5283",
             "xlayer": null
           }
         },
@@ -1883,7 +1883,7 @@
           "addresses": {
             "solana": null,
             "ethereum": null,
-            "arbitrum": null,
+            "arbitrum": "0xafa43b4badfd062f5f1891a398a0579c904da776",
             "bnb": null,
             "xlayer": null
           }
@@ -1991,9 +1991,9 @@
           "slug": "sandisk-tokenized-stock-ondo",
           "addresses": {
             "solana": "EJmUVvDqAdfH5zEohkdS4234bi3c6iunqEMobjmondo",
-            "ethereum": null,
+            "ethereum": "0x71E2400CF1Cb83204f33794eD326636A71a9AAfC",
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0x4Fd67CB8CFEdc718BAc984b5936abE3330d0a2A4",
             "xlayer": null
           }
         },
@@ -2023,7 +2023,7 @@
           "slug": "sandisk-corporation-xstock",
           "addresses": {
             "solana": "Xswbpc8UqU6e1j9QZEWCjBMjyvz4twqD7PCy6j2e7jj",
-            "ethereum": null,
+            "ethereum": "0xb63efbc28860c8097e341de1fcf59456161e9d98",
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
@@ -2058,7 +2058,7 @@
             "solana": null,
             "ethereum": null,
             "arbitrum": null,
-            "bnb": null,
+            "bnb": "0x3ee4df61bd4f867e349beae8bfe07bc31b4850fb",
             "xlayer": null
           }
         },
@@ -2089,7 +2089,7 @@
           "addresses": {
             "solana": null,
             "ethereum": null,
-            "arbitrum": null,
+            "arbitrum": "0xc78c5a7be0e8d72cdda205e53d1147aaacf5a075",
             "bnb": null,
             "xlayer": null
           }
@@ -2146,7 +2146,7 @@
           "date_added": "2026-06-13T13:02:26.000Z",
           "slug": "sandisk-corp-tokenized-stock-backpack",
           "addresses": {
-            "solana": null,
+            "solana": "SNDKbwMUQvZhnLnxLduradgLHG5KrPuKwpnrkkGRhfH",
             "ethereum": null,
             "arbitrum": null,
             "bnb": null,
