@@ -1,5 +1,5 @@
-// CMC RWA: Filter active stocks by tokenized market cap
-// Reads rwa-stocks.json, fetches quotes, filters by tokenized_market_cap > $50K
+// CMC RWA: Filter active stocks by price > 0
+// Reads rwa-stocks.json, fetches quotes, filters by price > 0
 // Usage: npx tsx scripts/rwa-filter.ts
 
 import { config } from "dotenv";
@@ -9,7 +9,6 @@ config({ path: ".env.local" });
 
 const CMC_API_KEY = process.env.CMC_API_KEY;
 const BASE_URL = "https://pro-api.coinmarketcap.com";
-const MIN_MARKET_CAP = 50_000;
 const BATCH_SIZE = 25;
 
 if (!CMC_API_KEY) {
@@ -47,7 +46,7 @@ async function main() {
 
   const allSymbols = assets.map((a: any) => a.symbol);
   console.log(`Total RWA stocks in rwa-stocks.json: ${allSymbols.length}`);
-  console.log(`Filtering by tokenized_market_cap > $${MIN_MARKET_CAP.toLocaleString()}...\n`);
+  console.log(`Filtering by price > 0...\n`);
 
   const active: any[] = [];
   const inactive: any[] = [];
@@ -72,7 +71,9 @@ async function main() {
         }
 
         const mcap = quote.tokenized_market_cap ?? 0;
-        if (mcap >= MIN_MARKET_CAP) {
+        const tokens = (quote.tokens ?? []).filter((t: any) => (t.price ?? 0) > 0);
+
+        if (tokens.length > 0) {
           active.push({
             symbol,
             name: asset.name,
@@ -82,7 +83,7 @@ async function main() {
             tokenized_market_cap: mcap,
             tokenized_volume_24h: quote.tokenized_volume_24h ?? 0,
             tokenized_price: quote.average_tokenized_price ?? null,
-            tokens: quote.tokens?.map((t: any) => ({
+            tokens: tokens.map((t: any) => ({
               symbol: t.symbol,
               name: t.name,
               price: t.price,
@@ -91,10 +92,10 @@ async function main() {
               issuer_name: t.issuer_name,
               market_cap: t.market_cap,
               volume_24h: t.volume_24h,
-            })) ?? [],
+            })),
           });
         } else {
-          inactive.push({ symbol, name: asset.name, tokenized_market_cap: mcap });
+          inactive.push({ symbol, name: asset.name, tokenized_market_cap: mcap, price_filtered: tokens.length === 0 });
         }
       }
     } catch (err) {
@@ -109,23 +110,23 @@ async function main() {
   active.sort((a, b) => b.tokenized_market_cap - a.tokenized_market_cap);
 
   console.log(`\n\nResults:`);
-  console.log(`  Active   (MCap > $${MIN_MARKET_CAP.toLocaleString()}): ${active.length}`);
-  console.log(`  Inactive (MCap < $${MIN_MARKET_CAP.toLocaleString()}): ${inactive.length}`);
-  console.log(`  Errors   (no data):     ${errors.length}`);
+  console.log(`  Active   (price > 0): ${active.length}`);
+  console.log(`  Inactive (price = 0): ${inactive.length}`);
+  console.log(`  Errors   (no data):  ${errors.length}`);
 
   const outputPath = join(process.cwd(), "lib", "data", "rwa-active-stocks.json");
   writeFileSync(outputPath, JSON.stringify({
     fetched_at: new Date().toISOString(),
-    min_market_cap: MIN_MARKET_CAP,
+    min_price: 0,
     count: active.length,
     assets: active,
   }, null, 2));
 
   console.log(`\nSaved to: ${outputPath}`);
 
-  console.log(`\n--- Top 15 by Market Cap ---`);
+  console.log(`\n--- First 15 with price > 0 ---`);
   for (const a of active.slice(0, 15)) {
-    console.log(`  ${a.symbol.padEnd(8)} $${Math.round(a.tokenized_market_cap).toLocaleString().padStart(12)}  ${a.name}`);
+    console.log(`  ${a.symbol.padEnd(8)}  ${a.name}`);
   }
 
   if (errors.length > 0) {

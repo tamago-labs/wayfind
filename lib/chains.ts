@@ -22,7 +22,7 @@ export const BNB_CHAIN: ChainConfig = {
   id: 56,
   name: "BNB Chain",
   shortName: "BNB",
-  rpcUrl: "https://bsc-dataseed.binance.org",
+  rpcUrl: "https://bsc-dataseed.bnbchain.org",
   explorerUrl: "https://bscscan.com",
   nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
   color: "#F3BA2F",

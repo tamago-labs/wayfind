@@ -76,7 +76,8 @@ export function WalletModal({ open, onClose }: { open: boolean; onClose: () => v
               <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-3">
                 <Wallet className="w-5 h-5 text-accent" />
               </div>
-              <h3 className="font-display text-lg font-semibold">Connect Wallet</h3>
+              <h3 className="font-display text-lg font-semibold">Link your wallet</h3>
+              <p className="text-[13px] text-white/40 mt-1">Pick Solana or EVM — then choose your wallet</p>
             </div>
 
             <div className="flex gap-1 mb-5 p-1 rounded-lg bg-white/[0.03]">
