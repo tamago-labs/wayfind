@@ -1,6 +1,7 @@
 'use client';
 
 import { useBaseTokenPrices } from '../../../contexts/BaseTokenPriceProvider';
+import { usePrices } from '../../../contexts/PriceContext';
 import { BASE_TOKENS } from '@/lib/tokens/base-tokens';
 
 interface PortfolioStatsProps {
@@ -14,6 +15,8 @@ interface PortfolioStatsProps {
 
 export default function PortfolioStats({ balances, knownTokens, loading, knownLoading, walletAddress, walletType }: PortfolioStatsProps) {
   const { getPrice, getChange24h } = useBaseTokenPrices();
+  const { prices: livePrices } = usePrices();
+  const livePriceMap = new Map(livePrices.map((p) => [p.token_symbol, p]));
 
   if (loading || knownLoading) {
     return (
@@ -31,7 +34,11 @@ export default function PortfolioStats({ balances, knownTokens, loading, knownLo
     return sum + balance * getPrice(token.symbol);
   }, 0);
 
-  const knownValue = knownTokens.reduce((sum, t) => sum + (t.value ?? 0), 0);
+  const knownValue = knownTokens.reduce((sum, t) => {
+    const live = livePriceMap.get(t.symbol);
+    const price = live?.price ?? t.price ?? 0;
+    return sum + t.balance * price;
+  }, 0);
   const totalValue = baseValue + knownValue;
 
   const baseChange = BASE_TOKENS.reduce((sum, token) => {
@@ -39,17 +46,29 @@ export default function PortfolioStats({ balances, knownTokens, loading, knownLo
     return sum + balance * getChange24h(token.symbol);
   }, 0);
 
-  const knownChange = knownTokens.reduce((sum, t) => sum + (t.value ?? 0) * (t.change ?? 0) / 100, 0);
+  const knownChange = knownTokens.reduce((sum, t) => {
+    const live = livePriceMap.get(t.symbol);
+    const price = live?.price ?? t.price ?? 0;
+    const change = live?.percent_24h ?? t.change ?? 0;
+    return sum + t.balance * price * change / 100;
+  }, 0);
   const portfolioChange = totalValue > 0 ? (baseChange + knownChange) / totalValue * 100 : 0;
 
   const industryMap = new Map<string, number>();
   for (const t of knownTokens) {
-    if (t.value > 0 && t.industry) {
+    const live = livePriceMap.get(t.symbol);
+    const price = live?.price ?? t.price ?? 0;
+    const value = t.balance * price;
+    if (value > 0 && t.industry) {
       const current = industryMap.get(t.industry) ?? 0;
-      industryMap.set(t.industry, current + t.value);
+      industryMap.set(t.industry, current + value);
     }
   }
-  const knownTokensTotalValue = knownTokens.reduce((sum, t) => sum + (t.value ?? 0), 0);
+  const knownTokensTotalValue = knownTokens.reduce((sum, t) => {
+    const live = livePriceMap.get(t.symbol);
+    const price = live?.price ?? t.price ?? 0;
+    return sum + t.balance * price;
+  }, 0);
   const industries = Array.from(industryMap.entries())
     .map(([name, value]) => ({ name, pct: knownTokensTotalValue > 0 ? Math.round((value / knownTokensTotalValue) * 100) : 0 }))
     .sort((a, b) => b.pct - a.pct)

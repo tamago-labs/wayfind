@@ -73,7 +73,7 @@ export default function Explore() {
           name: asset.name,
           slug: asset.slug,
           crypto_id: token.crypto_id,
-          issuer: token.issuer_name === "Backed Assets" ? "xStock" : "Ondo",
+          issuer: token.issuer_name,
           logo: token.logo ?? null,
           industry: asset.industry ?? null,
           price: price?.price ?? null,
@@ -93,10 +93,10 @@ export default function Explore() {
     const q = search.toLowerCase();
     return rows.filter(
       (r) =>
-        r.token_symbol.toLowerCase().includes(q) ||
-        r.stock_symbol.toLowerCase().includes(q) ||
-        r.name.toLowerCase().includes(q) ||
-        r.issuer.toLowerCase().includes(q)
+        r.token_symbol?.toLowerCase().includes(q) ||
+        r.stock_symbol?.toLowerCase().includes(q) ||
+        r.name?.toLowerCase().includes(q) ||
+        r.issuer?.toLowerCase().includes(q)
     );
   }, [rows, search]);
 

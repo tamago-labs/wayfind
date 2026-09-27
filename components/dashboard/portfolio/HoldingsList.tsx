@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useBaseTokenPrices } from '../../../contexts/BaseTokenPriceProvider';
+import { usePrices } from '../../../contexts/PriceContext';
 import { BASE_TOKENS } from '@/lib/tokens/base-tokens';
 import type { KnownToken } from '@/hooks/useKnownTokens';
 
@@ -17,6 +18,8 @@ interface HoldingsListProps {
 export default function HoldingsList({ balances, knownTokens, loading, knownLoading, walletAddress, walletType }: HoldingsListProps) {
   const router = useRouter();
   const { getPrice, getChange24h, loading: pricesLoading } = useBaseTokenPrices();
+  const { prices: livePrices } = usePrices();
+  const livePriceMap = new Map(livePrices.map((p) => [p.token_symbol, p]));
 
   const holdings = BASE_TOKENS
     .map((token) => {
@@ -92,6 +95,10 @@ export default function HoldingsList({ balances, knownTokens, loading, knownLoad
         })}
 
         {knownTokens.map((t) => {
+          const live = livePriceMap.get(t.symbol);
+          const price = live?.price ?? t.price ?? 0;
+          const change = live?.percent_24h ?? t.change ?? 0;
+          const value = t.balance * price;
           const href = t.type === 'pre-ipo'
             ? `/dashboard/pre-ipo/${t.slug}`
             : `/dashboard/token/${t.slug}/${t.crypto_id}`;
@@ -116,13 +123,13 @@ export default function HoldingsList({ balances, knownTokens, loading, knownLoad
             </div>
             <div className="ml-auto text-right">
               <p className="text-[13px] font-medium text-white/80">
-                ${t.value.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                ${value.toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </p>
               <p className="text-[11px] text-white/40">
-                <span className={t.change >= 0 ? 'text-accent2' : 'text-warn2'}>
-                  {t.change >= 0 ? '+' : ''}{t.change.toFixed(1)}%
+                <span className={change >= 0 ? 'text-accent2' : 'text-warn2'}>
+                  {change >= 0 ? '+' : ''}{change.toFixed(1)}%
                 </span>
-                {' · '}${t.price < 1 ? t.price.toFixed(6) : t.price.toFixed(2)}
+                {' · '}${price < 1 ? price.toFixed(6) : price.toFixed(2)}
               </p>
             </div>
           </div>

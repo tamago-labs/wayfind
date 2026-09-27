@@ -31,54 +31,54 @@ export function PriceProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const fetchedRef = useRef(false);
 
-  // useEffect(() => {
-  //   if (fetchedRef.current) return;
-  //   fetchedRef.current = true;
+  useEffect(() => {
+    if (fetchedRef.current) return;
+    fetchedRef.current = true;
 
-  //   async function fetchPrices() {
-  //     try {
-  //       const allRecords: any[] = [];
-  //       let cursor: string | null = null;
+    async function fetchPrices() {
+      try {
+        const allRecords: any[] = [];
+        let cursor: string | null = null;
 
-  //       do {
-  //         const result: any = await client.models.PriceSnapshot.list({
-  //           nextToken: cursor,
-  //           limit: 100,
-  //         });
-  //         allRecords.push(...result.data);
-  //         cursor = result.nextToken;
-  //       } while (cursor);
+        do {
+          const result: any = await client.models.PriceSnapshot.list({
+            nextToken: cursor,
+            limit: 100,
+          });
+          allRecords.push(...result.data);
+          cursor = result.nextToken;
+        } while (cursor);
 
-  //       const latestBySymbol = new Map();
-  //       for (const item of allRecords) {
-  //         if (!item.token_symbol) continue;
-  //         const existing = latestBySymbol.get(item.token_symbol);
-  //         if (!existing || (item.createdAt && item.createdAt > existing.createdAt)) {
-  //           latestBySymbol.set(item.token_symbol, item);
-  //         }
-  //       }
+        const latestBySymbol = new Map();
+        for (const item of allRecords) {
+          if (!item.token_symbol) continue;
+          const existing = latestBySymbol.get(item.token_symbol);
+          if (!existing || (item.createdAt && item.createdAt > existing.createdAt)) {
+            latestBySymbol.set(item.token_symbol, item);
+          }
+        }
 
-  //       setPrices(Array.from(latestBySymbol.values()).map((item) => ({
-  //         token_symbol: item.token_symbol,
-  //         price: item.price,
-  //         percent_1h: item.percent_1h,
-  //         percent_24h: item.percent_24h,
-  //         percent_7d: item.percent_7d,
-  //         percent_30d: item.percent_30d,
-  //         market_cap: item.market_cap,
-  //         volume_24h: item.volume_24h,
-  //         circulating_supply: item.circulating_supply,
-  //         total_supply: item.total_supply,
-  //       })));
-  //     } catch (err) {
-  //       console.error("Failed to fetch prices:", err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
+        setPrices(Array.from(latestBySymbol.values()).map((item) => ({
+          token_symbol: item.token_symbol,
+          price: item.price,
+          percent_1h: item.percent_1h,
+          percent_24h: item.percent_24h,
+          percent_7d: item.percent_7d,
+          percent_30d: item.percent_30d,
+          market_cap: item.market_cap,
+          volume_24h: item.volume_24h,
+          circulating_supply: item.circulating_supply,
+          total_supply: item.total_supply,
+        })));
+      } catch (err) {
+        console.error("Failed to fetch prices:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  //   fetchPrices();
-  // }, []);
+    fetchPrices();
+  }, []);
 
   return (
     <PriceContext.Provider value={{ prices, loading }}>
