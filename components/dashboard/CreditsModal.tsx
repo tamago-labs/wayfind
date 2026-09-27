@@ -9,6 +9,7 @@ import { X, Wallet, Sparkles } from "lucide-react";
 import type { AppClient } from "../SolanaWalletProvider";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
+import { useWallet } from "@/contexts/WalletContext";
 
 const client = generateClient<Schema>();
 
@@ -37,28 +38,30 @@ export function CreditsModal({
 }) {
   const walletClient = useClient<AppClient>();
   const connected = useConnectedWallet(walletClient);
+  const { address: evmAddress } = useWallet();
   const [mounted, setMounted] = useState(false);
   const [credits, setCredits] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [requesting, setRequesting] = useState(false);
+
+  const walletAddress = connected ? String(connected.account.address) : evmAddress || null;
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   useEffect(() => {
-    if (open && connected) {
+    if (open && walletAddress) {
       void fetchCredits();
     }
-  }, [open, connected]);
+  }, [open, walletAddress]);
 
   const fetchCredits = async () => {
-    if (!connected) return;
+    if (!walletAddress) return;
     setLoading(true);
-    const address = String(connected.account.address);
     try {
       const { data: profiles } = await client.models.UserProfile.list({
-        filter: { walletAddress: { eq: address } },
+        filter: { walletAddress: { eq: walletAddress } },
       });
       if (profiles.length > 0) {
         setCredits(profiles[0].credits ?? 0);
@@ -72,16 +75,15 @@ export function CreditsModal({
   };
 
   const handleRequest = async () => {
-    if (!connected) return;
+    if (!walletAddress) return;
     setRequesting(true);
-    const address = String(connected.account.address);
     try {
       const { data: profiles } = await client.models.UserProfile.list({
-        filter: { walletAddress: { eq: address } },
+        filter: { walletAddress: { eq: walletAddress } },
       });
       if (profiles.length === 0) {
         await client.models.UserProfile.create({
-          walletAddress: address,
+          walletAddress: walletAddress,
           credits: 1000,
         });
         setCredits(1000);
@@ -100,7 +102,7 @@ export function CreditsModal({
 
   if (!mounted) return null;
 
-  const address = connected ? String(connected.account.address) : null;
+  const address = walletAddress;
 
   return createPortal(
     <AnimatePresence>

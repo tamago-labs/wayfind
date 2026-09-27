@@ -1,17 +1,22 @@
 'use client';
 
-import { useClient } from '@solana/react';
-import { useConnectedWallet } from '@solana/kit-plugin-wallet/react';
 import { useSolanaBalances } from '@/hooks/useSolanaBalances';
 import { useKnownTokens } from '@/hooks/useKnownTokens';
 import PortfolioStats from '@/components/dashboard/portfolio/PortfolioStats';
 import HoldingsList from '@/components/dashboard/portfolio/HoldingsList';
+import { useWallet } from '@/contexts/WalletContext';
+import { useConnectedWallet } from '@solana/kit-plugin-wallet/react';
+import { useClient } from '@solana/react';
 import type { AppClient } from '@/components/SolanaWalletProvider';
 
 export default function Portfolio() {
   const client = useClient<AppClient>();
   const connected = useConnectedWallet(client);
-  const walletAddress = connected ? String(connected.account.address) : null;
+  const solanaAddress = connected ? String(connected.account.address) : null;
+  const { address: evmAddress } = useWallet();
+
+  const walletAddress = solanaAddress || evmAddress;
+
   const { balances, loading } = useSolanaBalances(walletAddress);
   const { tokens: knownTokens, loading: knownLoading } = useKnownTokens(walletAddress);
 

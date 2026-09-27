@@ -1,17 +1,21 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { BASE_TOKENS } from '@/lib/tokens/base-tokens';
 
 export function useSolanaBalances(address: string | null) {
   const [balances, setBalances] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
+  const fetchedRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!address) {
       setBalances({});
+      fetchedRef.current = null;
       return;
     }
+    if (fetchedRef.current === address) return;
+    fetchedRef.current = address;
 
     const fetchBalances = async () => {
       setLoading(true);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import rwaList from '@/lib/data/rwa-v1-list.json';
 import preIpoList from '@/lib/data/pre-ipo-list.json';
 import { generateClient } from 'aws-amplify/data';
@@ -71,9 +71,12 @@ function buildTokenIndex(): Record<string, TokenMeta> {
 export function useKnownTokens(address: string | null) {
   const [tokens, setTokens] = useState<KnownToken[]>([]);
   const [loading, setLoading] = useState(false);
+  const fetchedRef = useRef<string | null>(null);
 
   useEffect(() => {
-    if (!address) { setTokens([]); return; }
+    if (!address) { setTokens([]); fetchedRef.current = null; return; }
+    if (fetchedRef.current === address) return;
+    fetchedRef.current = address;
 
     let current = true;
 

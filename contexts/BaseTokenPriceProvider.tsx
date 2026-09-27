@@ -25,42 +25,42 @@ const PriceContext = createContext<PriceContextValue>({
 
 export function BaseTokenPriceProvider({ children }: { children: ReactNode }) {
   const [prices, setPrices] = useState<Record<string, TokenPrice>>({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const fetchedRef = useRef(false);
 
-  // useEffect(() => {
-  //   if (fetchedRef.current) return;
-  //   fetchedRef.current = true;
+  useEffect(() => {
+    if (fetchedRef.current) return;
+    fetchedRef.current = true;
 
-  //   const ids = Array.from(new Set(BASE_TOKENS.map((t) => t.cmcId))).join(',');
+    const ids = Array.from(new Set(BASE_TOKENS.map((t) => t.cmcId))).join(',');
 
-  //   const fetchPrices = async () => {
-  //     try {
-  //       const res = await fetch(`/api/crypto-prices?id=${ids}&convert=USD`);
-  //       const data = await res.json();
+    const fetchPrices = async () => {
+      try {
+        const res = await fetch(`/api/crypto-prices?id=${ids}&convert=USD`);
+        const data = await res.json();
 
-  //       const priceMap: Record<string, TokenPrice> = {};
-  //       for (const token of BASE_TOKENS) {
-  //         const quote = data?.data?.[String(token.cmcId)]?.quote?.USD;
-  //         if (quote) {
-  //           priceMap[token.symbol] = {
-  //             price: quote.price ?? 0,
-  //             change24h: quote.percent_change_24h ?? 0,
-  //             change7d: quote.percent_change_7d ?? 0,
-  //           };
-  //         }
-  //       }
+        const priceMap: Record<string, TokenPrice> = {};
+        for (const token of BASE_TOKENS) {
+          const quote = data?.data?.[String(token.cmcId)]?.quote?.USD;
+          if (quote) {
+            priceMap[token.symbol] = {
+              price: quote.price ?? 0,
+              change24h: quote.percent_change_24h ?? 0,
+              change7d: quote.percent_change_7d ?? 0,
+            };
+          }
+        }
 
-  //       setPrices(priceMap);
-  //     } catch (err) {
-  //       console.error('[BaseTokenPriceProvider] fetch failed:', err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+        setPrices(priceMap);
+      } catch (err) {
+        console.error('[BaseTokenPriceProvider] fetch failed:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  //   fetchPrices();
-  // }, []);
+    fetchPrices();
+  }, []);
 
   const getPrice = (symbol: string) => prices[symbol]?.price ?? 0;
   const getChange24h = (symbol: string) => prices[symbol]?.change24h ?? 0;

@@ -54,23 +54,22 @@ export default function Topbar() {
   const [creditsModalOpen, setCreditsModalOpen] = useState(false);
   const [credits, setCredits] = useState<number | null>(null);
 
-  useEffect(() => {
-    if (!connected) { setCredits(null); return; }
-    const address = String(connected.account.address);
-    void (async () => {
-      try {
-        const { data: profiles } = await dataClient.models.UserProfile.list({
-          filter: { walletAddress: { eq: address } },
-        });
-        setCredits(profiles[0]?.credits ?? null);
-      } catch { setCredits(null); }
-    })();
-  }, [connected, creditsModalOpen, pathname]);
-
   const solanaAddress = connected ? String(connected.account.address) : null;
   const gradient = solanaAddress ? getGradient(solanaAddress) : null;
   const displayAddress = solanaAddress || evmAddress;
   const isConnected = !!solanaAddress || (walletType === "evm" && !!evmAddress);
+
+  useEffect(() => {
+    if (!isConnected) { setCredits(null); return; }
+    void (async () => {
+      try {
+        const { data: profiles } = await dataClient.models.UserProfile.list({
+          filter: { walletAddress: { eq: displayAddress } },
+        });
+        setCredits(profiles[0]?.credits ?? null);
+      } catch { setCredits(null); }
+    })();
+  }, [isConnected, displayAddress, creditsModalOpen, pathname]);
 
   const tokenMatch = pathname.match(/^\/dashboard\/token\/([^/]+)\/([^/]+)$/);
   const tokenSlug = tokenMatch?.[1];
