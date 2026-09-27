@@ -59,11 +59,13 @@ const schema = a.schema({
     .model({
       userProfileId: a.id().required(),
       userProfile: a.belongsTo("UserProfile", "userProfileId"),
-      mintAddress: a.string().required(),
+      tokenAddress: a.string().required(),
       symbol: a.string().required(),
       name: a.string(),
       decimals: a.integer(),
-      addedAt: a.datetime(),
+      chain: a.enum(["solana", "ethereum", "bnb", "xlayer"]),
+      customValue: a.float(),
+      portfolioName: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey().to(["read", "create", "delete"])])
     .secondaryIndexes((index) => [index("userProfileId").queryField("byUser")]),
