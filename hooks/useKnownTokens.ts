@@ -74,11 +74,13 @@ export function useKnownTokens(address: string | null) {
   const fetchedRef = useRef<string | null>(null);
 
   useEffect(() => {
-    if (!address) { setTokens([]); fetchedRef.current = null; return; }
+    if (!address) { 
+      setTokens([]); 
+      fetchedRef.current = null; 
+      return; 
+    }
     if (fetchedRef.current === address) return;
     fetchedRef.current = address;
-
-    let current = true;
 
     const fetchTokens = async () => {
       setLoading(true);
@@ -87,9 +89,7 @@ export function useKnownTokens(address: string | null) {
           fetch(`/api/solana-balance?address=${address}`),
           dataClient.models.PreStock.list({}),
         ]);
-
-        if (!current) return;
-
+ 
         const balanceData = await balanceRes.json();
 
         const priceMap: Record<string, number> = {};
@@ -149,23 +149,18 @@ export function useKnownTokens(address: string | null) {
         }
 
         result.sort((a, b) => b.value - a.value);
-        if (current && (result.length > 0 || Object.keys(balanceData?.spl ?? {}).length > 0)) {
+        if ((result.length > 0 || Object.keys(balanceData?.spl ?? {}).length > 0)) {
           setTokens(result);
         }
-      } catch (err) {
-        if (current) {
-          console.error('[useKnownTokens] fetch failed:', err);
-        }
-      } finally {
-        if (current) {
-          setLoading(false);
-        }
+      } catch (err) { 
+          console.error('[useKnownTokens] fetch failed:', err); 
+      } finally { 
+          setLoading(false); 
       }
     };
 
     fetchTokens();
-
-    return () => { current = false; };
+ 
   }, [address]);
 
   return { tokens, loading };
