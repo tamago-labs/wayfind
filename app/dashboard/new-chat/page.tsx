@@ -289,10 +289,9 @@ function NewChatInner() {
       <div className="absolute w-[400px] h-[400px] top-1/2 -translate-y-1/2 -right-40 rounded-full blur-[120px] opacity-25 bg-zenpurple pointer-events-none" />
 
       {/* Content */}
-      <div className="relative z-1 h-full flex flex-col items-center justify-center px-6 max-w-3xl mx-auto">
-        {/* Example prompt */}
+      <div className="relative z-1 h-full flex flex-col items-center justify-center px-6 max-w-3xl mx-auto"> 
         <p className="font-display text-2xl md:text-3xl font-semibold text-center text-white/70 mb-8">
-          &ldquo;Let&apos;s review your tokenized equities&rdquo;
+          &ldquo;Let&apos;s uncover your portfolio risk&rdquo;
         </p>
 
         {/* Input with glow */}

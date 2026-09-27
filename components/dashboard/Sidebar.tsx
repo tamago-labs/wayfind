@@ -89,7 +89,7 @@ export default function Sidebar() {
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-display font-medium text-white/50 hover:text-white hover:bg-white/[0.03] transition-colors"
           >
             <SlidersHorizontal className="w-4 h-4" />
-            <span className="flex-1 text-left">My Reviews</span>
+            <span className="flex-1 text-left">All Reviews</span>
             <motion.div
               animate={{ rotate: chatsOpen ? 180 : 0 }}
               transition={{ duration: 0.2 }}

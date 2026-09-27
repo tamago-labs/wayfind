@@ -7,6 +7,7 @@ export interface ChainConfig {
   explorerUrl: string;
   nativeCurrency: { name: string; symbol: string; decimals: number };
   color: string;
+  cmcId: number;
 }
 
 export const ETHEREUM: ChainConfig = {
@@ -17,6 +18,7 @@ export const ETHEREUM: ChainConfig = {
   explorerUrl: "https://etherscan.io",
   nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
   color: "#627EEA",
+  cmcId: 1027,
 };
 
 export const BNB_CHAIN: ChainConfig = {
@@ -27,6 +29,7 @@ export const BNB_CHAIN: ChainConfig = {
   explorerUrl: "https://bscscan.com",
   nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
   color: "#F3BA2F",
+  cmcId: 1839,
 };
 
 export const X_LAYER: ChainConfig = {
@@ -37,6 +40,7 @@ export const X_LAYER: ChainConfig = {
   explorerUrl: "https://www.okx.com/web3/explorer/xlayer",
   nativeCurrency: { name: "OKB", symbol: "OKB", decimals: 18 },
   color: "#275FEE",
+  cmcId: 3897,
 };
 
 export const ARBITRUM: ChainConfig = {
@@ -47,6 +51,7 @@ export const ARBITRUM: ChainConfig = {
   explorerUrl: "https://arbiscan.io",
   nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
   color: "#28A0F0",
+  cmcId: 11841,
 };
 
 export const SUPPORTED_CHAINS: ChainConfig[] = [ETHEREUM, BNB_CHAIN, ARBITRUM, X_LAYER];

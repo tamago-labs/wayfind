@@ -13,6 +13,7 @@ import { WalletModal } from "./WalletModal";
 import { ConnectedPopover } from "./ConnectedPopover";
 import { CreditsModal } from "./CreditsModal";
 import { useWallet } from "@/contexts/WalletContext";
+import { SUPPORTED_CHAINS, type ChainConfig } from "@/lib/chains";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import listData from "@/lib/data/rwa-v1-list.json";
@@ -32,12 +33,20 @@ for (const asset of (listData as any).assets) {
   }
 }
 
+const CHAIN_LOGOS: Record<number, string> = {
+  5426: "https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png",
+  1027: "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+  1839: "https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
+  11841: "https://s2.coinmarketcap.com/static/img/coins/64x64/11841.png",
+  3897: "https://s2.coinmarketcap.com/static/img/coins/64x64/3897.png",
+};
+
 const dataClient = generateClient<Schema>();
 
 const PAGE_TITLES: Record<string, string> = {
   "/dashboard": "New Portfolio Review",
   "/dashboard/portfolio": "Portfolio Overview",
-  "/dashboard/explore": "Explore Tokenized Stocks on Solana",
+  "/dashboard/explore": "Explore Tokenized Stocks Across Web3",
   "/dashboard/pre-ipo": "Pre-IPO Markets via PreStocks",
   "/dashboard/alerts": "Stay Notified",
   "/dashboard/strategies": "Strategies",
@@ -48,16 +57,24 @@ export default function Topbar() {
   const { prices } = usePrices();
   const client = useClient<AppClient>();
   const connected = useConnectedWallet(client);
-  const { type: walletType, address: evmAddress, disconnect: disconnectEVM } = useWallet();
+  const { type: walletType, address: evmAddress, disconnect: disconnectEVM, chain, switchToChain, setSolanaWallet } = useWallet();
   const [walletModalOpen, setWalletModalOpen] = useState(false);
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [creditsModalOpen, setCreditsModalOpen] = useState(false);
   const [credits, setCredits] = useState<number | null>(null);
+  const [networkDropdownOpen, setNetworkDropdownOpen] = useState(false);
 
   const solanaAddress = connected ? String(connected.account.address) : null;
   const gradient = solanaAddress ? getGradient(solanaAddress) : null;
   const displayAddress = solanaAddress || evmAddress;
   const isConnected = !!solanaAddress || (walletType === "evm" && !!evmAddress);
+  const currentEVMChain = walletType === "evm" && !solanaAddress ? (chain ?? SUPPORTED_CHAINS[0]) : null;
+
+  useEffect(() => {
+    if (solanaAddress) {
+      setSolanaWallet(solanaAddress);
+    }
+  }, [solanaAddress]);
 
   useEffect(() => {
     if (!isConnected) { setCredits(null); return; }
@@ -213,7 +230,54 @@ export default function Topbar() {
         </button>
 
          {isConnected ? (
-          <button onClick={() => setPopoverOpen((v) => !v)} className="relative flex items-center gap-2">
+          <>
+            <div className="relative">
+              <button
+                onClick={() => walletType === "evm" && setNetworkDropdownOpen((v) => !v)}
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[12px] font-medium border transition-colors ${
+                  walletType === "evm"
+                    ? "border-border3/50 text-white/70 hover:border-accent/40 hover:text-white cursor-pointer"
+                    : "border-border3/30 text-white/30 cursor-default"
+                }`}
+                title={walletType === "solana" ? "Solana" : currentEVMChain?.name}
+              >
+                <img
+                  src={walletType === "solana" ? CHAIN_LOGOS[5426] : CHAIN_LOGOS[currentEVMChain?.cmcId ?? 1027]}
+                  alt=""
+                  className="w-4 h-4 rounded-full shrink-0"
+                />
+                {walletType === "solana" ? "Solana" : currentEVMChain?.name ?? "EVM"}
+                {walletType === "evm" && <ChevronDown className={`w-3 h-3 text-white/30 transition-transform ${networkDropdownOpen ? "rotate-180" : ""}`} />}
+              </button>
+              <AnimatePresence>
+                {networkDropdownOpen && walletType === "evm" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    className="absolute top-full right-0 mt-1 bg-surface border border-border3/50 rounded-lg overflow-hidden min-w-[140px] z-20"
+                  >
+                    {SUPPORTED_CHAINS.map((c: ChainConfig) => (
+                      <button
+                        key={c.id}
+                        onClick={() => { void switchToChain(c.id); setNetworkDropdownOpen(false); }}
+                        className={`w-full flex items-center gap-2 px-3 py-2 text-[12px] hover:bg-white/[0.04] transition-colors ${
+                          currentEVMChain?.id === c.id ? "text-accent" : "text-white/70"
+                        }`}
+                      >
+                      <img
+                        src={CHAIN_LOGOS[c.cmcId]}
+                        alt=""
+                        className="w-4 h-4 rounded-full shrink-0"
+                      />
+                      {c.name}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            <button onClick={() => setPopoverOpen((v) => !v)} className="relative flex items-center gap-2">
             <div
               style={{ background: solanaAddress ? `linear-gradient(135deg, ${gradient?.from}, ${gradient?.to})` : "#627EEA" }}
               className="w-7 h-7 rounded-full flex items-center justify-center"
@@ -222,8 +286,9 @@ export default function Topbar() {
                 {displayAddress.slice(2, 4).toUpperCase()}
               </span>
             </div>
-            <ChevronDown className={`w-3 h-3 text-white/30 transition-transform ${popoverOpen ? "rotate-180" : ""}`} />
+             <ChevronDown className={`w-3 h-3 text-white/30 transition-transform ${popoverOpen ? "rotate-180" : ""}`} />
           </button>
+          </>
         ) : (
           <button
             onClick={() => setWalletModalOpen(true)}
