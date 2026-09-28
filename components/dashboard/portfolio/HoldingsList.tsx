@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { Plus } from 'lucide-react';
 import { useBaseTokenPrices } from '../../../contexts/BaseTokenPriceProvider';
 import { usePrices } from '../../../contexts/PriceContext';
 import { BASE_TOKENS } from '@/lib/tokens/base-tokens';
@@ -13,9 +14,11 @@ interface HoldingsListProps {
   knownLoading: boolean;
   walletAddress: string | null;
   walletType?: 'solana' | 'evm' | null;
+  showTrackTokens?: boolean;
+  onTrackTokens?: () => void;
 }
 
-export default function HoldingsList({ balances, knownTokens, loading, knownLoading, walletAddress, walletType }: HoldingsListProps) {
+export default function HoldingsList({ balances, knownTokens, loading, knownLoading, walletAddress, walletType, showTrackTokens, onTrackTokens }: HoldingsListProps) {
   const router = useRouter();
   const { getPrice, getChange24h, loading: pricesLoading } = useBaseTokenPrices();
   const { prices: livePrices } = usePrices();
@@ -62,7 +65,17 @@ export default function HoldingsList({ balances, knownTokens, loading, knownLoad
 
   return (
     <div className="flex-1 min-h-0 overflow-y-auto">
-      <h3 className="text-[14px] font-semibold mb-4">Holdings</h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-[14px] font-semibold">Holdings</h3>
+        {showTrackTokens && onTrackTokens && (
+          <button
+            onClick={onTrackTokens}
+            className="flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium border border-border3/50 text-white/60 hover:border-accent/40 hover:text-white transition-colors"
+          >
+            <Plus className="w-3 h-3" /> Track Tokens
+          </button>
+        )}
+      </div>
       <div className="space-y-2">
         {holdings.map((h) => {
           const token = BASE_TOKENS.find((t) => t.symbol === h.symbol);

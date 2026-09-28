@@ -51,6 +51,7 @@ const schema = a.schema({
       writingStyle: a.enum(["default", "journalist", "storytelling", "ct_vibes", "concise"]),
       sources: a.string().array(),
       tokenRegistries: a.hasMany("UserTokenRegistry", "userProfileId"),
+      portfolios: a.hasMany("Portfolio", "userProfileId"),
     })
     .authorization((allow) => [allow.publicApiKey().to(["read", "create", "update"])])
     .secondaryIndexes((index) => [index("walletAddress").queryField("byWallet")]),
@@ -64,11 +65,31 @@ const schema = a.schema({
       name: a.string(),
       decimals: a.integer(),
       chain: a.enum(["solana", "ethereum", "bnb", "arbitrum", "xlayer"]),
-      customValue: a.float(),
-      portfolioName: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey().to(["read", "create", "delete"])])
     .secondaryIndexes((index) => [index("userProfileId").queryField("byUser")]),
+
+  Portfolio: a
+    .model({
+      userProfileId: a.id().required(),
+      userProfile: a.belongsTo("UserProfile", "userProfileId"),
+      name: a.string().required(),
+    })
+    .authorization((allow) => [allow.publicApiKey().to(["read", "create", "delete"])])
+    .secondaryIndexes((index) => [index("userProfileId").queryField("byPortfolioOwner")]),
+
+  PortfolioToken: a
+    .model({
+      portfolioId: a.id().required(),
+      portfolio: a.belongsTo("Portfolio", "portfolioId"),
+      symbol: a.string().required(),
+      name: a.string(),
+      customValue: a.float().required(),
+    })
+    .authorization((allow) => [allow.publicApiKey().to(["read", "create", "delete"])])
+    .secondaryIndexes((index) => [
+      index("portfolioId").queryField("byPortfolio"),
+    ]),
 
   AgentSession: a
     .model({
