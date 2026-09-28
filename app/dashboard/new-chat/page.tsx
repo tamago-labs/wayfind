@@ -324,13 +324,13 @@ function NewChatInner() {
     0
   );
 
-  const gatherHoldings = async (): Promise<Array<{ symbol: string; name?: string; balance: number; price: number; type?: string }>> => {
+  const gatherHoldings = async (): Promise<Array<{ symbol: string; name?: string; balance: number; price: number }>> => {
     if (selectedPortfolio?.id) {
       // Simulated: fetch PortfolioToken + prices
       const { data: tokens } = await dataClient.models.PortfolioToken.list({
         filter: { portfolioId: { eq: selectedPortfolio.id } },
       });
-      return (tokens ?? []).map((t) => {
+      const result = (tokens ?? []).map((t) => {
         const meta = rwaTokenMap.get(t.symbol);
         const live = prices.find((p) => p.token_symbol === t.symbol);
         const base = BASE_TOKENS.find((bt) => bt.symbol === t.symbol);
@@ -342,6 +342,7 @@ function NewChatInner() {
           price,
         };
       });
+      return result;
     }
 
     // Connected wallet

@@ -293,7 +293,8 @@ export default function ReviewPage() {
                   <p className="text-[12px] font-semibold text-white/70 mb-3">Analyzed Holdings</p>
                   <div className="space-y-2.5">
                     {data?.holdings
-                      ?.slice()
+                      ?.filter((h) => h.balance > 0.00001 && h.price > 0)
+                      .slice()
                       .sort((a, b) => b.balance * b.price - a.balance * a.price)
                       .map((h) => {
                         const value = h.balance * h.price;
@@ -304,12 +305,12 @@ export default function ReviewPage() {
                             <div className="min-w-0">
                               <p className="text-[12px] font-medium text-white/85 truncate">{h.symbol}</p>
                               <p className="text-[10px] text-white/35">
-                                {h.balance.toLocaleString(undefined, { maximumFractionDigits: 4 })}
+                                {h.balance.toLocaleString(undefined, { maximumFractionDigits: 6 })}
                               </p>
                             </div>
                             <div className="text-right shrink-0">
                               <p className="text-[12px] text-white/80">
-                                ${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                                ${value.toLocaleString(undefined, { maximumFractionDigits: 2 })}
                               </p>
                               <p className="text-[10px] text-white/35">{pct.toFixed(1)}%</p>
                             </div>
