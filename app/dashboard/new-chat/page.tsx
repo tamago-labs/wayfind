@@ -340,22 +340,21 @@ function NewChatInner() {
           name: t.name ?? meta?.name ?? t.symbol,
           balance: t.customValue ?? 0,
           price,
-          type: 'simulated',
         };
       });
     }
 
     // Connected wallet
-    const holdings: Array<{ symbol: string; name?: string; balance: number; price: number; type?: string }> = [];
+    const holdings: Array<{ symbol: string; name?: string; balance: number; price: number }> = [];
     const balances = isEVM ? evmBalances : solanaBalances;
     for (const bt of BASE_TOKENS) {
       const balance = parseFloat(balances[bt.symbol] ?? '0');
-      holdings.push({ symbol: bt.symbol, name: bt.name, balance, price: getPrice(bt.symbol), type: 'base' });
+      holdings.push({ symbol: bt.symbol, name: bt.name, balance, price: getPrice(bt.symbol) });
     }
     const knownTokens = isEVM ? evmTokens : solanaKnownTokens;
     for (const t of knownTokens ?? []) {
       const live = prices.find((p) => p.token_symbol === t.symbol);
-      holdings.push({ symbol: t.symbol, name: t.name, balance: t.balance, price: live?.price ?? t.price ?? 0, type: 'tokenized' });
+      holdings.push({ symbol: t.symbol, name: t.name, balance: t.balance, price: live?.price ?? t.price ?? 0 });
     }
     return holdings;
   };

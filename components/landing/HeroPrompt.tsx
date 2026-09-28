@@ -127,7 +127,6 @@ export default function HeroPrompt() {
         name: t.name,
         balance: t.amount,
         price: t.price ?? 0,
-        type: 'simulated' as const,
       }));
       const { data, errors } = await dataClient.queries.riskReview({
         userProfileId: attached.userProfileId,

@@ -21,7 +21,6 @@ interface Holding {
   name?: string;
   balance: number;
   price: number;
-  type?: "tokenized" | "pre-ipo" | "base" | "simulated";
 }
 
 interface EnrichedHolding {
@@ -132,8 +131,8 @@ function enrichHoldings(holdings: Holding[]): { enriched: EnrichedHolding[]; tot
         price: h.price,
         value,
         valuePct: 0,
-        type: h.type ?? (meta ? "tokenized" : "base"),
-        industry: meta?.industry ?? (h.type === "base" || !meta ? "Crypto" : "Unknown"),
+        type: meta ? "tokenized" : "base",
+        industry: meta?.industry ?? (meta ? "Unknown" : "Crypto"),
         issuer: meta?.issuer_name ?? "Unknown",
         issuerRiskLevel: issuerRisk?.level ?? "Unknown",
         liquidityTier,
@@ -222,9 +221,7 @@ function formatHolding(h: EnrichedHolding): string {
     h.value.toFixed(2) +
     " (" +
     h.valuePct.toFixed(1) +
-    "% of portfolio), type=\"" +
-    h.type +
-    '", industry="' +
+    '% of portfolio), industry="' +
     h.industry +
     '", issuer="' +
     h.issuer +
