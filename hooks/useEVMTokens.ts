@@ -99,9 +99,8 @@ export function useEVMTokens(walletAddress: string | null, profileId: string | n
               const raw = await provider.call({ to: t.tokenAddress, data: callData });
               const decoded = iface.decodeFunctionResult('balanceOf', raw);
               const balance = BigInt(decoded[0]);
-              if (balance === BigInt(0)) return null;
 
-              let decimals = t.decimals ?? 18;
+              let decimals = t.decimals;
               if (decimals == null) {
                 try {
                   const decData = await provider.call({ to: t.tokenAddress, data: '0x313ce567' });
