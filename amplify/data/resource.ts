@@ -53,6 +53,7 @@ const schema = a.schema({
       sources: a.string().array(),
       tokenRegistries: a.hasMany("UserTokenRegistry", "userProfileId"),
       portfolios: a.hasMany("Portfolio", "userProfileId"),
+      reviews: a.hasMany("SavedReview", "userProfileId")
     })
     .authorization((allow) => [allow.publicApiKey().to(["read", "create", "update"])])
     .secondaryIndexes((index) => [index("walletAddress").queryField("byWallet")]),
