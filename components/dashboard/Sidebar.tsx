@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { MessageSquare, PieChart, Compass, Rocket, Bell, List, ChevronDown, SlidersHorizontal, BookOpen } from 'lucide-react';
+import { MessageSquare, PieChart, Compass, Rocket, Bell, List, ChevronDown, BookCheck , Lightbulb } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useClient } from '@solana/react';
 import { useConnectedWallet } from '@solana/kit-plugin-wallet/react';
@@ -16,7 +16,7 @@ const navItems = [
   { href: '/dashboard/portfolio', label: 'Portfolio', icon: PieChart },
   { href: '/dashboard/explore', label: 'Explore', icon: Compass },
   { href: '/dashboard/pre-ipo', label: 'Pre-IPO', icon: Rocket },
-  { href: '/dashboard/strategies', label: 'Strategies', icon: BookOpen },
+  { href: '/dashboard/strategies', label: 'Strategies', icon: Lightbulb },
 
 ];
 
@@ -88,7 +88,7 @@ export default function Sidebar() {
             onClick={() => setChatsOpen(!chatsOpen)}
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-display font-medium text-white/50 hover:text-white hover:bg-white/[0.03] transition-colors"
           >
-            <SlidersHorizontal className="w-4 h-4" />
+            <BookCheck className="w-4 h-4" />
             <span className="flex-1 text-left">All Reviews</span>
             <motion.div
               animate={{ rotate: chatsOpen ? 180 : 0 }}
