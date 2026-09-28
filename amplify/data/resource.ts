@@ -74,6 +74,7 @@ const schema = a.schema({
       userProfileId: a.id().required(),
       userProfile: a.belongsTo("UserProfile", "userProfileId"),
       name: a.string().required(),
+      tokens: a.hasMany("PortfolioToken", "portfolioId"),
     })
     .authorization((allow) => [allow.publicApiKey().to(["read", "create", "delete"])])
     .secondaryIndexes((index) => [index("userProfileId").queryField("byPortfolioOwner")]),
