@@ -2,6 +2,7 @@ import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 import { priceTracker } from "../functions/price-tracker/resource";
 import { prestockTracker } from "../functions/prestock-tracker/resource";
 import { ohlcvFetcherFunction } from "../functions/ohlcv-fetcher/resource";
+import { riskReviewFunction } from "../functions/risk-review/resource";
 
 const schema = a.schema({
   PriceSnapshot: a
@@ -116,9 +117,21 @@ const schema = a.schema({
     .authorization((allow) => [allow.publicApiKey()])
     .handler(a.handler.function(ohlcvFetcherFunction)),
 
+  riskReview: a
+    .query()
+    .arguments({
+      userProfileId: a.string().required(),
+      prompt: a.string().required(),
+      holdings: a.string().required(),
+    })
+    .returns(a.json())
+    .authorization((allow) => [allow.publicApiKey()])
+    .handler(a.handler.function(riskReviewFunction)),
+
 }).authorization((allow) => [
   allow.resource(priceTracker),
   allow.resource(prestockTracker),
+  allow.resource(riskReviewFunction),
 ]);
 
 export type Schema = ClientSchema<typeof schema>;

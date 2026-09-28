@@ -9,8 +9,30 @@ import { useConnectedWallet } from '@solana/kit-plugin-wallet/react';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@/amplify/data/resource';
 import type { AppClient } from '@/components/SolanaWalletProvider';
+import { useWallet } from '@/contexts/WalletContext';
+import { usePrices } from '@/contexts/PriceContext';
+import { useBaseTokenPrices } from '@/contexts/BaseTokenPriceProvider';
+import { useSolanaBalances } from '@/hooks/useSolanaBalances';
+import { useEVMBalances } from '@/hooks/useEVMBalances';
+import { useKnownTokens } from '@/hooks/useKnownTokens';
+import { useEVMTokens } from '@/hooks/useEVMTokens';
+import { BASE_TOKENS } from '@/lib/tokens/base-tokens';
+import rwaList from '@/lib/data/rwa-v1-list.json';
 
 const dataClient = generateClient<Schema>();
+
+const rwaTokenMap = new Map<string, { logo: string | null; price: number | null; name: string }>();
+for (const asset of (rwaList as any).assets ?? []) {
+  for (const token of asset.tokens ?? []) {
+    if (token.symbol && !rwaTokenMap.has(token.symbol)) {
+      rwaTokenMap.set(token.symbol, {
+        logo: token.logo ?? null,
+        price: token.price ?? null,
+        name: token.name,
+      });
+    }
+  }
+}
 
 const experienceOptions = [
   { value: 'newcomer', label: 'Newcomer', desc: 'New to crypto. Plain language, more explanations.' },
@@ -191,7 +213,15 @@ function NewChatInner() {
   const router = useRouter();
   const client = useClient<AppClient>();
   const connected = useConnectedWallet(client);
-  const walletAddress = connected ? String(connected.account.address) : null;
+  const { type: evmType, address: evmAddress, chainId } = useWallet();
+  const { prices } = usePrices();
+  const { getPrice } = useBaseTokenPrices();
+
+  const solanaAddress = connected ? String(connected.account.address) : null;
+  const isSolana = !!solanaAddress;
+  const isEVM = evmType === 'evm' && !!evmAddress;
+  const walletAddress = solanaAddress || evmAddress;
+
   const initialPrompt = searchParams.get('prompt');
   const [input, setInput] = useState(initialPrompt ?? 'What are the hidden risks in my portfolio?');
   const [mounted, setMounted] = useState(false);
@@ -283,64 +313,83 @@ function NewChatInner() {
     setPortfolioPopoverOpen(false);
   };
 
+  // Balance hooks for connected wallet holdings
+  const { balances: solanaBalances } = useSolanaBalances(isSolana ? solanaAddress : null);
+  const { balances: evmBalances } = useEVMBalances(isEVM ? evmAddress : null, isEVM ? (chainId ?? null) : null);
+  const { tokens: solanaKnownTokens } = useKnownTokens(isSolana ? walletAddress : null);
+  const { tokens: evmTokens } = useEVMTokens(
+    isEVM ? evmAddress : null,
+    isEVM ? profileId : null,
+    isEVM ? (chainId ?? null) : null,
+    0
+  );
+
+  const gatherHoldings = async (): Promise<Array<{ symbol: string; name?: string; balance: number; price: number; type?: string }>> => {
+    if (selectedPortfolio?.id) {
+      // Simulated: fetch PortfolioToken + prices
+      const { data: tokens } = await dataClient.models.PortfolioToken.list({
+        filter: { portfolioId: { eq: selectedPortfolio.id } },
+      });
+      return (tokens ?? []).map((t) => {
+        const meta = rwaTokenMap.get(t.symbol);
+        const live = prices.find((p) => p.token_symbol === t.symbol);
+        const base = BASE_TOKENS.find((bt) => bt.symbol === t.symbol);
+        const price = live?.price ?? meta?.price ?? (base ? getPrice(t.symbol) : 0);
+        return {
+          symbol: t.symbol,
+          name: t.name ?? meta?.name ?? t.symbol,
+          balance: t.customValue ?? 0,
+          price,
+          type: 'simulated',
+        };
+      });
+    }
+
+    // Connected wallet
+    const holdings: Array<{ symbol: string; name?: string; balance: number; price: number; type?: string }> = [];
+    const balances = isEVM ? evmBalances : solanaBalances;
+    for (const bt of BASE_TOKENS) {
+      const balance = parseFloat(balances[bt.symbol] ?? '0');
+      holdings.push({ symbol: bt.symbol, name: bt.name, balance, price: getPrice(bt.symbol), type: 'base' });
+    }
+    const knownTokens = isEVM ? evmTokens : solanaKnownTokens;
+    for (const t of knownTokens ?? []) {
+      const live = prices.find((p) => p.token_symbol === t.symbol);
+      holdings.push({ symbol: t.symbol, name: t.name, balance: t.balance, price: live?.price ?? t.price ?? 0, type: 'tokenized' });
+    }
+    return holdings;
+  };
+
   const handleSend = async () => {
-    if (!input.trim() || sending || !walletAddress || !selectedPortfolio) return;
+    if (!input.trim() || sending || !walletAddress || !selectedPortfolio || !profileId) return;
     const message = input.trim();
-    setInput('');
     setSending(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_CHAT_API_URL || '';
-      console.log('[handleSend] URL:', apiUrl);
-      console.log('[handleSend] message:', message);
+      const holdings = await gatherHoldings();
+      if (holdings.length === 0) {
+        console.error('[handleSend] no holdings found');
+        return;
+      }
 
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          sessionName: message.slice(0, 30),
-          message,
-          walletAddress,
-          portfolioId: selectedPortfolio.id,
-        }),
+      const { data } = await dataClient.queries.riskReview({
+        userProfileId: profileId,
+        prompt: message,
+        holdings: JSON.stringify(holdings),
       });
-
-      console.log('[handleSend] status:', res.status, 'ok:', res.ok);
-
-      if (!res.ok) {
-        const errText = await res.text();
-        console.error('[handleSend] error body:', errText);
-        throw new Error('Failed to create session');
-      }
-
-      const reader = res.body?.getReader();
-      if (!reader) throw new Error('No response stream');
-
-      let sessionId = '';
-      const decoder = new TextDecoder();
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        const text = decoder.decode(value);
-        console.log('[handleSend] chunk:', text);
-        const lines = text.split('\n').filter((l) => l.startsWith('data: '));
-        for (const line of lines) {
-          try {
-            const json = JSON.parse(line.slice(6));
-            console.log('[handleSend] parsed:', json);
-            if (json.sessionId) sessionId = json.sessionId;
-          } catch {}
-        }
-      }
-
-      console.log('[handleSend] sessionId:', sessionId);
-
-      if (sessionId) {
-        router.push(`/dashboard/chats/${sessionId}?prompt=${encodeURIComponent(message)}`);
+      const result = data as any;
+      if (result?.questions?.length) {
+        sessionStorage.setItem('wayfind-review', JSON.stringify({
+          prompt: message,
+          portfolioName: selectedPortfolio.name,
+          questions: result.questions,
+        }));
+        router.push('/dashboard/review');
+      } else {
+        console.error('[handleSend] no questions returned');
       }
     } catch (err) {
-      console.error('[handleSend] failed:', err);
+      console.error('[handleSend] riskReview failed:', err);
     } finally {
       setSending(false);
     }

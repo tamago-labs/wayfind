@@ -27,6 +27,7 @@ interface DemoToken {
 interface DemoPortfolio {
   id: string;
   name: string;
+  userProfileId: string;
   tokens: DemoToken[];
 }
 
@@ -55,12 +56,13 @@ for (const bt of BASE_TOKENS) {
 
 export default function HeroPrompt() {
   const router = useRouter();
-  const { prices } = usePrices();
+  const { prices, loading: pricesLoading } = usePrices();
   const [inputValue, setInputValue] = useState('What are the hidden risks in my portfolio?');
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [demoPortfolios, setDemoPortfolios] = useState<DemoPortfolio[]>([]);
   const [loadingDemo, setLoadingDemo] = useState(false);
   const [attached, setAttached] = useState<DemoPortfolio | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -87,6 +89,7 @@ export default function HeroPrompt() {
         results.push({
           id,
           name: portfolio.name,
+          userProfileId: portfolio.userProfileId,
           tokens: (tokens ?? []).map((t) => {
             const meta = rwaTokenMap.get(t.symbol);
             const live = prices.find((p) => p.token_symbol === t.symbol);
@@ -114,11 +117,38 @@ export default function HeroPrompt() {
     if (next) void loadDemoPortfolios();
   };
 
-  const handleSubmit = () => {
-    if (inputValue.trim()) {
-      const params = new URLSearchParams({ prompt: inputValue.trim() });
-      if (attached) params.set('portfolio', attached.id);
-      router.push(`/dashboard?${params.toString()}`);
+  const handleSubmit = async () => {
+    const prompt = inputValue.trim();
+    if (!prompt || !attached || submitting || pricesLoading) return;
+    setSubmitting(true);
+    try {
+      const holdings = attached.tokens.map((t) => ({
+        symbol: t.symbol,
+        name: t.name,
+        balance: t.amount,
+        price: t.price ?? 0,
+        type: 'simulated' as const,
+      }));
+      const { data } = await dataClient.queries.riskReview({
+        userProfileId: attached.userProfileId,
+        prompt,
+        holdings: JSON.stringify(holdings),
+      });
+      const result = data as any;
+      if (result?.questions?.length) {
+        sessionStorage.setItem('wayfind-review', JSON.stringify({
+          prompt,
+          portfolioName: attached.name,
+          questions: result.questions,
+        }));
+        router.push('/dashboard/review');
+      } else {
+        console.error('[HeroPrompt] no questions returned');
+      }
+    } catch (err) {
+      console.error('[HeroPrompt] riskReview failed:', err);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -222,14 +252,21 @@ export default function HeroPrompt() {
               </div>
               <button
                 onClick={handleSubmit}
-                disabled={!attached}
+                disabled={!attached || submitting || pricesLoading}
                 className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors shrink-0 ${
                   attached
                     ? 'bg-accent hover:bg-accent/80'
                     : 'bg-white/[0.06] border border-border3/50 cursor-not-allowed'
                 }`}
               >
-                <ArrowRight className={`w-4 h-4 ${attached ? 'text-white' : 'text-white/30'}`} />
+                {submitting || pricesLoading ? (
+                  <svg className="w-4 h-4 text-white animate-spin" viewBox="0 0 24 24" fill="none">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                ) : (
+                  <ArrowRight className={`w-4 h-4 ${attached ? 'text-white' : 'text-white/30'}`} />
+                )}
               </button>
             </div>
           </div>
