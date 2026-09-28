@@ -33,7 +33,29 @@ export default function Hero() {
           <ul className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13px] text-white/35">
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent2" />
-              Connected across <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png" alt="Solana" className="w-4 h-4 inline-block rounded-full relative z-30" /> <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png" alt="Ethereum" className="w-4 h-4 inline-block rounded-full -ml-2.5 relative z-20" /> <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png" alt="BNB Chain" className="w-4 h-4 inline-block rounded-full -ml-2.5 relative z-10" /> <span className="text-accent font-semibold">10+ chains</span>
+              <span className="group relative inline-flex items-center gap-1 cursor-default">
+                Connected across <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png" alt="Solana" className="w-4 h-4 inline-block rounded-full relative z-30" /> <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png" alt="Ethereum" className="w-4 h-4 inline-block rounded-full -ml-2.5 relative z-20" /> <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png" alt="BNB Chain" className="w-4 h-4 inline-block rounded-full -ml-2.5 relative z-10" /> <span className="text-accent font-semibold">5+ chains</span>
+                <span className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-max opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50">
+                  <span className="block bg-surface border border-border3/60 rounded-lg shadow-xl px-3 py-2.5">
+                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 rotate-45 bg-surface border-r border-b border-border3/60" />
+                    <span className="block text-[10px] font-semibold tracking-wider text-white/40 uppercase mb-2 text-center">Supported Chains</span>
+                    <span className="grid grid-cols-3 gap-x-4 gap-y-1.5">
+                      {[
+                        { name: "Solana", cmcId: 5426 },
+                        { name: "Ethereum", cmcId: 1027 },
+                        { name: "BNB Chain", cmcId: 1839 },
+                        { name: "Arbitrum One", cmcId: 11841 },
+                        { name: "X Layer", cmcId: 3897 },
+                      ].map((chain) => (
+                        <span key={chain.name} className="flex items-center gap-2 text-[12px] text-white/70">
+                          <img src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${chain.cmcId}.png`} alt={chain.name} className="w-4 h-4 rounded-full" />
+                          {chain.name}
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                </span>
+              </span>
             </li>
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent2" />

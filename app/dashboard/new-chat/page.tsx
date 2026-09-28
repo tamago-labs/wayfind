@@ -7,7 +7,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useClient } from '@solana/react';
 import { useConnectedWallet } from '@solana/kit-plugin-wallet/react';
 import type { AppClient } from '@/components/SolanaWalletProvider';
-import { examplePrompts, getRandomPrompt } from '@/lib/prompts';
 
 const experienceOptions = [
   { value: 'newcomer', label: 'Newcomer', desc: 'New to crypto. Plain language, more explanations.' },
@@ -186,8 +185,6 @@ function NewChatInner() {
   const walletAddress = connected ? String(connected.account.address) : null;
   const initialPrompt = searchParams.get('prompt');
   const [input, setInput] = useState(initialPrompt ?? '');
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [animKey, setAnimKey] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [sending, setSending] = useState(false);
   const [experience, setExperience] = useState('regular');
@@ -197,7 +194,6 @@ function NewChatInner() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    setActiveIndex(Math.floor(Math.random() * examplePrompts.length));
     setMounted(true);
   }, []);
 
@@ -208,15 +204,6 @@ function NewChatInner() {
       el.style.height = `${el.scrollHeight}px`;
     }
   }, [input]);
-
-  const handleBadgeClick = () => {
-    setActiveIndex((prev) => getRandomPrompt(prev));
-    setAnimKey((k) => k + 1);
-  };
-
-  const handlePromptClick = () => {
-    setInput(examplePrompts[activeIndex].text);
-  };
 
   const handleSend = async () => {
     if (!input.trim() || sending || !walletAddress) return;
@@ -280,8 +267,6 @@ function NewChatInner() {
     }
   };
 
-  const current = examplePrompts[activeIndex];
-
   return (
     <div className="h-[calc(100vh-3.5rem)] relative overflow-hidden grid-bg">
       {/* Glows */}
@@ -291,7 +276,7 @@ function NewChatInner() {
       {/* Content */}
       <div className="relative z-1 h-full flex flex-col items-center justify-center px-6 max-w-3xl mx-auto"> 
         <p className="font-display text-2xl md:text-3xl font-semibold text-center text-white/70 mb-8">
-          &ldquo;Let&apos;s uncover your portfolio risk&rdquo;
+          &ldquo;Let&apos;s Uncover Your Portfolio Risk&rdquo;
         </p>
 
         {/* Input with glow */}
@@ -305,37 +290,7 @@ function NewChatInner() {
             className="w-full bg-transparent text-[14px] text-white placeholder:text-white/25 outline-none resize-none min-h-[60px] p-4"
           />
           <div className="flex items-center justify-between px-4 pb-4">
-            <button
-              onClick={handlePromptClick}
-              className="flex items-center gap-2 min-w-0 max-w-[70%]"
-            >
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={`badge-${animKey}`}
-                  initial={{ opacity: 0, filter: 'blur(8px)' }}
-                  animate={{ opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, filter: 'blur(8px)' }}
-                  transition={{ duration: 0.4, ease: 'easeOut' }}
-                  className={`shrink-0 inline-flex items-center text-[10px] font-semibold tracking-wider px-2 py-0.5 rounded-full border ${current.color}`}
-                  title="Click to change"
-                >
-                  <span onClick={(e) => { e.stopPropagation(); handleBadgeClick(); }} className="cursor-pointer">
-                    {current.badge}
-                  </span>
-                </motion.span>
-                <motion.span
-                  key={`text-${animKey}`}
-                  initial={{ opacity: 0, filter: 'blur(8px)' }}
-                  animate={{ opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, filter: 'blur(8px)' }}
-                  transition={{ duration: 0.4, delay: 0.05, ease: 'easeOut' }}
-                  className="text-[13px] text-white/60 font-medium truncate"
-                  title={current.text}
-                >
-                  {current.text}
-                </motion.span>
-              </AnimatePresence>
-            </button>
+            <div className="min-w-0 max-w-[70%]" />
             {walletAddress ? (
               <button
                 onClick={handleSend}
