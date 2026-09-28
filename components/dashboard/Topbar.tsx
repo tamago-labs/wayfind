@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useConnectedWallet } from "@solana/kit-plugin-wallet/react";
 import { useClient } from "@solana/react";
@@ -69,6 +69,30 @@ export default function Topbar() {
   const displayAddress = solanaAddress || evmAddress;
   const isConnected = !!solanaAddress || (walletType === "evm" && !!evmAddress);
   const currentEVMChain = walletType === "evm" && !solanaAddress ? (chain ?? SUPPORTED_CHAINS[0]) : null;
+
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  // Close popover when wallet disconnects
+  useEffect(() => {
+    if (!displayAddress) setPopoverOpen(false);
+  }, [displayAddress]);
+
+  // Click-outside to close popover
+  useEffect(() => {
+    if (!popoverOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(e.target as Node)) {
+        setPopoverOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [popoverOpen]);
+
+  const handleDisconnect = useCallback(() => {
+    setPopoverOpen(false);
+    disconnectEVM();
+  }, [disconnectEVM]);
 
   useEffect(() => {
     if (solanaAddress) {
@@ -277,34 +301,40 @@ export default function Topbar() {
                 )}
               </AnimatePresence>
             </div>
-            <button onClick={() => setPopoverOpen((v) => !v)} className="relative flex items-center gap-2">
-            <div
-              style={{ background: solanaAddress ? `linear-gradient(135deg, ${gradient?.from}, ${gradient?.to})` : "#627EEA" }}
-              className="w-7 h-7 rounded-full flex items-center justify-center"
-            >
-              <span className="text-[10px] font-bold text-white/90">
-                {displayAddress.slice(2, 4).toUpperCase()}
-              </span>
-            </div>
-             <ChevronDown className={`w-3 h-3 text-white/30 transition-transform ${popoverOpen ? "rotate-180" : ""}`} />
-          </button>
-          </>
-        ) : (
-          <button
-            onClick={() => setWalletModalOpen(true)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[13px] font-medium bg-accent text-white hover:bg-accent/80 transition-colors"
-          >
-            <Wallet className="w-3.5 h-3.5" />
-            Connect Wallet
-          </button>
-        )}
+             <div ref={popoverRef} className="relative flex items-center">
+             <button onClick={() => setPopoverOpen((v) => !v)} className="relative flex items-center gap-2">
+             <div
+               style={{ background: solanaAddress ? `linear-gradient(135deg, ${gradient?.from}, ${gradient?.to})` : "#627EEA" }}
+               className="w-7 h-7 rounded-full flex items-center justify-center"
+             >
+               <span className="text-[10px] font-bold text-white/90">
+                 {displayAddress.slice(2, 4).toUpperCase()}
+               </span>
+             </div>
+              <ChevronDown className={`w-3 h-3 text-white/30 transition-transform ${popoverOpen ? "rotate-180" : ""}`} />
+           </button>
 
-        <AnimatePresence>
-          {popoverOpen && displayAddress && (
-            <ConnectedPopover address={displayAddress} onDisconnect={walletType === "evm" ? disconnectEVM : undefined} isEVM={walletType === "evm"} />
-          )}
-        </AnimatePresence>
-      </div>
+           <AnimatePresence>
+             {popoverOpen && displayAddress && (
+               <ConnectedPopover
+                 address={displayAddress}
+                 onDisconnect={walletType === "evm" ? handleDisconnect : undefined}
+                 isEVM={walletType === "evm"}
+               />
+             )}
+           </AnimatePresence>
+           </div>
+           </>
+         ) : (
+           <button
+             onClick={() => setWalletModalOpen(true)}
+             className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[13px] font-medium bg-accent text-white hover:bg-accent/80 transition-colors"
+           >
+             <Wallet className="w-3.5 h-3.5" />
+             Connect Wallet
+           </button>
+         )}
+       </div>
 
       <WalletModal open={walletModalOpen} onClose={() => setWalletModalOpen(false)} />
       <CreditsModal open={creditsModalOpen} onClose={() => setCreditsModalOpen(false)} />

@@ -6,6 +6,19 @@ import { Plus, ChevronDown, Check, Trash2, Wallet } from 'lucide-react';
 import { useBaseTokenPrices } from '../../../contexts/BaseTokenPriceProvider';
 import { usePrices } from '../../../contexts/PriceContext';
 import { BASE_TOKENS } from '@/lib/tokens/base-tokens';
+import rwaList from '@/lib/data/rwa-v1-list.json';
+
+// Symbol → industry map from RWA list (chain-agnostic)
+const rwaIndustryMap = new Map<string, string>();
+for (const asset of (rwaList as any).assets ?? []) {
+  if (asset.industry) {
+    for (const token of asset.tokens ?? []) {
+      if (token.symbol && !rwaIndustryMap.has(token.symbol)) {
+        rwaIndustryMap.set(token.symbol, asset.industry);
+      }
+    }
+  }
+}
 
 export interface PortfolioInfo {
   id: string;
@@ -88,6 +101,7 @@ export default function PortfolioStats({
           onCancelCreate={() => { setCreating(false); setNewName(''); }}
           onCreate={handleCreate}
           onDelete={onDeletePortfolio}
+          canCreate={!!walletAddress}
         />
         <div>
           <p className="text-[12px] text-white/40 mb-1">Portfolio Value</p>
@@ -99,11 +113,31 @@ export default function PortfolioStats({
 
   if (isSimulated) {
     const simTokens = knownTokens.filter((t: any) => t._simulated);
+    const tokenPrice = (symbol: string, fallback: number) => {
+      const base = BASE_TOKENS.find((bt) => bt.symbol === symbol);
+      if (base) return getPrice(symbol);
+      const live = livePriceMap.get(symbol);
+      return live?.price ?? fallback ?? 0;
+    };
     const totalValue = simTokens.reduce((sum, t) => {
-      const live = livePriceMap.get(t.symbol);
-      const price = live?.price ?? t.price ?? 0;
+      const price = tokenPrice(t.symbol, t.price);
       return sum + (t.customValue ?? t.balance ?? 0) * price;
     }, 0);
+
+    // Industries for simulated tokens
+    const simIndustryMap = new Map<string, number>();
+    for (const t of simTokens) {
+      const industry = rwaIndustryMap.get(t.symbol);
+      const price = tokenPrice(t.symbol, t.price);
+      const value = (t.customValue ?? t.balance ?? 0) * price;
+      if (industry && value > 0) {
+        simIndustryMap.set(industry, (simIndustryMap.get(industry) ?? 0) + value);
+      }
+    }
+    const simIndustries = Array.from(simIndustryMap.entries())
+      .map(([name, value]) => ({ name, pct: totalValue > 0 ? Math.round((value / totalValue) * 100) : 0 }))
+      .sort((a, b) => b.pct - a.pct)
+      .slice(0, 5);
 
     return (
       <div className="w-72 shrink-0 bg-surface border border-border3/50 rounded-xl p-5 flex flex-col gap-4">
@@ -122,6 +156,7 @@ export default function PortfolioStats({
           onCancelCreate={() => { setCreating(false); setNewName(''); }}
           onCreate={handleCreate}
           onDelete={onDeletePortfolio}
+          canCreate={!!walletAddress}
         />
         <div>
           <p className="text-[12px] text-white/40 mb-1">Portfolio Value</p>
@@ -130,28 +165,24 @@ export default function PortfolioStats({
           </p>
           <p className="text-[13px] text-white/30 mt-1">Simulated portfolio</p>
         </div>
-        <div className="mt-auto">
-          <p className="text-[12px] text-white/40 mb-2">Tokens ({simTokens.length})</p>
-          {simTokens.length === 0 ? (
-            <p className="text-[12px] text-white/30">No tokens yet. Add tokens from the holdings panel.</p>
-          ) : (
-            <div className="space-y-1.5">
-              {simTokens.slice(0, 6).map((t: any) => {
-                const live = livePriceMap.get(t.symbol);
-                const price = live?.price ?? t.price ?? 0;
-                const amount = t.customValue ?? t.balance ?? 0;
-                return (
-                  <div key={t.symbol} className="flex items-center justify-between">
-                    <span className="text-[12px] text-white/60 truncate">{t.symbol}</span>
-                    <span className="text-[12px] text-white/80 shrink-0 ml-2">
-                      {amount.toLocaleString()} · ${(amount * price).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                    </span>
+        {simIndustries.length > 0 && (
+          <div className="mt-auto">
+            <p className="text-[12px] text-white/40 mb-3">Underlying Exposure</p>
+            <div className="space-y-3">
+              {simIndustries.map((ind) => (
+                <div key={ind.name}>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[12px] text-white/60 truncate max-w-[160px]" title={ind.name}>{ind.name}</span>
+                    <span className="text-[12px] font-medium text-white/80 shrink-0 ml-2">{ind.pct}%</span>
                   </div>
-                );
-              })}
+                  <div className="h-1.5 bg-white/[0.05] rounded-full overflow-hidden">
+                    <div className="h-full rounded-full bg-accent" style={{ width: `${ind.pct}%` }} />
+                  </div>
+                </div>
+              ))}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -186,9 +217,10 @@ export default function PortfolioStats({
     const live = livePriceMap.get(t.symbol);
     const price = live?.price ?? t.price ?? 0;
     const value = t.balance * price;
-    if (value > 0 && t.industry) {
-      const current = industryMap.get(t.industry) ?? 0;
-      industryMap.set(t.industry, current + value);
+    const industry = t.industry ?? rwaIndustryMap.get(t.symbol);
+    if (value > 0 && industry) {
+      const current = industryMap.get(industry) ?? 0;
+      industryMap.set(industry, current + value);
     }
   }
   const knownTokensTotalValue = knownTokens.reduce((sum, t) => {
@@ -218,6 +250,7 @@ export default function PortfolioStats({
         onCancelCreate={() => { setCreating(false); setNewName(''); }}
         onCreate={handleCreate}
         onDelete={onDeletePortfolio}
+        canCreate={!!walletAddress}
       />
       <div>
         <p className="text-[12px] text-white/40 mb-1">Portfolio Value</p>
@@ -265,6 +298,7 @@ interface PortfolioSelectorProps {
   onCancelCreate: () => void;
   onCreate: () => Promise<void>;
   onDelete: (id: string) => Promise<void>;
+  canCreate: boolean;
 }
 
 function PortfolioSelector({
@@ -282,6 +316,7 @@ function PortfolioSelector({
   onCancelCreate,
   onCreate,
   onDelete,
+  canCreate,
 }: PortfolioSelectorProps) {
   return (
     <div className="relative" ref={dropdownRef}>
@@ -368,8 +403,14 @@ function PortfolioSelector({
               </div>
             ) : (
               <button
-                onClick={onStartCreate}
-                className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-white/50 hover:text-white hover:bg-white/[0.04] transition-colors border-t border-border3/30"
+                onClick={canCreate ? onStartCreate : undefined}
+                disabled={!canCreate}
+                title={canCreate ? undefined : 'Connect wallet to create simulated portfolios'}
+                className={`w-full flex items-center gap-2 px-3 py-2 text-[12px] border-t border-border3/30 transition-colors ${
+                  canCreate
+                    ? 'text-white/50 hover:text-white hover:bg-white/[0.04]'
+                    : 'text-white/20 cursor-not-allowed'
+                }`}
               >
                 <Plus className="w-3.5 h-3.5" />
                 New Simulated Portfolio

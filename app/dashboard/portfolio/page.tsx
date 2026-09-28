@@ -8,6 +8,7 @@ import { useEVMTokens } from '@/hooks/useEVMTokens';
 import PortfolioStats, { type PortfolioInfo } from '@/components/dashboard/portfolio/PortfolioStats';
 import HoldingsList from '@/components/dashboard/portfolio/HoldingsList';
 import AddTokenModal from '@/components/dashboard/portfolio/AddTokenModal';
+import AddSimulatedTokenModal from '@/components/dashboard/portfolio/AddSimulatedTokenModal';
 import { useWallet } from '@/contexts/WalletContext';
 import { useConnectedWallet } from '@solana/kit-plugin-wallet/react';
 import { useClient } from '@solana/react';
@@ -29,6 +30,7 @@ export default function Portfolio() {
   const walletAddress = solanaAddress || evmAddress;
   const [profileId, setProfileId] = useState<string | null>(null);
   const [addTokenOpen, setAddTokenOpen] = useState(false);
+  const [addSimTokenOpen, setAddSimTokenOpen] = useState(false);
   const [registryVersion, setRegistryVersion] = useState(0);
 
   // Portfolio management
@@ -150,6 +152,25 @@ export default function Portfolio() {
     setRegistryVersion((v) => v + 1);
   }, []);
 
+  const handleSimTokenAdded = useCallback(() => {
+    setRegistryVersion((v) => v + 1);
+  }, []);
+
+  const handleRemoveSimToken = useCallback(async (symbol: string) => {
+    if (!selectedPortfolioId) return;
+    try {
+      const { data } = await dataClient.models.PortfolioToken.list({
+        filter: { portfolioId: { eq: selectedPortfolioId }, symbol: { eq: symbol } },
+      });
+      for (const t of data ?? []) {
+        await dataClient.models.PortfolioToken.delete({ id: t.id });
+      }
+      setRegistryVersion((v) => v + 1);
+    } catch (err) {
+      console.error('[Portfolio] remove sim token failed:', err);
+    }
+  }, [selectedPortfolioId]);
+
   return (
     <div className="flex gap-4 h-[calc(100vh-6.5rem)] min-h-0">
       <PortfolioStats
@@ -175,6 +196,9 @@ export default function Portfolio() {
           walletType={type}
           showTrackTokens={isEVM && !isSimulated}
           onTrackTokens={() => setAddTokenOpen(true)}
+          isSimulated={isSimulated}
+          onAddSimulatedToken={() => setAddSimTokenOpen(true)}
+          onRemoveSimulatedToken={handleRemoveSimToken}
         />
       </div>
       <AddTokenModal
@@ -184,6 +208,12 @@ export default function Portfolio() {
         walletAddress={walletAddress}
         chainId={isEVM ? (chainId ?? null) : null}
         onAdded={handleTokenAdded}
+      />
+      <AddSimulatedTokenModal
+        open={addSimTokenOpen}
+        onClose={() => setAddSimTokenOpen(false)}
+        portfolioId={selectedPortfolioId}
+        onAdded={handleSimTokenAdded}
       />
     </div>
   );
