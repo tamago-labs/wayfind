@@ -120,9 +120,11 @@ const schema = a.schema({
   riskReview: a
     .query()
     .arguments({
+      action: a.string(),
       userProfileId: a.string().required(),
       prompt: a.string().required(),
       holdings: a.string().required(),
+      answers: a.string(),
     })
     .returns(a.json())
     .authorization((allow) => [allow.publicApiKey()])

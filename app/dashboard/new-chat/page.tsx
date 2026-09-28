@@ -382,6 +382,7 @@ function NewChatInner() {
       if (result?.questions?.length) {
         sessionStorage.setItem('wayfind-review', JSON.stringify({
           prompt: message,
+          userProfileId: profileId,
           portfolioName: selectedPortfolio.name,
           holdings,
           questions: result.questions,
