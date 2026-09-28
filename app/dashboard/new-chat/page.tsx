@@ -372,12 +372,13 @@ function NewChatInner() {
         return;
       }
 
-      const { data } = await dataClient.queries.riskReview({
+      const { data, errors } = await dataClient.queries.riskReview({
         userProfileId: profileId,
         prompt: message,
         holdings: JSON.stringify(holdings),
       });
-      const result = data as any;
+      if (errors?.length) console.error('[handleSend] riskReview errors:', errors);
+      const result = typeof data === 'string' ? JSON.parse(data) : data;
       if (result?.questions?.length) {
         sessionStorage.setItem('wayfind-review', JSON.stringify({
           prompt: message,

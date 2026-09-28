@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { ArrowRight, Check } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, ArrowLeft, Check } from 'lucide-react';
 
 interface ReviewQuestion {
   id: string;
@@ -22,6 +22,7 @@ export default function ReviewPage() {
   const [data, setData] = useState<ReviewData | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [loaded, setLoaded] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
 
   useEffect(() => {
     const raw = sessionStorage.getItem('wayfind-review');
@@ -35,10 +36,23 @@ export default function ReviewPage() {
     setLoaded(true);
   }, []);
 
+  const totalSteps = data?.questions.length ?? 0;
+  const isLastStep = data ? currentStep === data.questions.length - 1 : false;
+  const currentQuestion = data?.questions[currentStep];
+  const currentAnswered = currentQuestion ? !!answers[currentQuestion.id] : false;
   const allAnswered = data ? data.questions.every((q) => answers[q.id]) : false;
 
   const handleSelect = (questionId: string, value: string) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
+  };
+
+  const handleNext = () => {
+    if (!currentAnswered) return;
+    if (isLastStep) {
+      handleSubmit();
+    } else {
+      setCurrentStep((s) => s + 1);
+    }
   };
 
   const handleSubmit = () => {
@@ -71,45 +85,60 @@ export default function ReviewPage() {
       <div className="absolute w-[400px] h-[400px] top-1/2 -translate-y-1/2 -right-40 rounded-full blur-[120px] opacity-25 bg-zenpurple pointer-events-none" />
 
       {/* Content */}
-      <div className="relative z-1 h-full overflow-y-auto flex flex-col items-center px-6 py-10 max-w-3xl mx-auto">
-        <p className="font-display text-2xl md:text-3xl font-semibold text-center text-white/70 mb-2">
-          A few questions first
-        </p>
-        <p className="text-[13px] text-white/35 text-center mb-8">
-          {data?.portfolioName} — help us personalize your risk review
+      <div className="relative z-1 h-full flex flex-col items-center justify-center px-6 max-w-2xl mx-auto">
+        <p className="font-display text-2xl md:text-3xl font-semibold text-center text-white/70 mb-6">
+          Help us understand you better
         </p>
 
-        {!data ? (
-          <div className="w-full space-y-4">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-surface border border-border3/50 rounded-xl p-5 space-y-3 animate-pulse">
-                <div className="h-4 w-2/3 bg-white/[0.05] rounded" />
-                <div className="h-9 bg-white/[0.03] rounded-lg" />
-              </div>
+        {/* Progress */}
+        {data && (
+          <div className="flex items-center gap-2 mb-8">
+            {data.questions.map((q, idx) => (
+              <span
+                key={q.id}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  idx === currentStep
+                    ? 'w-6 bg-accent'
+                    : idx < currentStep
+                      ? 'w-1.5 bg-accent/50'
+                      : 'w-1.5 bg-white/10'
+                }`}
+              />
             ))}
+            <span className="text-[11px] text-white/30 ml-2">
+              {currentStep + 1} / {totalSteps}
+            </span>
+          </div>
+        )}
+
+        {!data || !currentQuestion ? (
+          <div className="w-full bg-surface border border-border3/50 rounded-xl p-5 space-y-3 animate-pulse">
+            <div className="h-4 w-2/3 bg-white/[0.05] rounded" />
+            <div className="h-10 bg-white/[0.03] rounded-lg" />
+            <div className="h-10 bg-white/[0.03] rounded-lg" />
           </div>
         ) : (
-          <div className="w-full space-y-4">
-            {data.questions.map((q, idx) => (
+          <div className="w-full">
+            <AnimatePresence mode="wait">
               <motion.div
-                key={q.id}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.08, duration: 0.35 }}
-                className="bg-surface border border-border3 rounded-xl p-5"
+                key={currentQuestion.id}
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -24 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="bg-surface border border-border3 rounded-xl p-6"
               >
-                <p className="text-[14px] font-medium text-white/85 mb-3">
-                  <span className="text-white/30 mr-1.5">{idx + 1}.</span>
-                  {q.question}
+                <p className="text-[15px] font-medium text-white/85 mb-4">
+                  {currentQuestion.question}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {q.options.map((opt) => {
-                    const selected = answers[q.id] === opt.value;
+                  {currentQuestion.options.map((opt) => {
+                    const selected = answers[currentQuestion.id] === opt.value;
                     return (
                       <button
                         key={opt.value}
-                        onClick={() => handleSelect(q.id, opt.value)}
-                        className={`flex items-center gap-2 px-3 py-2.5 rounded-lg border text-[13px] text-left transition-colors ${
+                        onClick={() => handleSelect(currentQuestion.id, opt.value)}
+                        className={`flex items-center gap-2 px-3 py-3 rounded-lg border text-[13px] text-left transition-colors ${
                           selected
                             ? 'bg-accent/15 border-accent/50 text-white'
                             : 'bg-white/[0.02] border-border3/50 text-white/60 hover:text-white/80 hover:border-border3'
@@ -128,27 +157,35 @@ export default function ReviewPage() {
                   })}
                 </div>
               </motion.div>
-            ))}
+            </AnimatePresence>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: data.questions.length * 0.08 }}
-              className="flex justify-end pt-2"
-            >
+            {/* Navigation */}
+            <div className="flex items-center justify-between mt-6">
               <button
-                onClick={handleSubmit}
-                disabled={!allAnswered}
+                onClick={() => setCurrentStep((s) => Math.max(0, s - 1))}
+                disabled={currentStep === 0}
+                className={`flex items-center gap-1.5 px-4 h-10 rounded-lg text-[13px] font-medium transition-colors ${
+                  currentStep > 0
+                    ? 'text-white/60 hover:text-white hover:bg-white/[0.04]'
+                    : 'text-white/20 cursor-not-allowed'
+                }`}
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={!currentAnswered}
                 className={`flex items-center gap-2 px-5 h-10 rounded-lg text-[13px] font-medium transition-colors ${
-                  allAnswered
+                  currentAnswered
                     ? 'bg-accent text-white hover:bg-accent/80'
                     : 'bg-white/[0.06] border border-border3/50 text-white/30 cursor-not-allowed'
                 }`}
               >
-                Run Analysis
+                {isLastStep ? 'Run Analysis' : 'Next'}
                 <ArrowRight className="w-4 h-4" />
               </button>
-            </motion.div>
+            </div>
           </div>
         )}
       </div>

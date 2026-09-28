@@ -129,12 +129,13 @@ export default function HeroPrompt() {
         price: t.price ?? 0,
         type: 'simulated' as const,
       }));
-      const { data } = await dataClient.queries.riskReview({
+      const { data, errors } = await dataClient.queries.riskReview({
         userProfileId: attached.userProfileId,
         prompt,
         holdings: JSON.stringify(holdings),
       });
-      const result = data as any;
+      if (errors?.length) console.error('[HeroPrompt] riskReview errors:', errors);
+      const result = typeof data === 'string' ? JSON.parse(data) : data;
       if (result?.questions?.length) {
         sessionStorage.setItem('wayfind-review', JSON.stringify({
           prompt,

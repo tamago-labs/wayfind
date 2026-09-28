@@ -50,6 +50,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/dashboard/pre-ipo": "Pre-IPO Markets via PreStocks",
   "/dashboard/alerts": "Stay Notified",
   "/dashboard/strategies": "Strategies",
+  "/dashboard/review": "Questionnaire",
 };
 
 export default function Topbar() {

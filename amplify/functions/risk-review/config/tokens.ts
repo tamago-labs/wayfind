@@ -29,28 +29,63 @@ interface IssuerRisk {
 const ISSUER_RISK_TABLE: Record<string, IssuerRisk> = {
   "Backed Assets": {
     level: "Low",
-    custody: "Custodied (regulated)",
-    description: "Backed Finance is a regulated issuer with transparent custody and redemption rights.",
+    custody: "Custodied (regulated, segregated)",
+    description:
+      "Backed Assets (JE) Limited issues xStocks as tracker certificates under a Liechtenstein FMA-approved prospectus. Assets are held 1:1 in segregated accounts with regulated custodians (Alpaca + Swiss banks), with an independent Security Agent and bankruptcy-remote SPV structure.",
   },
   "Ondo Assets": {
-    level: "Low-Moderate",
-    custody: "Custodied (structured)",
-    description: "Ondo Finance uses structured custody with established market presence.",
+    level: "Low",
+    custody: "Custodied (regulated + overcollateralized)",
+    description:
+      "Ondo Global Markets (BVI) Limited issues structured notes fully backed 1:1 (plus buffer) by underlying securities held at regulated US broker-dealers. Features bankruptcy-remote SPV, independent Security Agent (Ankura), and daily attestations.",
   },
   "Robinhood": {
     level: "Low-Moderate",
     custody: "Custodied (regulated broker)",
-    description: "Robinhood issues tokenized stocks as a regulated broker with custody arrangements.",
+    description:
+      "Robinhood Assets (Jersey) Limited issues tokenized debt securities backed 1:1 by underlying equities held with a US licensed custodian. Independent security agent is appointed for insolvency scenarios. Parent is a regulated broker, but the issuer itself operates with limited supervision.",
   },
   "Backpack": {
     level: "Moderate",
-    custody: "Custodied (exchange)",
-    description: "Backpack issues tokenized stocks through its exchange infrastructure.",
+    custody: "Custodied (hybrid / broker-dealer)",
+    description:
+      "Backpack offers a hybrid model combining traditional brokerage holdings with on-chain tokens. Some products allow redemption into real securities entitlements; overall structure is less mature and more platform-dependent than pure SPV issuers.",
   },
   "Hyperliquid Assets": {
     level: "Moderate",
-    custody: "Custodied (exchange)",
-    description: "Hyperliquid Assets issues tokenized stocks through its platform.",
+    custody: "Custodied (exchange / platform)",
+    description:
+      "Tokens issued or distributed via Hyperliquid infrastructure. Custody and legal structure are platform-dependent and generally carry higher exchange/counterparty risk than dedicated regulated SPVs.",
+  },
+  "bStocks": {
+    level: "Moderate",
+    custody: "Custodied (exchange-affiliated)",
+    description:
+      "Issued by BTech Holdings Limited (Binance group affiliate) under an ADGM-approved prospectus. Backed 1:1 by shares held with a regulated custodian and features daily Proof of Collateral. Carries exchange-group counterparty and regulatory risk.",
+  },
+  "Reality": {
+    level: "Moderate",
+    custody: "Custodied (broker-dealer)",
+    description:
+      "Reality (Bitget-related) tokens are backed 1:1 by shares held with a FINRA-registered, SIPC-protected US broker-dealer. Provides economic exposure with independent proof-of-asset reporting, but remains platform-dependent.",
+  },
+  "PreStocks Assets": {
+    level: "Moderate-High",
+    custody: "Attested / SPV (pre-IPO)",
+    description:
+      "PreStocks tokens provide economic exposure to private/pre-IPO companies via SPV structures. Carry elevated risks from limited liquidity, valuation uncertainty, lock-up periods, and lack of public-market transparency.",
+  },
+  "Tessera Assets": {
+    level: "Moderate",
+    custody: "Custodied (platform)",
+    description:
+      "Tessera Assets issues tokenized stocks through its platform. Structure is less transparent than major regulated SPV issuers and carries standard platform and custody counterparty risk.",
+  },
+  "Republic": {
+    level: "Moderate",
+    custody: "Custodied (regulated crowdfunding)",
+    description:
+      "Republic issues tokenized securities primarily for private/pre-IPO companies through its regulated crowdfunding platform. Suitable for private-market exposure but subject to higher illiquidity and valuation risk.",
   },
 };
 
