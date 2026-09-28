@@ -382,6 +382,7 @@ function NewChatInner() {
         sessionStorage.setItem('wayfind-review', JSON.stringify({
           prompt: message,
           portfolioName: selectedPortfolio.name,
+          holdings,
           questions: result.questions,
         }));
         router.push('/dashboard/review');

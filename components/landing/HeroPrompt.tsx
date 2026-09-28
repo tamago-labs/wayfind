@@ -139,6 +139,7 @@ export default function HeroPrompt() {
         sessionStorage.setItem('wayfind-review', JSON.stringify({
           prompt,
           portfolioName: attached.name,
+          holdings,
           questions: result.questions,
         }));
         router.push('/dashboard/review');
