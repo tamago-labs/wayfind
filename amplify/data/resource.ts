@@ -93,6 +93,22 @@ const schema = a.schema({
       index("portfolioId").queryField("byPortfolio"),
     ]),
 
+  SavedReview: a
+    .model({
+      userProfileId: a.id().required(),
+      userProfile: a.belongsTo("UserProfile", "userProfileId"),
+      portfolioName: a.string().required(),
+      prompt: a.string().required(),
+      holdings: a.json().required(),
+      answers: a.json().required(),
+      report: a.json().required(),
+      overallScore: a.integer().required(),
+      overallLabel: a.string().required(),
+      chats: a.json().required(),
+    })
+    .authorization((allow) => [allow.publicApiKey().to(["read", "create", "update", "delete"])])
+    .secondaryIndexes((index) => [index("userProfileId").queryField("bySavedReviewUser")]),
+
   AgentSession: a
     .model({
       walletAddress: a.string().required(),

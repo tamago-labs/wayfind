@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ArrowLeft, Check, AlertTriangle, Activity, RotateCcw, ChevronRight, X } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, AlertTriangle, RotateCcw, ChevronRight, X, Save } from 'lucide-react';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@/amplify/data/resource';
 
@@ -115,7 +115,35 @@ export default function ReviewPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [phase, setPhase] = useState<Phase>('questions');
   const [result, setResult] = useState<AnalysisResult | null>(null);
+  const [saved, setSaved] = useState(false);
   const [analyzingMsg, setAnalyzingMsg] = useState(0);
+
+  const handleSave = async () => {
+    if (!result || !data || saved) return;
+    try {
+      await dataClient.models.SavedReview.create({
+        userProfileId: data.userProfileId,
+        portfolioName: data.portfolioName,
+        prompt: data.prompt,
+        holdings: JSON.stringify(data.holdings),
+        answers: JSON.stringify(answers),
+        report: JSON.stringify(result),
+        overallScore: result.overallScore,
+        overallLabel: result.overallLabel,
+        chats: JSON.stringify([]),
+      });
+      setSaved(true);
+    } catch (err) {
+      console.error('[Review] save failed:', err);
+    }
+  };
+
+  const handleNewReview = () => {
+    sessionStorage.removeItem('wayfind-review');
+    sessionStorage.removeItem('wayfind-review-answers');
+    router.push('/dashboard');
+  };
+
   const [selectedFactor, setSelectedFactor] = useState<{ name: string; score: number; explanation: string } | null>(null);
 
   useEffect(() => {
@@ -375,20 +403,25 @@ export default function ReviewPage() {
                   </ul>
                 </div>
 
-                {/* Next steps */}
+                {/* Actions */}
                 <div className="flex items-center gap-3 mt-auto pb-1">
                   <button
-                    onClick={() => router.push('/dashboard')}
-                    className="flex items-center gap-2 px-4 h-10 rounded-lg text-[13px] font-medium text-white/60 hover:text-white hover:bg-white/[0.04] transition-colors"
+                    onClick={() => void handleSave()}
+                    disabled={saved}
+                    className={`flex items-center gap-2 px-4 h-10 rounded-lg text-[13px] font-medium transition-colors ${
+                      saved
+                        ? 'text-emerald-400 border border-emerald-400/30 bg-emerald-400/5'
+                        : 'text-white/60 border border-border3/50 hover:text-white hover:bg-white/[0.04]'
+                    }`}
                   >
-                    <Activity className="w-4 h-4" />
-                    Chat about this
+                    {saved ? <Check className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+                    {saved ? 'Saved' : 'Save Review'}
                   </button>
                   <button
-                    onClick={() => router.push('/dashboard/portfolio')}
+                    onClick={() => handleNewReview()}
                     className="flex items-center gap-2 px-4 h-10 rounded-lg bg-accent text-white text-[13px] font-medium hover:bg-accent/80 transition-colors"
                   >
-                    View Portfolio
+                    New Review
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
