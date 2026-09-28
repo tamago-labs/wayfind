@@ -28,26 +28,39 @@ export default function Sidebar() {
   const connected = useConnectedWallet(client);
   const walletAddress = connected ? String(connected.account.address) : null;
   const [chatsOpen, setChatsOpen] = useState(false);
-  const [sessions, setSessions] = useState<{ id: string; sessionName: string }[]>([]);
+  const [profileId, setProfileId] = useState<string | null>(null);
+  const [reviews, setReviews] = useState<Array<{ id: string; portfolioName: string; overallScore: number; overallLabel: string }>>([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchSessions = () => {
-    if (!walletAddress) { setSessions([]); return; }
+  useEffect(() => {
+    if (!walletAddress) { setProfileId(null); setReviews([]); return; }
+    void (async () => {
+      try {
+        const { data: profiles } = await dataClient.models.UserProfile.list({
+          filter: { walletAddress: { eq: walletAddress } },
+        });
+        const pid = profiles?.[0]?.id ?? null;
+        setProfileId(pid);
+      } catch { setProfileId(null); }
+    })();
+  }, [walletAddress]);
+
+  useEffect(() => {
+    if (!profileId) { setReviews([]); return; }
     setLoading(true);
-    dataClient.models.AgentSession.list({
-      filter: { walletAddress: { eq: walletAddress } },
+    dataClient.models.SavedReview.list({
+      filter: { userProfileId: { eq: profileId } },
     }).then((res) => {
-      setSessions((res.data ?? []).map((s) => ({ id: s.id, sessionName: s.sessionName })));
+      setReviews((res.data ?? [])
+        .map((r) => ({ id: r.id, portfolioName: r.portfolioName, overallScore: r.overallScore, overallLabel: r.overallLabel }))
+        .sort((a, b) => (b.id > a.id ? 1 : -1))
+        .slice(0, 20));
     }).catch(() => {
-      setSessions([]);
+      setReviews([]);
     }).finally(() => {
       setLoading(false);
     });
-  };
-
-  useEffect(() => {
-    fetchSessions();
-  }, [walletAddress, pathname]);
+  }, [profileId, pathname]);
 
   return (
     <aside className="w-56 h-screen border-r border-border3/50 bg-surface flex flex-col fixed left-0 top-0">
@@ -107,32 +120,34 @@ export default function Sidebar() {
                 transition={{ duration: 0.2 }}
                 className="overflow-hidden"
               >
-                <div className="pl-10 pr-3 py-1 space-y-0.5">
-                  {!walletAddress ? (
-                    <p className="px-3 py-1.5 text-[11px] text-white/30">Connect wallet to see chats</p>
-                  ) : loading ? (
-                    <p className="px-3 py-1.5 text-[11px] text-white/30">Loading...</p>
-                  ) : sessions.length === 0 ? (
-                    <p className="px-3 py-1.5 text-[11px] text-white/30">No chats yet</p>
-                  ) : (
-                    sessions.map((session) => {
-                      const isActive = pathname === `/dashboard/chats/${session.id}`;
-                      return (
-                        <Link
-                          key={session.id}
-                          href={`/dashboard/chats/${session.id}`}
-                          className={`block px-3 py-1.5 rounded-md text-[12px] font-display truncate transition-colors ${
-                            isActive
-                              ? 'bg-accent/10 text-accent'
-                              : 'text-white/40 hover:text-white/70 hover:bg-white/[0.02]'
-                          }`}
-                        >
-                          {session.sessionName}
-                        </Link>
-                      );
-                    })
-                  )}
-                </div>
+                 <div className="pl-10 pr-3 py-1 space-y-0.5">
+                   {!walletAddress ? (
+                     <p className="px-3 py-1.5 text-[11px] text-white/30">Connect wallet to see reviews</p>
+                   ) : loading ? (
+                     <p className="px-3 py-1.5 text-[11px] text-white/30">Loading...</p>
+                   ) : reviews.length === 0 ? (
+                     <p className="px-3 py-1.5 text-[11px] text-white/30">No reviews yet</p>
+                   ) : (
+                     reviews.map((review) => {
+                       const isActive = pathname === `/dashboard/chats/${review.id}`;
+                       return (
+                         <Link
+                           key={review.id}
+                           href={`/dashboard/chats/${review.id}`}
+                           className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-[12px] transition-colors ${
+                             isActive
+                               ? 'bg-accent/10 text-accent'
+                               : 'text-white/40 hover:text-white/70 hover:bg-white/[0.02]'
+                           }`}
+                         >
+                           <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${review.overallScore <= 60 ? 'bg-yellow-400' : review.overallScore <= 80 ? 'bg-orange-400' : 'bg-red-400'}`} />
+                           <span className="truncate flex-1">{review.portfolioName}</span>
+                           <span className="text-white/25 shrink-0">{review.overallScore}</span>
+                         </Link>
+                       );
+                     })
+                   )}
+                 </div>
               </motion.div>
             )}
           </AnimatePresence>
