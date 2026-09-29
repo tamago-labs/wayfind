@@ -3,31 +3,31 @@ import { PROVIDER_MODEL } from "../provider";
 import { marketResearchAgent } from "./market-research";
 import { newsIntelligenceAgent } from "./news-intelligence";
 import { preIpoTradingAgent } from "./pre-ipo-trading";
-import { createReviewChatAgent } from "./review-chat";
+import { getReviewDetails } from "./tools/review";
 
 export function createTriageAgent(reviewId?: string, reviewSummary?: string) {
   const reviewContext = reviewSummary
-    ? `\n\nThe user is viewing a saved portfolio review. Context: ${reviewSummary}\nIf they ask about their review, portfolio risks, or analysis findings, hand off to the Review Chat Agent.`
+    ? `\n\nREVIEW CONTEXT:\nThe user is discussing a saved portfolio review. Here is the summary:\n${reviewSummary}\n\n- Answer questions about the review, risk scores, holdings, and findings directly.\n- If the user wants deeper factor breakdown, hidden risks, or full holdings data, call get_review_details.\n- Do NOT hand off to another agent for review-specific questions — you have the context.`
     : '';
 
-  const handoffs: Agent[] = [];
-  if (reviewId && reviewSummary) {
-    handoffs.push(createReviewChatAgent(reviewId, reviewSummary));
-  }
-  handoffs.push(marketResearchAgent, newsIntelligenceAgent, preIpoTradingAgent);
+  const tools = reviewId ? [getReviewDetails] : [];
 
   return new Agent({
     name: "Wayfin Triage",
     instructions:
-      "You are the entry point for Wayfin. The user is discussing a portfolio that has already been risk-reviewed.\n\n" +
+      "You are Wayfin's AI assistant. The user is discussing a portfolio that has already been risk-reviewed.\n\n" +
       "CRITICAL RULES:\n" +
-      "1. You must NOT answer any question yourself. Always hand off to a specialist.\n" +
-      "2. Do NOT write messages like 'Let me hand you over' or 'I've connected you'. Just hand off silently.\n" +
-      "3. For ANY question about the review, risks, portfolio analysis, or holdings — hand off to the Review Chat Agent.\n" +
-      "4. Only hand off to Market Research, News, or Pre-IPO if the user explicitly asks for live market data, news, or pre-IPO markets.\n" +
-      "5. For trade/swap requests, tell the user this chat is for discussion only.\n\n" +
+      "1. Answer review-related questions directly — you have the context.\n" +
+      "2. Do NOT write 'Let me hand you over' or 'I've connected you'. Answer or hand off silently.\n" +
+      "3. Hand off to specialists ONLY when:\n" +
+      "   - Live market data, prices, token search -> Market Research Agent\n" +
+      "   - Market news, events -> News Intelligence Agent\n" +
+      "   - Pre-IPO / PreStocks -> Pre-IPO Trading Agent\n" +
+      "4. For trade/swap requests, tell the user this chat is for discussion only.\n" +
+      "5. Never invent data. If you don't know, hand off to the right specialist.\n\n" +
       reviewContext,
-    handoffs,
+    tools: tools as any,
+    handoffs: [marketResearchAgent, newsIntelligenceAgent, preIpoTradingAgent],
     model: PROVIDER_MODEL,
   });
 }
