@@ -164,7 +164,8 @@ export default function StrategiesPage() {
             <div className="w-5 h-5 border-2 border-accent border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
-          <div className="bg-surface border border-border3/50 rounded-xl overflow-hidden">
+          <>
+            <div className="bg-surface border border-border3/50 rounded-xl overflow-hidden">
             <table className="w-full text-[13px]">
               <thead>
                 <tr className="border-b border-border3/50 text-[11px] text-white/30 font-medium uppercase tracking-wide">
@@ -203,9 +204,17 @@ export default function StrategiesPage() {
                 ))}
               </tbody>
             </table>
-          </div>
+            </div>
+            <p className="text-[12px] text-white/30 text-center mt-4 leading-relaxed">
+              Wayfind provides a suite of trading strategies you can run against any saved review. Select a review above to see which strategies are triggered for your portfolio.
+            </p>
+          </>
         )}
       </div>
+
+      <p className="text-[12px] text-white/25 text-center mt-6 pb-4 leading-relaxed max-w-lg mx-auto">
+        Wayfind provides a suite of trading strategies you can run against any saved review. Select a review above to see which strategies are triggered for your portfolio.
+      </p>
 
       {/* Drawer */}
       <AnimatePresence>

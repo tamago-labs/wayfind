@@ -78,7 +78,7 @@ export default function SwapPanel({
 }: {
   token: Token;
   asset: Asset;
-  walletAccount: UiWalletAccount | null;
+  walletAccount: UiWalletAccount;
 }) {
   const [tab, setTab] = useState<Tab>("Buy");
   const [fromAmount, setFromAmount] = useState("");
@@ -97,10 +97,10 @@ export default function SwapPanel({
   const [allBalances, setAllBalances] = useState<Record<string, number>>({});
   const [solBal, setSolBal] = useState(0);
 
-  const signAndSend = walletAccount ? useSignAndSendTransaction(walletAccount, "solana:mainnet") : null;
+  const signAndSend = useSignAndSendTransaction(walletAccount, "solana:mainnet");
   useEffect(() => {
-    if (!walletAccount) { setBalance(null); return; }
-    const mint = tab === "Buy" ? getTokenAddress(baseToken, "solana") : (token.mint ?? "");
+    if (!walletAccount) { setBalance(null); setBalanceSymbol(""); return; }
+    const mint = tab === "Buy" ? getTokenAddress(baseToken, "solana") : (token.addresses?.solana ?? "");
     const symbol = tab === "Buy" ? baseToken.symbol : token.symbol;
     setBalanceSymbol(symbol);
 
@@ -122,7 +122,7 @@ export default function SwapPanel({
         setBalance(data.spl?.[mint] ?? 0);
       })
       .catch(() => setBalance(null));
-  }, [walletAccount, baseToken, tab, token.mint]);
+  }, [walletAccount, baseToken, tab, token.addresses?.solana]);
 
   async function fetchQuote(amount: string) {
     setLoading(true);
@@ -132,8 +132,8 @@ export default function SwapPanel({
     const decimals = tab === "Buy" ? baseToken.decimals : token.decimals ?? 9;
     const rawAmount = Math.round(Number(amount) * Math.pow(10, decimals)).toString();
 
-    const fromAddr = tab === "Buy" ? getTokenAddress(baseToken, "solana") : (token.mint ?? "");
-    const toAddr = tab === "Buy" ? (token.mint ?? "") : getTokenAddress(baseToken, "solana");
+    const fromAddr = tab === "Buy" ? getTokenAddress(baseToken, "solana") : (token.addresses?.solana ?? "");
+    const toAddr = tab === "Buy" ? (token.addresses?.solana ?? "") : getTokenAddress(baseToken, "solana");
 
     try {
       const params = new URLSearchParams({
@@ -173,15 +173,15 @@ export default function SwapPanel({
   }
 
   async function handleSwap() {
-    if (!quote || !quoteAmount || !signAndSend) {
+    if (!quote || !quoteAmount) {
       return;
     }
 
     const decimals = tab === "Buy" ? baseToken.decimals : token.decimals ?? 9;
     const rawAmount = Math.round(Number(quoteAmount) * Math.pow(10, decimals)).toString();
 
-    const fromAddr = tab === "Buy" ? getTokenAddress(baseToken, "solana") : (token.mint ?? "");
-    const toAddr = tab === "Buy" ? (token.mint ?? "") : getTokenAddress(baseToken, "solana");
+    const fromAddr = tab === "Buy" ? getTokenAddress(baseToken, "solana") : (token.addresses?.solana ?? "");
+    const toAddr = tab === "Buy" ? (token.addresses?.solana ?? "") : getTokenAddress(baseToken, "solana");
 
     setSwapStatus("swapping");
     setSwapSig("");
@@ -221,6 +221,20 @@ export default function SwapPanel({
     setSwapStatus("idle");
     setSwapSig("");
     setError("");
+  }
+
+  if (!token.addresses?.solana) {
+    return (
+      <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 text-center">
+        <div className="w-10 h-10 rounded-full bg-white/[0.04] flex items-center justify-center mx-auto mb-3">
+          <ExternalLink className="w-4 h-4 text-white/30" />
+        </div>
+        <p className="text-[13px] text-white/60 font-medium mb-1">Not Available</p>
+        <p className="text-[12px] text-white/30 leading-relaxed">
+          This token is not available on Solana. Trading currently supports Solana only — more chains coming soon.
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -540,10 +554,9 @@ export default function SwapPanel({
                     ) : (
                       <button
                         onClick={handleSwap}
-                        disabled={!signAndSend}
-                        className="w-full py-2.5 rounded-xl bg-accent text-sm font-medium text-white hover:bg-accent/80 transition-colors flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="w-full py-2.5 rounded-xl bg-accent text-sm font-medium text-white hover:bg-accent/80 transition-colors flex items-center justify-center gap-2"
                       >
-                        {!signAndSend ? "Connect Wallet" : "Swap"} <ArrowRight className="w-4 h-4" />
+                        Swap <ArrowRight className="w-4 h-4" />
                       </button>
                     )}
 

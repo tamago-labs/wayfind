@@ -11,6 +11,13 @@ export interface Token {
   tags?: string[] | null;
   date_added?: string | null;
   mint?: string | null;
+  addresses?: {
+    solana?: string;
+    ethereum?: string;
+    bnb?: string;
+    arbitrum?: string;
+    xlayer?: string;
+  } | null;
   decimals?: number | null;
   verified?: boolean | null;
   circulating_supply?: number | null;

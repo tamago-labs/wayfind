@@ -36,7 +36,14 @@ export default function TokenDetailClient({
         <div className="grid grid-cols-5 gap-6">
             <div className="col-span-2 space-y-6">
             <TokenDetailStats token={token} price={price} />
-            <SwapPanel token={token} asset={asset} walletAccount={connected?.account ?? null} />
+            {connected?.account ? (
+              <SwapPanel token={token} asset={asset} walletAccount={connected.account} />
+            ) : (
+              <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 text-center">
+                <p className="text-[13px] text-white/50 mb-1">Connect Wallet to Trade</p>
+                <p className="text-[11px] text-white/25">Connect your Solana wallet to swap tokens</p>
+              </div>
+            )}
             <TokenDetailInfo token={token} asset={asset} price={price} />
           </div>
           <div className="col-span-3 space-y-6">

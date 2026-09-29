@@ -13,6 +13,21 @@ function DetailRow({ label, value }: { label: string; value: string }) {
 }
 
 export default function TokenDetailInfo({ token, asset, price }: { token: Token; asset: Asset; price: PriceData | undefined }) {
+  const chainLabels: Record<string, string> = {
+    solana: 'Solana',
+    ethereum: 'Ethereum',
+    bnb: 'BNB Chain',
+    arbitrum: 'Arbitrum',
+    xlayer: 'X Layer',
+  };
+  const chains = token.addresses
+    ? Object.entries(token.addresses).filter(([, v]) => v).map(([k]) => chainLabels[k] ?? k)
+    : [];
+  const displayChain = chains.length > 0 ? chains.join(", ") : "—";
+  const addrEntries = token.addresses
+    ? Object.entries(token.addresses).filter(([, v]) => v)
+    : [];
+  const firstAddr = addrEntries.length > 0 ? addrEntries[0][1] : null;
   return (
     <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
       <h2 className="text-sm font-semibold text-white/70 mb-4">Token Details</h2>
@@ -23,20 +38,18 @@ export default function TokenDetailInfo({ token, asset, price }: { token: Token;
           <DetailRow label="Issuer" value={token.issuer_name} />
         </div>
         <div className="space-y-3">
-          <DetailRow label="Blockchain" value="Solana" />
-          <DetailRow label="Decimals" value={token.decimals != null ? String(token.decimals) : "—"} />
+          <DetailRow label="Blockchain" value={displayChain} />
           <DetailRow label="Circulating Supply" value={price?.circulating_supply != null ? price.circulating_supply.toLocaleString() : "—"} />
           <DetailRow label="Total Supply" value={price?.total_supply != null ? price.total_supply.toLocaleString() : "—"} />
           <DetailRow label="Market Cap" value={price?.market_cap != null ? formatNumber(price.market_cap, "$") : "—"} />
-          <DetailRow label="Verified" value={token.verified ? "Yes" : "No"} />
           <DetailRow label="Date Added" value={token.date_added ? new Date(token.date_added).toLocaleDateString() : "—"} />
           <div className="flex items-center justify-between">
-            <span className="text-white/40">Mint Address</span>
+            <span className="text-white/40">Token Address</span>
             <div className="flex items-center gap-1.5">
               <span className="font-mono text-white/70 text-xs">
-                {token.mint ? `${token.mint.slice(0, 8)}...${token.mint.slice(-6)}` : "—"}
+                {firstAddr ? `${firstAddr.slice(0, 8)}...${firstAddr.slice(-6)}` : "—"}
               </span>
-              {token.mint && <CopyButton text={token.mint} />}
+              {firstAddr && <CopyButton text={firstAddr} />}
             </div>
           </div>
         </div>
