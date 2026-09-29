@@ -123,9 +123,7 @@ async function chatStreamHandler(
     ];
 
     const reviewSummary = buildReviewSummary(review);
-    console.log("[chat-further] reviewId:", reviewId, "| summary:", reviewSummary.slice(0, 120));
     const triageAgent = createTriageAgent(reviewId, reviewSummary);
-    console.log("[chat-further] triage handoffs:", triageAgent.handoffs.map((h: any) => h.name));
     const stream = await run(triageAgent, allMessages as any, { stream: true, maxTurns: 20 });
 
     const STREAM_TIMEOUT_MS = 250000;
