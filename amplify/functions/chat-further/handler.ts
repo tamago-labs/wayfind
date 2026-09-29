@@ -197,16 +197,6 @@ async function chatStreamHandler(
     } catch (creditErr) {
       console.error('[credits] failed to deduct:', creditErr);
     }
-      if (profile) {
-        const newCredits = Math.max(0, (profile.credits ?? 0) - creditsUsed);
-        await dataClient.models.UserProfile.update({
-          id: profile.id,
-          credits: newCredits,
-        });
-      }
-    } catch (creditErr) {
-      console.error('[credits] failed to deduct:', creditErr);
-    }
 
     responseStream.write("data: " + JSON.stringify({ done: true, reviewId }) + "\n\n");
   } catch (error) {
