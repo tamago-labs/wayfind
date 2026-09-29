@@ -3,14 +3,14 @@ import { PROVIDER_MODEL } from "../provider";
 import { marketResearchAgent } from "./market-research";
 import { newsIntelligenceAgent } from "./news-intelligence";
 import { preIpoTradingAgent } from "./pre-ipo-trading";
-import { getReviewDetails } from "./tools/review";
+import { createGetReviewDetailsTool } from "./tools/review";
 
 export function createTriageAgent(reviewId?: string, reviewSummary?: string) {
   const reviewContext = reviewSummary
     ? `\n\nREVIEW CONTEXT:\nThe user is discussing a saved portfolio review. Here is the summary:\n${reviewSummary}\n\n- Answer questions about the review, risk scores, holdings, and findings directly.\n- If the user wants deeper factor breakdown, hidden risks, or full holdings data, call get_review_details.\n- Do NOT hand off to another agent for review-specific questions — you have the context.`
     : '';
 
-  const tools = reviewId ? [getReviewDetails] : [];
+  const tools = reviewId ? [createGetReviewDetailsTool(reviewId)] : [];
 
   return new Agent({
     name: "Wayfin Triage",
