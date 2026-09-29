@@ -124,7 +124,7 @@ export default function StrategiesPage() {
                           }`}
                         >
                           <span>{r.portfolioName}</span>
-                          <span className="text-[11px] text-white/30">{r.overallScore}</span>
+                          <span className="text-[11px] text-white/30">Risk Score: {r.overallScore}</span>
                         </button>
                       ))
                     )}
@@ -137,8 +137,27 @@ export default function StrategiesPage() {
 
         {/* Table */}
         {!selectedReview ? (
-          <div className="flex-1 flex items-center justify-center">
-            <p className="text-[13px] text-white/30">Select a review to see strategies</p>
+          <div className="bg-surface border border-border3/50 rounded-xl overflow-hidden">
+            <table className="w-full text-[13px]">
+              <thead>
+                <tr className="border-b border-border3/50 text-[11px] text-white/30 font-medium uppercase tracking-wide">
+                  <th className="text-left px-4 py-3 font-medium w-10"></th>
+                  <th className="text-left px-4 py-3 font-medium">Strategy</th>
+                  <th className="text-left px-4 py-3 font-medium">Summary</th>
+                  <th className="text-right px-4 py-3 font-medium">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {['Concentration Risk', 'Risk Match', 'Pre-IPO Exposure'].map((name) => (
+                  <tr key={name} className="border-b border-border3/20">
+                    <td className="px-4 py-3.5"><span className="w-2 h-2 rounded-full bg-white/20 block" /></td>
+                    <td className="px-4 py-3.5"><span className="font-mono font-semibold text-white/40">{name}</span></td>
+                    <td className="px-4 py-3.5 text-white/20">Select a review to analyze</td>
+                    <td className="px-4 py-3.5 text-right text-white/20">—</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         ) : loading ? (
           <div className="flex-1 flex items-center justify-center">

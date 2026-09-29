@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { ArrowRight, ChevronDown, Check, Info, Plus, X, Wallet } from 'lucide-react';
+import { ArrowRight, Info, Plus, X, Wallet } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useClient } from '@solana/react';
 import { useConnectedWallet } from '@solana/kit-plugin-wallet/react';
@@ -34,173 +34,6 @@ for (const asset of (rwaList as any).assets ?? []) {
   }
 }
 
-const experienceOptions = [
-  { value: 'newcomer', label: 'Newcomer', desc: 'New to crypto. Plain language, more explanations.' },
-  { value: 'regular', label: 'Regular', desc: 'Comfortable with basics. Balanced detail.' },
-  { value: 'lite_degen', label: 'Lite Degen', desc: 'Familiar with DeFi. Technical but accessible.' },
-  { value: 'full_degen', label: 'Full Degen', desc: 'Crypto native. Max degen, no hand-holding.' },
-];
-
-const writingStyleOptions = [
-  { value: 'default', label: 'Default', desc: 'Balanced tone, clear and direct.' },
-  { value: 'journalist', label: 'Journalist', desc: 'Fact-driven, neutral reporting style.' },
-  { value: 'storytelling', label: 'Storytelling', desc: 'Narrative flow, explains the why.' },
-  { value: 'ct_vibes', label: 'CT Vibes', desc: 'Crypto Twitter slang, memes, vibes.' },
-  { value: 'concise', label: 'Concise', desc: 'Short and to the point. No fluff.' },
-];
-
-const sourceOptions = [
-  { value: 'cmc', label: 'CMC Data', desc: 'CoinMarketCap price data' },
-  { value: 'news', label: 'News Sites', desc: 'Crypto & financial news' },
-  { value: 'exchange', label: 'Exchange Feeds', desc: 'CEX/DEX order book data' },
-  { value: 'tradfi', label: 'TradFi Data', desc: 'Traditional market data' },
-];
-
-// ─── Single-select Dropdown ──────────────────────────────────────────────────
-
-function Dropdown({
-  label,
-  options,
-  value,
-  onChange,
-}: {
-  label: string;
-  options: { value: string; label: string; desc: string }[];
-  value: string;
-  onChange: (v: string) => void;
-}) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
-
-  const selected = options.find((o) => o.value === value);
-
-  return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-border3/50 bg-white/[0.02] text-[13px] text-white/60 hover:text-white/80 hover:border-border3 transition-colors"
-      >
-        <span>{selected?.label ?? label}</span>
-        <ChevronDown className={`w-3 h-3 transition-transform ${open ? 'rotate-180' : ''}`} />
-      </button>
-      {open && (
-        <div className="absolute bottom-full left-0 mb-2 w-56 rounded-xl border border-border3/50 bg-surface shadow-xl overflow-hidden z-20">
-          {options.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => {
-                onChange(opt.value);
-                setOpen(false);
-              }}
-              className={`w-full text-left px-3 py-2.5 transition-colors ${
-                value === opt.value
-                  ? 'bg-accent/5'
-                  : 'hover:bg-white/[0.03]'
-              }`}
-            >
-              <div className="flex items-center gap-2">
-                <span className={`text-[13px] ${value === opt.value ? 'text-accent font-medium' : 'text-white/70'}`}>
-                  {opt.label}
-                </span>
-              </div>
-              <p className="text-[11px] text-white/30 mt-0.5 leading-snug">
-                {opt.desc}
-              </p>
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ─── Multi-select Toggle Dropdown ────────────────────────────────────────────
-
-function ToggleDropdown({
-  label,
-  options,
-  values,
-  onChange,
-}: {
-  label: string;
-  options: { value: string; label: string; desc: string }[];
-  values: string[];
-  onChange: (v: string[]) => void;
-}) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
-
-  const toggle = (val: string) => {
-    if (values.includes(val)) {
-      onChange(values.filter((v) => v !== val));
-    } else {
-      onChange([...values, val]);
-    }
-  };
-
-  const count = values.length;
-  const total = options.length;
-  const display = count === total ? 'All sources' : `${count}/${total} sources`;
-
-  return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-border3/50 bg-white/[0.02] text-[13px] text-white/60 hover:text-white/80 hover:border-border3 transition-colors"
-      >
-        <span>{display}</span>
-        <ChevronDown className={`w-3 h-3 transition-transform ${open ? 'rotate-180' : ''}`} />
-      </button>
-      {open && (
-        <div className="absolute bottom-full left-0 mb-2 w-56 rounded-xl border border-border3/50 bg-surface shadow-xl overflow-hidden z-20">
-          {options.map((opt) => {
-            const active = values.includes(opt.value);
-            return (
-              <button
-                key={opt.value}
-                onClick={() => toggle(opt.value)}
-                className="w-full flex items-center gap-3 px-3 py-2.5 text-left transition-colors hover:bg-white/[0.03]"
-              >
-                <div className={`w-4 h-4 rounded flex items-center justify-center shrink-0 ${
-                  active ? 'bg-accent' : 'border border-border3/50'
-                }`}>
-                  {active && <Check className="w-3 h-3 text-white" />}
-                </div>
-                <div className="min-w-0">
-                  <span className={`text-[13px] ${active ? 'text-white/80 font-medium' : 'text-white/50'}`}>
-                    {opt.label}
-                  </span>
-                  <p className="text-[11px] text-white/25 truncate">{opt.desc}</p>
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-}
-
 // ─── New Chat Page ───────────────────────────────────────────────────────────
 
 interface PortfolioOption {
@@ -226,10 +59,6 @@ function NewChatInner() {
   const [input, setInput] = useState(initialPrompt ?? 'What are the hidden risks in my portfolio?');
   const [mounted, setMounted] = useState(false);
   const [sending, setSending] = useState(false);
-  const [experience, setExperience] = useState('regular');
-
-  const [writingStyle, setWritingStyle] = useState('default');
-  const [sources, setSources] = useState(['cmc', 'news', 'exchange', 'tradfi']);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const [profileId, setProfileId] = useState<string | null>(null);
@@ -524,34 +353,30 @@ function NewChatInner() {
           </div>
         </div>
 
-        {/* Config */}
-        <div className="w-full grid grid-cols-3 gap-3 mt-4">
-          <div className="bg-surface border border-border3 rounded-xl p-3">
-            <label className="text-[11px] text-white/30 mb-1.5 block">Crypto Experience</label>
-            <Dropdown
-              label="Crypto Experience"
-              options={experienceOptions}
-              value={experience}
-              onChange={setExperience}
-            />
-          </div>
-          <div className="bg-surface border border-border3 rounded-xl p-3">
-            <label className="text-[11px] text-white/30 mb-1.5 block">Writing Style</label>
-            <Dropdown
-              label="Writing Style"
-              options={writingStyleOptions}
-              value={writingStyle}
-              onChange={setWritingStyle}
-            />
-          </div>
-          <div className="bg-surface border border-border3 rounded-xl p-3">
-            <label className="text-[11px] text-white/30 mb-1.5 block">Sources</label>
-            <ToggleDropdown
-              label="Sources"
-              options={sourceOptions}
-              values={sources}
-              onChange={setSources}
-            />
+        {/* How to use */}
+        <div className="w-full mt-8 pt-6 border-t border-border3/30">
+          <div className="grid grid-cols-3 gap-4">
+            <div className="text-center">
+              <div className="w-8 h-8 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center mx-auto mb-2.5">
+                <span className="text-[13px] font-semibold text-accent">1</span>
+              </div>
+              <p className="text-[12px] font-medium text-white/70 mb-0.5">Select Portfolio</p>
+              <p className="text-[11px] text-white/30 leading-snug">Use real holdings or simulate one</p>
+            </div>
+            <div className="text-center">
+              <div className="w-8 h-8 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center mx-auto mb-2.5">
+                <span className="text-[13px] font-semibold text-accent">2</span>
+              </div>
+              <p className="text-[12px] font-medium text-white/70 mb-0.5">Ask Your Question</p>
+              <p className="text-[11px] text-white/30 leading-snug">Ask about risks or anything on your mind</p>
+            </div>
+            <div className="text-center">
+              <div className="w-8 h-8 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center mx-auto mb-2.5">
+                <span className="text-[13px] font-semibold text-accent">3</span>
+              </div>
+              <p className="text-[12px] font-medium text-white/70 mb-0.5">Review & Chat</p>
+              <p className="text-[11px] text-white/30 leading-snug">Review results, then chat further about risks</p>
+            </div>
           </div>
         </div>
       </div>
