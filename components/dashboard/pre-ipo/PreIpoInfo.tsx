@@ -48,6 +48,7 @@ export default function PreIpoInfo({ industry, employees, website, mint, tokenPr
           <DetailRow label="Mark Valuation" value={formatValuation(markValuation)} />
           <DetailRow label="Implied Valuation" value={formatValuation(impliedValuation)} />
           <DetailRow label="Supply" value={supply > 0 ? `${supply.toLocaleString(undefined, { maximumFractionDigits: 0 })} ${assetSymbol}` : '—'} />
+          <DetailRow label="Blockchain" value="Solana" />
           <div className="flex items-center justify-between">
             <span className="text-white/40">Mint Address</span>
             <div className="flex items-center gap-1.5">

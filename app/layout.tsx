@@ -6,7 +6,7 @@ import { PriceProvider } from "@/contexts/PriceContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Wayfind | AI Risk Engine for Tokenized Equities",
+  title: "Wayfind | AI Risk Engine for Tokenized Equities on Solana & Across Web3",
   description:
   "Wayfind uses AI to evaluate tokenized equity portfolios, uncover hidden risks, and find personalized ways to rebalance and put your assets to work across Web3.",
 };
