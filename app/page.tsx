@@ -4,7 +4,6 @@ import Header from '@/components/landing/Header';
 import Hero from '@/components/landing/Hero';
 import Problem from '@/components/landing/Problem';
 import HowItWorks from '@/components/landing/HowItWorks';
-import Differentiator from '@/components/landing/Differentiator';
 import CTA from '@/components/landing/CTA';
 import Pricing from '@/components/landing/Pricing';
 import FAQ from '@/components/landing/FAQ';
