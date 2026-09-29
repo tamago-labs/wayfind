@@ -430,7 +430,7 @@ export default function ReviewPage() {
                     }`}
                   >
                     {saved ? <Check className="w-4 h-4" /> : <Save className="w-4 h-4" />}
-                    {saved ? 'Saved' : 'Save Review'}
+                    {saved ? 'Saved' : 'Save Review & Chat'}
                   </button>
                 </div>
               </div>

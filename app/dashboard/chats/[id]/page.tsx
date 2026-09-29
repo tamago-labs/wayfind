@@ -2,7 +2,7 @@
 
 import { useParams, useSearchParams, useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
-import { Send, MoreVertical, Trash2, X } from 'lucide-react';
+import { Send, MoreVertical, Trash2, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useClient, useSignAndSendTransaction } from '@solana/react';
 import TradeBox from '@/components/dashboard/chats/TradeBox';
@@ -209,7 +209,7 @@ export default function ChatSession() {
       <div className="flex-1 flex flex-col grid-bg overflow-hidden relative min-w-0">
         <div className="absolute w-[500px] h-[500px] top-1/2 -translate-y-1/2 -left-48 rounded-full blur-[120px] opacity-25 bg-accent pointer-events-none" />
         <div className="border-b border-border3/50 px-6 py-4 relative z-1 flex items-center justify-between">
-          <h1 className="font-display text-lg font-semibold">Chat Session</h1>
+          <h1 className="font-display text-lg font-semibold">Chat About This Review</h1>
           <div className="relative">
             <button onClick={() => setMenuOpen(!menuOpen)} className="p-1.5 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/[0.04] transition-colors">
               <MoreVertical className="w-4 h-4" />
@@ -305,34 +305,34 @@ export default function ChatSession() {
             <div className="flex items-center gap-3">
               <ScoreDonut score={review.report.overallScore} size={64} />
               <div className="min-w-0">
-                <p className={`text-[16px] font-bold ${scoreColor(review.report.overallScore)}`}>{review.report.overallScore}</p>
-                <p className="text-[12px] text-white/60">{review.report.overallLabel} Risk</p>
-                <p className="text-[10px] text-white/30 truncate">{review.portfolioName}</p>
+                <p className={`text-[13px] font-semibold ${scoreColor(review.report.overallScore)}`}>{review.report.overallLabel} Risk</p>
+                <p className="text-[10px] text-white/30 truncate">Portfolio: {review.portfolioName}</p>
               </div>
             </div>
           </div>
           <div className="p-4 flex-1 flex flex-col gap-3 overflow-y-auto">
-            <p className="text-[11px] text-white/50 leading-relaxed line-clamp-3">{review.report.overallSummary}</p>
-            <div className="space-y-1.5">
-              {[
-                { name: 'Concentration', score: review.report.deterministicFactors.concentration },
-                { name: 'Market Exposure', score: review.report.deterministicFactors.marketExposure },
-                { name: 'Liquidity', score: review.report.deterministicFactors.liquidity },
-                { name: 'Issuer Risk', score: review.report.deterministicFactors.issuer },
-                { name: 'Fundamentals', score: review.report.fundamentalsScore },
-                { name: 'On-chain', score: review.report.onchainScore },
-              ].map((f) => (
-                <div key={f.name} className="flex items-center justify-between">
-                  <span className="text-[11px] text-white/55">{f.name}</span>
-                  <span className={`text-[12px] font-semibold ${scoreColor(f.score)}`}>{f.score}</span>
-                </div>
-              ))}
+            <p className="text-[11px] text-white/50 leading-relaxed">{review.report.overallSummary}</p>
+            <div>
+              <p className="text-[10px] uppercase tracking-wider text-white/30 mb-1.5">Holdings</p>
+              <div className="space-y-1.5">
+                {review.holdings?.filter(h => h.balance > 0.00001 && h.price > 0).sort((a, b) => b.balance * b.price - a.balance * a.price).map(h => {
+                  const val = h.balance * h.price;
+                  const total = review.report.portfolioStats?.totalValue || 1;
+                  return (
+                    <div key={h.symbol} className="flex items-center justify-between">
+                      <span className="text-[11px] text-white/60">{h.symbol}</span>
+                      <span className="text-[11px] text-white/45">${val.toLocaleString(undefined, { maximumFractionDigits: 2 })} ({(val / total * 100).toFixed(1)}%)</span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             <button
               onClick={() => setReviewDrawer(true)}
-              className="text-[11px] text-accent hover:text-accent/80 transition-colors text-left mt-auto"
+              className="flex items-center gap-1.5 text-[11px] text-accent hover:text-accent/80 transition-colors text-left mt-auto"
             >
-              View full analysis →
+              View factor breakdown
+              <ArrowRight className="w-3 h-3" />
             </button>
           </div>
         </div>
@@ -352,8 +352,8 @@ export default function ChatSession() {
                 <div className="flex items-center gap-3">
                   <ScoreDonut score={review.report.overallScore} size={48} />
                   <div>
-                    <p className={`text-[14px] font-bold ${scoreColor(review.report.overallScore)}`}>{review.report.overallScore} — {review.report.overallLabel} Risk</p>
-                    <p className="text-[11px] text-white/40">{review.portfolioName}</p>
+                     <p className={`text-[14px] font-bold ${scoreColor(review.report.overallScore)}`}>{review.report.overallLabel} Risk</p>
+                     <p className="text-[11px] text-white/40">Portfolio: {review.portfolioName}</p>
                   </div>
                 </div>
                 <button onClick={() => setReviewDrawer(false)} className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/[0.06]">
@@ -365,39 +365,6 @@ export default function ChatSession() {
                   <p className="text-[11px] uppercase tracking-wider text-white/30 mb-2">Summary</p>
                   <p className="text-[13px] text-white/65 leading-relaxed">{review.report.overallSummary}</p>
                   {review.report.personalizationNote && <p className="text-[12px] text-white/40 mt-2 italic">{review.report.personalizationNote}</p>}
-                </div>
-                <div>
-                  <p className="text-[11px] uppercase tracking-wider text-white/30 mb-2">Holdings</p>
-                  <div className="space-y-2">
-                    {review.holdings?.filter(h => h.balance > 0.00001 && h.price > 0).sort((a, b) => b.balance * b.price - a.balance * a.price).map(h => {
-                      const val = h.balance * h.price;
-                      const total = review.report.portfolioStats?.totalValue || 1;
-                      return (
-                        <div key={h.symbol} className="flex items-center justify-between">
-                          <div>
-                            <p className="text-[12px] text-white/80">{h.symbol}</p>
-                            <p className="text-[10px] text-white/35">{h.balance.toLocaleString(undefined, { maximumFractionDigits: 6 })}</p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-[12px] text-white/75">${val.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
-                            <p className="text-[10px] text-white/35">{(val / total * 100).toFixed(1)}%</p>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                <div>
-                  <p className="text-[11px] uppercase tracking-wider text-white/30 mb-2">Prompt & Answers</p>
-                  <p className="text-[12px] text-white/70 mb-2">{review.prompt}</p>
-                  <div className="space-y-1.5">
-                    {Object.values(review.answers).map((qa, i) => (
-                      <div key={i} className="text-[11px]">
-                        <span className="text-white/40">{qa.q}</span>
-                        <span className="text-white/60 ml-1.5">→ {qa.a}</span>
-                      </div>
-                    ))}
-                  </div>
                 </div>
                 <div>
                   <p className="text-[11px] uppercase tracking-wider text-white/30 mb-2">Factor Breakdown</p>
@@ -433,6 +400,16 @@ export default function ChatSession() {
                       </li>
                     ))}
                   </ul>
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-wider text-white/30 mb-2">Your Answers</p>
+                  <div className="space-y-1.5">
+                    {Object.values(review.answers).map((qa, i) => (
+                      <div key={i} className="text-[11px] text-white/45 leading-relaxed">
+                        <span className="text-white/55">{qa.q}</span> <span className="text-white/30">→</span> {qa.a}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </motion.div>

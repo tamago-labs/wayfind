@@ -242,7 +242,8 @@ export default function Topbar() {
             </div>
           )}
         </motion.div>
-      ) : null}
+      ) : <div>
+</div>}
 
       <div className="flex items-center gap-3 relative shrink-0 ml-2">
         <button
