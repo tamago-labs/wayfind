@@ -3,9 +3,12 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ArrowLeft, Check, AlertTriangle, RotateCcw, ChevronRight, X, Save } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, AlertTriangle, RotateCcw, ChevronRight, X, Save, Wallet } from 'lucide-react';
 import { generateClient } from 'aws-amplify/data';
 import type { Schema } from '@/amplify/data/resource';
+import { useConnectedWallet } from '@solana/kit-plugin-wallet/react';
+import { useClient } from '@solana/react';
+import type { AppClient } from '@/components/SolanaWalletProvider';
 
 const dataClient = generateClient<Schema>();
 
@@ -109,6 +112,10 @@ function ScoreDonut({ score, size = 150 }: { score: number; size?: number }) {
 
 export default function ReviewPage() {
   const router = useRouter();
+  const client = useClient<AppClient>();
+  const connected = useConnectedWallet(client);
+  const walletAddress = connected ? String(connected.account.address) : null;
+  const [connectedProfileId, setConnectedProfileId] = useState<string | null>(null);
   const [data, setData] = useState<ReviewData | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [loaded, setLoaded] = useState(false);
@@ -120,13 +127,14 @@ export default function ReviewPage() {
 
   const handleSave = async () => {
     if (!result || !data || saved) return;
+    const targetProfileId = connectedProfileId || data.userProfileId;
     try {
       const enrichedAnswers: Record<string, { q: string; a: string }> = {};
       for (const q of data.questions) {
         enrichedAnswers[q.id] = { q: q.question, a: answers[q.id] ?? "" };
       }
       await dataClient.models.SavedReview.create({
-        userProfileId: data.userProfileId,
+        userProfileId: targetProfileId,
         portfolioName: data.portfolioName,
         prompt: data.prompt,
         holdings: JSON.stringify(data.holdings),
@@ -161,6 +169,21 @@ export default function ReviewPage() {
     }
     setLoaded(true);
   }, []);
+
+  useEffect(() => {
+    if (!walletAddress) { setConnectedProfileId(null); return; }
+    void (async () => {
+      try {
+        const { data: profiles } = await dataClient.models.UserProfile.list({ filter: { walletAddress: { eq: walletAddress } } });
+        if (profiles && profiles.length > 0) {
+          setConnectedProfileId(profiles[0].id);
+        } else {
+          const { data: created } = await dataClient.models.UserProfile.create({ walletAddress, credits: 1000 });
+          if (created) setConnectedProfileId(created.id);
+        }
+      } catch (err) { console.error('[Review] profile load failed:', err); }
+    })();
+  }, [walletAddress]);
 
   // Rotating analyzing messages
   useEffect(() => {
@@ -413,25 +436,32 @@ export default function ReviewPage() {
 
                 {/* Actions */}
                 <div className="flex items-center gap-3 mt-auto pb-1">
-                  <button
+               {/*   <button
                     onClick={() => handleNewReview()}
                     className="flex items-center gap-2 px-4 h-10 rounded-lg text-[13px] font-medium text-white/60 border border-border3/50 hover:text-white hover:bg-white/[0.04] transition-colors"
                   >
                     New Review
                     <ArrowRight className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => void handleSave()}
-                    disabled={saved}
-                    className={`flex items-center gap-2 px-4 h-10 rounded-lg text-[13px] font-medium transition-colors ${
-                      saved
-                        ? 'bg-emerald-400/15 text-emerald-400 border border-emerald-400/30'
-                        : 'bg-accent text-white hover:bg-accent/80'
-                    }`}
-                  >
-                    {saved ? <Check className="w-4 h-4" /> : <Save className="w-4 h-4" />}
-                    {saved ? 'Saved' : 'Save Review & Chat'}
-                  </button>
+                  </button>*/}
+                  {!walletAddress ? (
+                    <div className="flex items-center gap-2 px-4 h-10 rounded-lg text-[13px] font-medium text-white/30 border border-border3/30">
+                      <Wallet className="w-4 h-4" />
+                      Connect wallet to save
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => void handleSave()}
+                      disabled={saved}
+                      className={`flex items-center gap-2 px-4 h-10 rounded-lg text-[13px] font-medium transition-colors ${
+                        saved
+                          ? 'bg-emerald-400/15 text-emerald-400 border border-emerald-400/30'
+                          : 'bg-accent text-white hover:bg-accent/80'
+                      }`}
+                    >
+                      {saved ? <Check className="w-4 h-4" /> : <Save className="w-4 h-4" />}
+                      {saved ? 'Saved' : 'Save Review & Chat'}
+                    </button>
+                  )}
                 </div>
               </div>
             </motion.div>

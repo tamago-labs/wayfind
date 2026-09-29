@@ -209,7 +209,7 @@ export default function ChatSession() {
       <div className="flex-1 flex flex-col grid-bg overflow-hidden relative min-w-0">
         <div className="absolute w-[500px] h-[500px] top-1/2 -translate-y-1/2 -left-48 rounded-full blur-[120px] opacity-25 bg-accent pointer-events-none" />
         <div className="border-b border-border3/50 px-6 py-4 relative z-1 flex items-center justify-between">
-          <h1 className="font-display text-lg font-semibold">Chat About This Review</h1>
+          <h1 className="font-display text-lg font-semibold">Chat Further With AI</h1>
           <div className="relative">
             <button onClick={() => setMenuOpen(!menuOpen)} className="p-1.5 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/[0.04] transition-colors">
               <MoreVertical className="w-4 h-4" />
