@@ -165,7 +165,7 @@ export default function ChatSession() {
       const res = await fetch(process.env.NEXT_PUBLIC_CHAT_API_URL || '', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId: id, message, walletAddress }),
+        body: JSON.stringify({ reviewId: id, message }),
       });
       if (!res.ok) throw new Error('Request failed');
       const reader = res.body?.getReader();
