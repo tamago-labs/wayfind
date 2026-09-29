@@ -13,8 +13,14 @@ export function createTriageAgent(reviewId?: string, reviewSummary?: string) {
   const handoffs: Agent[] = [];
   if (reviewId && reviewSummary) {
     handoffs.push(createReviewChatAgent(reviewId, reviewSummary));
+  } else {
+    console.warn("[triage] missing reviewId or reviewSummary — Review Chat Agent unavailable");
   }
   handoffs.push(marketResearchAgent, newsIntelligenceAgent, preIpoTradingAgent);
+
+  if (handoffs.length === 0) {
+    throw new Error("No specialist agents available");
+  }
 
   return new Agent({
     name: "Wayfin Triage",
