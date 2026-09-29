@@ -1,7 +1,7 @@
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
 import { streamifyResponse, ResponseStream } from "lambda-stream";
 import { generateClient } from "aws-amplify/data";
-import type { Schema } from "@/../amplify/data/resource";
+import type { Schema } from "../../data/resource";
 import { run } from "@openai/agents";
 import { env } from "$amplify/env/chat-further";
 import { Amplify } from "aws-amplify";
@@ -19,7 +19,7 @@ function estimateTokens(text: string): number {
   return Math.ceil(text.length / 4);
 }
 
-function buildReviewSummary(review: any): string {
+function buildReviewSummary(review: Record<string, any>): string {
   try {
     const report = JSON.parse(review.report as string);
     const holdings = JSON.parse(review.holdings as string);
@@ -81,12 +81,13 @@ async function chatStreamHandler(
 
   try {
     // Load review
-    const { data: review } = await dataClient.models.SavedReview.get({ id: reviewId });
-    if (!review) {
+    const { data: reviewRaw } = await dataClient.models.SavedReview.get({ id: reviewId });
+    if (!reviewRaw) {
       responseStream.write("data: " + JSON.stringify({ error: "Review not found" }) + "\n\n");
       responseStream.end();
       return;
     }
+    const review = reviewRaw as any;
 
     // Load chat history from review.chats
     let chatItems: any[] = [];
@@ -186,9 +187,10 @@ async function chatStreamHandler(
     try {
       const { data: profile } = await dataClient.models.UserProfile.get({ id: review.userProfileId as string });
       if (profile) {
-        const newCredits = Math.max(0, (profile.credits ?? 0) - creditsUsed);
+        const p = profile as any;
+        const newCredits = Math.max(0, (p.credits ?? 0) - creditsUsed);
         await dataClient.models.UserProfile.update({
-          id: profile.id,
+          id: p.id,
           credits: newCredits,
         });
       }

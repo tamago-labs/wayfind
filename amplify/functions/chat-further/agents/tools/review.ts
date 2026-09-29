@@ -4,7 +4,7 @@ import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/data";
 import { getAmplifyDataClientConfig } from "@aws-amplify/backend/function/runtime";
 import { env } from "$amplify/env/chat-further";
-import type { Schema } from "@/../amplify/data/resource";
+import type { Schema } from "../../data/resource";
 
 export const getReviewDetails = tool({
   name: "get_review_details",
@@ -20,9 +20,10 @@ export const getReviewDetails = tool({
     const { data: review } = await client.models.SavedReview.get({ id: reviewId });
     if (!review) return JSON.stringify({ error: "Review not found" });
 
-    const report = JSON.parse(review.report as string);
-    const holdings = JSON.parse(review.holdings as string);
-    const answers = JSON.parse(review.answers as string);
+    const r = review as any;
+    const report = JSON.parse(r.report as string);
+    const holdings = JSON.parse(r.holdings as string);
+    const answers = JSON.parse(r.answers as string);
 
     return JSON.stringify({
       overallScore: report.overallScore,
