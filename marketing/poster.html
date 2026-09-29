@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wayfind Poster C</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Tokyo+Zoo&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { dark: '#0B0B0F', zenblue: '#3B82F6', zenpurple: '#8B5CF6' },
+          fontFamily: { display: ['Space Grotesk', 'sans-serif'], brand: ['Zen Tokyo Zoo', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    .crosshair {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border: 1px solid rgba(59,130,246,0.3);
+      border-radius: 50%;
+    }
+    .crosshair::before, .crosshair::after {
+      content: '';
+      position: absolute;
+      background: rgba(59,130,246,0.3);
+    }
+    .crosshair::before { width: 1px; height: 30px; left: 14px; top: 0; }
+    .crosshair::after { width: 30px; height: 1px; top: 14px; left: 0; }
+  </style>
+</head>
+<body class="bg-dark w-[1200px] h-[630px] flex items-center justify-center font-display relative overflow-hidden">
+  <!-- Crosshair elements -->
+  <div class="crosshair" style="top: 80px; left: 250px;"></div>
+  <div class="crosshair" style="top: 400px; right: 180px;"></div>
+  <div class="crosshair" style="bottom: 100px; left: 500px;"></div>
+  <!-- Large faded text behind -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-brand text-[200px] text-white/[0.03] rotate-[-10deg] select-none">W</div>
+  <!-- Content -->
+  <div class="relative z-10 grid grid-cols-2 gap-16 w-full px-20 items-center">
+    <div>
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-zenblue to-zenpurple flex items-center justify-center">
+          <span class="font-brand text-white text-[26px] rotate-[-10deg]">W</span>
+        </div>
+        <span class="text-xl font-bold text-white tracking-tight">Introducing Wayfind</span>
+      </div>
+      <h2 class="text-3xl font-bold text-white leading-snug">
+        See what you own. Understand what's at risk. Find your next move.
+      </h2>
+    </div>
+    <div class="space-y-4">
+      <div class="bg-white/[0.04] border border-white/[0.08] rounded-lg px-5 py-4">
+        <p class="text-white/70 text-sm">Concentration risk</p>
+        <div class="w-full bg-white/[0.06] rounded-full h-1.5 mt-2">
+          <div class="bg-gradient-to-r from-zenblue to-zenpurple h-1.5 rounded-full" style="width: 72%"></div>
+        </div>
+      </div>
+      <div class="bg-white/[0.04] border border-white/[0.08] rounded-lg px-5 py-4">
+        <p class="text-white/70 text-sm">Issuer quality</p>
+        <div class="w-full bg-white/[0.06] rounded-full h-1.5 mt-2">
+          <div class="bg-gradient-to-r from-zenblue to-zenpurple h-1.5 rounded-full" style="width: 45%"></div>
+        </div>
+      </div>
+      <div class="bg-white/[0.04] border border-white/[0.08] rounded-lg px-5 py-4">
+        <p class="text-white/70 text-sm">Hidden exposure</p>
+        <div class="w-full bg-white/[0.06] rounded-full h-1.5 mt-2">
+          <div class="bg-gradient-to-r from-zenblue to-zenpurple h-1.5 rounded-full" style="width: 31%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

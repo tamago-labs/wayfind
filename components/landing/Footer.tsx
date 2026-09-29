@@ -7,8 +7,7 @@ export default function Footer() {
         <p className="text-[12px] text-white/30">© 2026 Tamago Labs</p>
         <div className="flex items-center gap-6 text-[12px] text-white/30">
           <Link href="https://github.com/tamago-labs/wayfind" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors">GitHub</Link>
-          <Link href="#" className="hover:text-white/60 transition-colors">Docs</Link>
-          <Link href="#" className="hover:text-white/60 transition-colors">Twitter</Link>
+          <Link href="https://x.com/WayfindZZZ" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors">Twitter/X</Link>
         </div>
       </div>
     </footer>
