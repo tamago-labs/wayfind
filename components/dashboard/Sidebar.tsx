@@ -20,6 +20,18 @@ const navItems = [
 
 ];
 
+function relativeTime(dateStr: string): string {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  if (days < 7) return `${days}d ago`;
+  return new Date(dateStr).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+}
+
 const dataClient = generateClient<Schema>();
 
 export default function Sidebar() {
@@ -29,7 +41,7 @@ export default function Sidebar() {
   const walletAddress = connected ? String(connected.account.address) : null;
   const [chatsOpen, setChatsOpen] = useState(false);
   const [profileId, setProfileId] = useState<string | null>(null);
-  const [reviews, setReviews] = useState<Array<{ id: string; portfolioName: string; overallScore: number; overallLabel: string }>>([]);
+  const [reviews, setReviews] = useState<Array<{ id: string; portfolioName: string; overallScore: number; overallLabel: string; createdAt: string }>>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -52,15 +64,15 @@ export default function Sidebar() {
       filter: { userProfileId: { eq: profileId } },
     }).then((res) => {
       setReviews((res.data ?? [])
-        .map((r) => ({ id: r.id, portfolioName: r.portfolioName, overallScore: r.overallScore, overallLabel: r.overallLabel }))
-        .sort((a, b) => (b.id > a.id ? 1 : -1))
+        .map((r) => ({ id: r.id, portfolioName: r.portfolioName, overallScore: r.overallScore, overallLabel: r.overallLabel, createdAt: r.createdAt }))
+        .sort((a, b) => (b.createdAt > a.createdAt ? 1 : -1))
         .slice(0, 20));
     }).catch(() => {
       setReviews([]);
     }).finally(() => {
       setLoading(false);
     });
-  }, [profileId, pathname]);
+  }, [profileId, pathname, chatsOpen]);
 
   return (
     <aside className="w-56 h-screen border-r border-border3/50 bg-surface flex flex-col fixed left-0 top-0">
@@ -141,8 +153,8 @@ export default function Sidebar() {
                            }`}
                          >
                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${review.overallScore <= 60 ? 'bg-yellow-400' : review.overallScore <= 80 ? 'bg-orange-400' : 'bg-red-400'}`} />
-                           <span className="truncate flex-1">{review.portfolioName}</span>
-                           <span className="text-white/25 shrink-0">{review.overallScore}</span>
+                           <span className="truncate flex-1 font-mono text-[11px]">{review.id.slice(0, 8)}…</span>
+                           <span className="text-white/25 shrink-0 text-[10px]">{relativeTime(review.createdAt)}</span>
                          </Link>
                        );
                      })

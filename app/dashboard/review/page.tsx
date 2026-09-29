@@ -121,12 +121,16 @@ export default function ReviewPage() {
   const handleSave = async () => {
     if (!result || !data || saved) return;
     try {
+      const enrichedAnswers: Record<string, { q: string; a: string }> = {};
+      for (const q of data.questions) {
+        enrichedAnswers[q.id] = { q: q.question, a: answers[q.id] ?? "" };
+      }
       await dataClient.models.SavedReview.create({
         userProfileId: data.userProfileId,
         portfolioName: data.portfolioName,
         prompt: data.prompt,
         holdings: JSON.stringify(data.holdings),
-        answers: JSON.stringify(answers),
+        answers: JSON.stringify(enrichedAnswers),
         report: JSON.stringify(result),
         overallScore: result.overallScore,
         overallLabel: result.overallLabel,
@@ -180,12 +184,16 @@ export default function ReviewPage() {
     if (!allAnswered || !data?.userProfileId || !data.holdings?.length) return;
     setPhase('analyzing');
     try {
+      const enrichedAnswers: Record<string, { q: string; a: string }> = {};
+      for (const q of data.questions) {
+        enrichedAnswers[q.id] = { q: q.question, a: answers[q.id] ?? "" };
+      }
       const { data: resData, errors } = await dataClient.queries.riskReview({
         action: 'runAnalysis',
         userProfileId: data.userProfileId,
         prompt: data.prompt,
         holdings: JSON.stringify(data.holdings),
-        answers: JSON.stringify(answers),
+        answers: JSON.stringify(enrichedAnswers),
       });
       if (errors?.length) console.error('[Review] runAnalysis errors:', errors);
       const parsed = typeof resData === 'string' ? JSON.parse(resData) : resData;
@@ -406,23 +414,23 @@ export default function ReviewPage() {
                 {/* Actions */}
                 <div className="flex items-center gap-3 mt-auto pb-1">
                   <button
+                    onClick={() => handleNewReview()}
+                    className="flex items-center gap-2 px-4 h-10 rounded-lg text-[13px] font-medium text-white/60 border border-border3/50 hover:text-white hover:bg-white/[0.04] transition-colors"
+                  >
+                    New Review
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                  <button
                     onClick={() => void handleSave()}
                     disabled={saved}
                     className={`flex items-center gap-2 px-4 h-10 rounded-lg text-[13px] font-medium transition-colors ${
                       saved
-                        ? 'text-emerald-400 border border-emerald-400/30 bg-emerald-400/5'
-                        : 'text-white/60 border border-border3/50 hover:text-white hover:bg-white/[0.04]'
+                        ? 'bg-emerald-400/15 text-emerald-400 border border-emerald-400/30'
+                        : 'bg-accent text-white hover:bg-accent/80'
                     }`}
                   >
                     {saved ? <Check className="w-4 h-4" /> : <Save className="w-4 h-4" />}
                     {saved ? 'Saved' : 'Save Review'}
-                  </button>
-                  <button
-                    onClick={() => handleNewReview()}
-                    className="flex items-center gap-2 px-4 h-10 rounded-lg bg-accent text-white text-[13px] font-medium hover:bg-accent/80 transition-colors"
-                  >
-                    New Review
-                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>

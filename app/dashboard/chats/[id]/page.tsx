@@ -48,6 +48,7 @@ interface ReviewReport {
   personalizationNote: string;
   hiddenRisks: string[];
   deterministicFactors: { concentration: number; marketExposure: number; liquidity: number; issuer: number; };
+  portfolioStats?: { totalValue: number; largestPct: number; top3Pct: number; };
 }
 
 function scoreColor(score: number): string {
@@ -97,7 +98,8 @@ export default function ChatSession() {
   const walletAddress = connected ? String(connected.account.address) : null;
   const signAndSend = connected?.account ? useSignAndSendTransaction(connected.account, "solana:mainnet") : null;
   const id = params.id as string;
-  const [review, setReview] = useState<{ portfolioName: string; report: ReviewReport } | null>(null);
+  const [review, setReview] = useState<{ portfolioName: string; report: ReviewReport; prompt: string; holdings: Array<{ symbol: string; name?: string; balance: number; price: number }>; answers: Record<string, { q: string; a: string }> } | null>(null);
+  const [reviewDrawer, setReviewDrawer] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [trades, setTrades] = useState<Trade[]>([]);
   const [input, setInput] = useState('');
@@ -123,8 +125,13 @@ export default function ChatSession() {
   useEffect(() => {
     dataClient.models.SavedReview.get({ id }).then((res) => {
       if (res.data?.report) {
-        const report = JSON.parse(res.data.report as string) as ReviewReport;
-        setReview({ portfolioName: res.data.portfolioName, report });
+        setReview({
+          portfolioName: res.data.portfolioName,
+          prompt: res.data.prompt,
+          holdings: res.data.holdings ? JSON.parse(res.data.holdings as string) : [],
+          answers: res.data.answers ? JSON.parse(res.data.answers as string) : {},
+          report: JSON.parse(res.data.report as string) as ReviewReport,
+        });
         const chats = res.data.chats ? JSON.parse(res.data.chats as string) : [];
         if (Array.isArray(chats) && chats.length > 0) setMessages(chats);
       }
@@ -291,59 +298,147 @@ export default function ChatSession() {
         </div>
       </div>
 
-      {/* Review panel (right) */}
+      {/* Review panel (right, compact) */}
       {review && (
-        <div className="w-80 shrink-0 border-l border-border3/50 bg-surface overflow-y-auto flex flex-col">
+        <div className="w-72 shrink-0 border-l border-border3/50 bg-surface overflow-y-auto flex flex-col">
           <div className="p-4 border-b border-border3/40">
-            <p className="text-[10px] uppercase tracking-wider text-white/30 mb-2">Review Context</p>
             <div className="flex items-center gap-3">
-              <ScoreDonut score={review.report.overallScore} />
-              <div>
-                <p className={`text-[14px] font-semibold ${scoreColor(review.report.overallScore)}`}>{review.report.overallLabel} Risk</p>
-                <p className="text-[11px] text-white/40">{review.portfolioName}</p>
+              <ScoreDonut score={review.report.overallScore} size={64} />
+              <div className="min-w-0">
+                <p className={`text-[16px] font-bold ${scoreColor(review.report.overallScore)}`}>{review.report.overallScore}</p>
+                <p className="text-[12px] text-white/60">{review.report.overallLabel} Risk</p>
+                <p className="text-[10px] text-white/30 truncate">{review.portfolioName}</p>
               </div>
             </div>
           </div>
-          <div className="p-4 flex-1 space-y-4">
-            <p className="text-[12px] text-white/55 leading-relaxed">{review.report.overallSummary}</p>
-            {review.report.personalizationNote && (
-              <p className="text-[11px] text-white/35 leading-relaxed italic">{review.report.personalizationNote}</p>
-            )}
-            <div className="space-y-2.5">
+          <div className="p-4 flex-1 flex flex-col gap-3 overflow-y-auto">
+            <p className="text-[11px] text-white/50 leading-relaxed line-clamp-3">{review.report.overallSummary}</p>
+            <div className="space-y-1.5">
               {[
-                { name: 'Concentration', score: review.report.deterministicFactors.concentration, explanation: review.report.factorExplanations.concentration },
-                { name: 'Market Exposure', score: review.report.deterministicFactors.marketExposure, explanation: review.report.factorExplanations.marketExposure },
-                { name: 'Liquidity', score: review.report.deterministicFactors.liquidity, explanation: review.report.factorExplanations.liquidity },
-                { name: 'Issuer Risk', score: review.report.deterministicFactors.issuer, explanation: review.report.factorExplanations.issuer },
-                { name: 'Fundamentals', score: review.report.fundamentalsScore, explanation: review.report.fundamentalsExplanation },
-                { name: 'On-chain Factors', score: review.report.onchainScore, explanation: review.report.onchainExplanation },
+                { name: 'Concentration', score: review.report.deterministicFactors.concentration },
+                { name: 'Market Exposure', score: review.report.deterministicFactors.marketExposure },
+                { name: 'Liquidity', score: review.report.deterministicFactors.liquidity },
+                { name: 'Issuer Risk', score: review.report.deterministicFactors.issuer },
+                { name: 'Fundamentals', score: review.report.fundamentalsScore },
+                { name: 'On-chain', score: review.report.onchainScore },
               ].map((f) => (
-                <div key={f.name}>
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-[11px] text-white/60">{f.name}</span>
-                    <span className={`text-[11px] font-semibold ${scoreColor(f.score)}`}>{f.score}</span>
-                  </div>
-                  <div className="h-1 bg-white/[0.05] rounded-full overflow-hidden">
-                    <motion.div initial={{ width: 0 }} animate={{ width: `${f.score}%` }} transition={{ duration: 0.5 }} className={`h-full rounded-full ${scoreBarColor(f.score)}`} />
-                  </div>
-                  <p className="text-[10px] text-white/35 mt-1 leading-relaxed">{f.explanation}</p>
+                <div key={f.name} className="flex items-center justify-between">
+                  <span className="text-[11px] text-white/55">{f.name}</span>
+                  <span className={`text-[12px] font-semibold ${scoreColor(f.score)}`}>{f.score}</span>
                 </div>
               ))}
             </div>
-            <div>
-              <p className="text-[11px] font-semibold text-white/50 mb-2">Hidden Risks</p>
-              <ul className="space-y-1.5">
-                {review.report.hiddenRisks.map((risk, idx) => (
-                  <li key={idx} className="flex items-start gap-1.5 text-[11px] text-white/45 leading-relaxed">
-                    <span className="w-1 h-1 rounded-full bg-orange-400 mt-1.5 shrink-0" />
-                    {risk}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <button
+              onClick={() => setReviewDrawer(true)}
+              className="text-[11px] text-accent hover:text-accent/80 transition-colors text-left mt-auto"
+            >
+              View full analysis →
+            </button>
           </div>
         </div>
       )}
+
+      {/* Review detail drawer */}
+      <AnimatePresence>
+        {reviewDrawer && review && (
+          <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setReviewDrawer(false)} className="fixed inset-0 bg-black/50 z-40" />
+            <motion.div
+              initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+              className="fixed top-0 right-0 bottom-0 w-full max-w-lg bg-surface border-l border-border3 z-50 flex flex-col"
+            >
+              <div className="flex items-center justify-between px-5 py-4 border-b border-border3/50 shrink-0">
+                <div className="flex items-center gap-3">
+                  <ScoreDonut score={review.report.overallScore} size={48} />
+                  <div>
+                    <p className={`text-[14px] font-bold ${scoreColor(review.report.overallScore)}`}>{review.report.overallScore} — {review.report.overallLabel} Risk</p>
+                    <p className="text-[11px] text-white/40">{review.portfolioName}</p>
+                  </div>
+                </div>
+                <button onClick={() => setReviewDrawer(false)} className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/[0.06]">
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto px-5 py-4 space-y-5">
+                <div>
+                  <p className="text-[11px] uppercase tracking-wider text-white/30 mb-2">Summary</p>
+                  <p className="text-[13px] text-white/65 leading-relaxed">{review.report.overallSummary}</p>
+                  {review.report.personalizationNote && <p className="text-[12px] text-white/40 mt-2 italic">{review.report.personalizationNote}</p>}
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-wider text-white/30 mb-2">Holdings</p>
+                  <div className="space-y-2">
+                    {review.holdings?.filter(h => h.balance > 0.00001 && h.price > 0).sort((a, b) => b.balance * b.price - a.balance * a.price).map(h => {
+                      const val = h.balance * h.price;
+                      const total = review.report.portfolioStats?.totalValue || 1;
+                      return (
+                        <div key={h.symbol} className="flex items-center justify-between">
+                          <div>
+                            <p className="text-[12px] text-white/80">{h.symbol}</p>
+                            <p className="text-[10px] text-white/35">{h.balance.toLocaleString(undefined, { maximumFractionDigits: 6 })}</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-[12px] text-white/75">${val.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                            <p className="text-[10px] text-white/35">{(val / total * 100).toFixed(1)}%</p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-wider text-white/30 mb-2">Prompt & Answers</p>
+                  <p className="text-[12px] text-white/70 mb-2">{review.prompt}</p>
+                  <div className="space-y-1.5">
+                    {Object.values(review.answers).map((qa, i) => (
+                      <div key={i} className="text-[11px]">
+                        <span className="text-white/40">{qa.q}</span>
+                        <span className="text-white/60 ml-1.5">→ {qa.a}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-wider text-white/30 mb-2">Factor Breakdown</p>
+                  <div className="space-y-3">
+                    {[
+                      { name: 'Concentration', score: review.report.deterministicFactors.concentration, explanation: review.report.factorExplanations.concentration },
+                      { name: 'Market Exposure', score: review.report.deterministicFactors.marketExposure, explanation: review.report.factorExplanations.marketExposure },
+                      { name: 'Liquidity', score: review.report.deterministicFactors.liquidity, explanation: review.report.factorExplanations.liquidity },
+                      { name: 'Issuer Risk', score: review.report.deterministicFactors.issuer, explanation: review.report.factorExplanations.issuer },
+                      { name: 'Fundamentals', score: review.report.fundamentalsScore, explanation: review.report.fundamentalsExplanation },
+                      { name: 'On-chain Factors', score: review.report.onchainScore, explanation: review.report.onchainExplanation },
+                    ].map(f => (
+                      <div key={f.name}>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-[12px] text-white/70">{f.name}</span>
+                          <span className={`text-[12px] font-semibold ${scoreColor(f.score)}`}>{f.score}</span>
+                        </div>
+                        <div className="h-1.5 bg-white/[0.05] rounded-full overflow-hidden mb-1">
+                          <motion.div initial={{ width: 0 }} animate={{ width: `${f.score}%` }} transition={{ duration: 0.5 }} className={`h-full rounded-full ${scoreBarColor(f.score)}`} />
+                        </div>
+                        <p className="text-[11px] text-white/45 leading-relaxed">{f.explanation}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-wider text-white/30 mb-2">Hidden Risks</p>
+                  <ul className="space-y-2">
+                    {review.report.hiddenRisks.map((risk, i) => (
+                      <li key={i} className="flex items-start gap-2 text-[12px] text-white/55 leading-relaxed">
+                        <span className="w-1 h-1 rounded-full bg-orange-400 mt-1.5 shrink-0" />
+                        {risk}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

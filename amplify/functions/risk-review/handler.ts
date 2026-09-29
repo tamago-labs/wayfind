@@ -265,11 +265,11 @@ function buildAnalysisPrompt(
   enriched: EnrichedHolding[],
   totalValue: number,
   factors: ReturnType<typeof computeDeterministicFactors>,
-  answers: Record<string, string>
+  answers: Record<string, { q: string; a: string }>
 ): string {
   const formatSector = (s: { sector: string; pct: number }) => "- " + s.sector + ": " + s.pct.toFixed(1) + "%";
-  const answerLines = Object.entries(answers)
-    .map(([id, value]) => "- " + id + ": " + value)
+  const answerLines = Object.values(answers)
+    .map((qa) => "- " + (qa.q || "Question") + " → " + qa.a)
     .join("\n");
 
   return `The user asked: "${prompt}"
@@ -333,7 +333,7 @@ export const handler: Schema["riskReview"]["functionHandler"] = async (event) =>
 
     const prompt = typeof rawPrompt === "string" ? rawPrompt : "";
     const holdings: Holding[] = typeof rawHoldings === "string" ? JSON.parse(rawHoldings) : (rawHoldings ?? []);
-    const answers: Record<string, string> =
+    const answers: Record<string, { q: string; a: string }> =
       typeof rawAnswers === "string" ? JSON.parse(rawAnswers) : (rawAnswers ?? {});
 
     console.log("[risk-review] called with:", {
