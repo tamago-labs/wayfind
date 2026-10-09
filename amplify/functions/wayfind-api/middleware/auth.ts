@@ -6,7 +6,7 @@ import type { Schema } from "../../../data/resource";
 
 let cachedClient: ReturnType<typeof generateClient<Schema>> | null = null;
 
-async function getClient() {
+export async function getClient() {
   if (cachedClient) return cachedClient;
   const { resourceConfig, libraryOptions } = await getAmplifyDataClientConfig(env as any);
   Amplify.configure(resourceConfig, libraryOptions);
