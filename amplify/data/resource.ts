@@ -107,9 +107,20 @@ const schema = a.schema({
       overallScore: a.integer().required(),
       overallLabel: a.string().required(),
       chats: a.json().required(),
+      apiKey: a.hasOne("ApiKey", "savedReviewId"),
     })
     .authorization((allow) => [allow.publicApiKey().to(["read", "create", "update", "delete"])])
     .secondaryIndexes((index) => [index("userProfileId").queryField("bySavedReviewUser")]),
+
+  ApiKey: a
+    .model({
+      savedReviewId: a.id().required(),
+      savedReview: a.belongsTo("SavedReview", "savedReviewId"),
+      name: a.string(),
+      active: a.boolean(),
+      totalRequests: a.integer(),
+    })
+    .authorization((allow) => [allow.publicApiKey().to(["read", "create", "update", "delete"])]),
 
   AgentSession: a
     .model({

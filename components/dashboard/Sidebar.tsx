@@ -153,7 +153,7 @@ export default function Sidebar() {
                            }`}
                          >
                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${review.overallScore <= 60 ? 'bg-yellow-400' : review.overallScore <= 80 ? 'bg-orange-400' : 'bg-red-400'}`} />
-                           <span className="truncate flex-1 font-mono text-[11px]">{review.id.slice(0, 8)}…</span>
+                            <span className="truncate flex-1 text-[12px]">{review.portfolioName}</span>
                            <span className="text-white/25 shrink-0 text-[10px]">{relativeTime(review.createdAt)}</span>
                          </Link>
                        );
