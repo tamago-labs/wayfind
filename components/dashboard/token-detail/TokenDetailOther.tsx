@@ -37,7 +37,7 @@ export default function TokenDetailOther({
               )}
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-white/80">{ot.symbol}</p>
-                <p className="text-xs text-white/40 truncate">{ot.issuer_name === "Backed Assets" ? "xStock" : "Ondo"}</p>
+                <p className="text-xs text-white/40 truncate">{ot.issuer_name}</p>
               </div>
               <div className="text-right">
                 <p className="text-sm font-medium text-white/70">{formatPrice(otPrice?.price ?? null)}</p>

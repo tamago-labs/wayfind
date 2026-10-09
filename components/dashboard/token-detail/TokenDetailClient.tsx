@@ -35,7 +35,7 @@ export default function TokenDetailClient({
         <TokenDetailHeader token={token} asset={asset} />
         <div className="grid grid-cols-5 gap-6">
             <div className="col-span-2 space-y-6">
-            <TokenDetailStats token={token} price={price} />
+            <TokenDetailStats token={token} price={price} asset={asset} />
             {connected?.account ? (
               <SwapPanel token={token} asset={asset} walletAccount={connected.account} />
             ) : (
@@ -47,7 +47,7 @@ export default function TokenDetailClient({
             <TokenDetailInfo token={token} asset={asset} price={price} />
           </div>
           <div className="col-span-3 space-y-6">
-            <TokenDetailPrice token={token} />
+            <TokenDetailPrice token={token} asset={asset} />
             <TokenDetailAbout asset={asset} description={description} />
             <TokenDetailLinks token={token} />
           </div>

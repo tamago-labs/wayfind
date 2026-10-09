@@ -12,11 +12,11 @@ import type { Schema } from '@/amplify/data/resource';
 import type { AppClient } from '@/components/SolanaWalletProvider';
 
 const navItems = [
-  { href: '/dashboard', label: 'Risk Assessment', icon: Plus },
+  { href: '/dashboard', label: 'Risk Profile', icon: Plus },
   { href: '/dashboard/portfolio', label: 'Portfolio', icon: PieChart },
   { href: '/dashboard/explore', label: 'Explore', icon: Compass },
   { href: '/dashboard/pre-ipo', label: 'Pre-IPO', icon: Rocket },
-  { href: '/dashboard/api-keys', label: 'API Keys', icon: Key },
+  { href: '/dashboard/api-keys', label: 'API Key', icon: Key },
 
 ];
 

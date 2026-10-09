@@ -6,10 +6,10 @@ import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-  { href: '/dashboard', label: 'Risk Profile' },
-  { href: '/dashboard/portfolio', label: 'Portfolio' },
   { href: '/dashboard/explore', label: 'Explore' },
-  { href: '/dashboard/api-keys', label: 'API Keys' },
+  { href: '/dashboard/portfolio', label: 'Portfolio' },
+  { href: '/dashboard', label: 'Risk Profile' },
+  { href: '/dashboard/api-keys', label: 'API Key' },
   { href: '#faq', label: 'FAQ' },
 ];
 

@@ -6,10 +6,23 @@ import type { Schema } from '@/amplify/data/resource';
 import { useWallet } from '@/contexts/WalletContext';
 import { useClient } from '@solana/react';
 import { useConnectedWallet } from '@solana/kit-plugin-wallet/react';
-import { Copy, Check, Power, Star } from 'lucide-react';
+import { Copy, Check, Power, Star, Search } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { AppClient } from '@/components/SolanaWalletProvider';
 
 const dataClient = generateClient<Schema>();
+
+function relativeTime(dateStr: string): string {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  if (days < 7) return `${days}d ago`;
+  return new Date(dateStr).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+}
 
 export default function ApiKeysPage() {
   const client = useClient<AppClient>();
@@ -23,8 +36,11 @@ export default function ApiKeysPage() {
   const [apiKeyActive, setApiKeyActive] = useState<boolean>(true);
   const [totalRequests, setTotalRequests] = useState<number>(0);
   const [defaultReviewId, setDefaultReviewId] = useState<string | null>(null);
-  const [reviews, setReviews] = useState<Array<{ id: string; portfolioName: string }>>([]);
+  const [defaultReviewName, setDefaultReviewName] = useState<string | null>(null);
+  const [reviews, setReviews] = useState<Array<{ id: string; portfolioName: string; createdAt: string }>>([]);
   const [copied, setCopied] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalSearch, setModalSearch] = useState('');
 
   useEffect(() => {
     if (!walletAddress) { setProfileId(null); return; }
@@ -59,11 +75,18 @@ export default function ApiKeysPage() {
       const { data } = await dataClient.models.SavedReview.list({
         filter: { userProfileId: { eq: profileId } },
       });
-      setReviews((data ?? []).map((r) => ({ id: r.id, portfolioName: r.portfolioName })));
+      setReviews((data ?? []).map((r) => ({ id: r.id, portfolioName: r.portfolioName, createdAt: r.createdAt })));
     } catch { setReviews([]); }
   }, [profileId]);
 
   useEffect(() => { void loadReviews(); }, [loadReviews]);
+
+  useEffect(() => {
+    if (defaultReviewId && reviews.length > 0) {
+      const found = reviews.find((r) => r.id === defaultReviewId);
+      setDefaultReviewName(found?.portfolioName ?? null);
+    }
+  }, [defaultReviewId, reviews]);
 
   const handleCopy = () => {
     if (!profileId) return;
@@ -92,17 +115,23 @@ export default function ApiKeysPage() {
         defaultReviewId: reviewId,
       });
       setDefaultReviewId(reviewId);
+      setModalOpen(false);
     } catch {}
   };
+
+  const filteredReviews = modalSearch
+    ? reviews.filter((r) => r.portfolioName.toLowerCase().includes(modalSearch.toLowerCase()))
+    : reviews;
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
       <h1 className="font-display text-3xl font-bold text-white tracking-tight mb-3">API Keys</h1>
       <p className="text-white/50 text-sm leading-relaxed mb-8">
-        Your API key is tied to your wallet profile. Use it to integrate with Grok Bot for tokenized stock trading.
+        Use it to integrate with Grok Bot for tokenized stock trading.
       </p>
 
-      <div className="bg-white/[0.03] border border-border3 rounded-xl p-6 space-y-4">
+      <div className="bg-white/[0.03] border border-border3 rounded-xl p-6 space-y-5">
+        {/* API Key */}
         <div className="flex items-center justify-between">
           <h2 className="font-display font-semibold text-white text-lg">Your API Key</h2>
           <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${
@@ -131,12 +160,27 @@ export default function ApiKeysPage() {
           <p className="text-white/40 text-sm">Connect wallet to see your API key.</p>
         )}
 
-        <div className="flex items-center gap-4 pt-2">
-          <p className="text-[12px] text-white/30">Total requests: {totalRequests.toLocaleString()}</p>
-          <p className="text-[12px] text-white/30">Total reviews: {reviews.length}</p>
+        {/* Default Risk Profile */}
+        <div className="border-t border-border3/30 pt-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-[12px] font-medium text-white/50 mb-0.5">Default Risk Profile</p>
+              <p className="text-[13px] text-white/80">
+                {defaultReviewName ?? 'No profile selected'}
+              </p>
+            </div>
+            <button
+              onClick={() => setModalOpen(true)}
+              disabled={reviews.length === 0}
+              className="text-[12px] font-medium text-accent hover:text-accent/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              Change
+            </button>
+          </div>
         </div>
 
-        <div className="pt-2">
+        {/* Activate/Deactivate */}
+        <div className="border-t border-border3/30 pt-4 flex items-center justify-between">
           <button
             onClick={handleToggle}
             disabled={!profileId}
@@ -149,41 +193,64 @@ export default function ApiKeysPage() {
             <Power className="w-4 h-4" />
             {apiKeyActive ? 'Deactivate' : 'Activate'}
           </button>
+          <p className="text-[12px] text-white/30">Total requests: {totalRequests.toLocaleString()}</p>
         </div>
       </div>
 
-      {reviews.length > 0 && (
-        <div className="bg-white/[0.03] border border-border3 rounded-xl p-6 mt-6">
-          <h2 className="font-display font-semibold text-white text-lg mb-4">Risk Profiles</h2>
-          <p className="text-white/40 text-sm mb-4">Select which risk profile Grok Bot should use.</p>
-          <div className="space-y-2">
-            {reviews.map((r) => (
-              <div
-                key={r.id}
-                className={`flex items-center justify-between px-4 py-3 rounded-lg border transition-colors ${
-                  defaultReviewId === r.id
-                    ? 'border-accent/30 bg-accent/5'
-                    : 'border-border3/30 bg-white/[0.02] hover:bg-white/[0.04]'
-                }`}
-              >
-                <span className="text-[13px] text-white/80">{r.portfolioName}</span>
-                {defaultReviewId === r.id ? (
-                  <span className="flex items-center gap-1 text-[11px] text-accent font-medium">
-                    <Star className="w-3 h-3" /> Default
-                  </span>
+      {/* Modal */}
+      <AnimatePresence>
+        {modalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60"
+            onClick={() => setModalOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="w-full max-w-md bg-surface border border-border3 rounded-xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-4 border-b border-border3/40">
+                <h3 className="font-display font-semibold text-white mb-3">Select Risk Profile</h3>
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                  <input
+                    value={modalSearch}
+                    onChange={(e) => setModalSearch(e.target.value)}
+                    placeholder="Search risk profiles…"
+                    className="w-full bg-black/20 border border-border3 rounded-lg pl-10 pr-4 py-2.5 text-[13px] text-white placeholder:text-white/25 outline-none focus:border-accent/50 transition-colors"
+                  />
+                </div>
+              </div>
+              <div className="max-h-80 overflow-y-auto p-2">
+                {filteredReviews.length === 0 ? (
+                  <p className="px-3 py-4 text-[12px] text-white/30 text-center">No risk profiles found</p>
                 ) : (
-                  <button
-                    onClick={() => handleSetDefault(r.id)}
-                    className="text-[11px] text-white/40 hover:text-white/70 transition-colors"
-                  >
-                    Set as default
-                  </button>
+                  filteredReviews.map((r) => (
+                    <button
+                      key={r.id}
+                      onClick={() => handleSetDefault(r.id)}
+                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-left transition-colors ${
+                        defaultReviewId === r.id
+                          ? 'bg-accent/10 text-accent'
+                          : 'text-white/70 hover:bg-white/[0.04] hover:text-white'
+                      }`}
+                    >
+                      <span className="text-[13px] truncate">{r.portfolioName}</span>
+                      <span className="text-[11px] text-white/30 shrink-0 ml-2">{relativeTime(r.createdAt)}</span>
+                    </button>
+                  ))
                 )}
               </div>
-            ))}
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
