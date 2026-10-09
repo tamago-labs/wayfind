@@ -157,7 +157,7 @@ const schema = a.schema({
   allow.resource(prestockTracker),
   allow.resource(riskReviewFunction),
   allow.resource(chatFurtherFunction),
-  // allow.resource(wayfindApiFunction),
+  allow.resource(wayfindApiFunction),
 ]);
 
 export type Schema = ClientSchema<typeof schema>;
