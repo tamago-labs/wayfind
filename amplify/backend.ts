@@ -21,6 +21,7 @@ const backend = defineBackend({
 });
 
 const chatLambda = backend.chatFurtherFunction.resources.lambda as LambdaFunction;
+const apiLambda = backend.wayfindApiFunction.resources.lambda as LambdaFunction;
 
 const chatFunctionUrl = chatLambda.addFunctionUrl({
   authType: FunctionUrlAuthType.NONE,
@@ -34,12 +35,28 @@ const chatFunctionUrl = chatLambda.addFunctionUrl({
   },
 });
 
+const apiFunctionUrl = apiLambda.addFunctionUrl({
+  authType: FunctionUrlAuthType.NONE,
+  invokeMode: InvokeMode.RESPONSE_STREAM,
+  cors: {
+    allowedOrigins: ["*"],
+    allowedMethods: [HttpMethod.ALL],
+    allowedHeaders: ["*"],
+    maxAge: Duration.minutes(5),
+  },
+});
+
 backend.addOutput({
   custom: {
     chatFurther: {
       functionUrl: chatFunctionUrl.url,
       region: Stack.of(chatLambda).region,
       functionName: chatLambda.functionName,
+    },
+    wayfindApi: {
+      functionUrl: apiFunctionUrl.url,
+      region: Stack.of(apiLambda).region,
+      functionName: apiLambda.functionName,
     },
   },
 });
