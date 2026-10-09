@@ -236,7 +236,7 @@ function NewChatInner() {
       {/* Content */}
       <div className="relative z-1 h-full flex flex-col items-center justify-center px-6 max-w-3xl mx-auto"> 
         <p className="font-display text-2xl md:text-3xl font-semibold text-center text-white/70 mb-8">
-          &ldquo;Let&apos;s Uncover Your Portfolio Risk&rdquo;
+          &ldquo;Build Your Risk Profile for AI Trading&rdquo;
         </p>
 
         {/* Input with glow */}
@@ -374,8 +374,8 @@ function NewChatInner() {
               <div className="w-8 h-8 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center mx-auto mb-2.5">
                 <span className="text-[13px] font-semibold text-accent">3</span>
               </div>
-              <p className="text-[12px] font-medium text-white/70 mb-0.5">Review & Chat</p>
-              <p className="text-[11px] text-white/30 leading-snug">Review results, then chat further about risks</p>
+              <p className="text-[12px] font-medium text-white/70 mb-0.5">Save Risk Profile</p>
+              <p className="text-[11px] text-white/30 leading-snug">Then create an API key to use in Grok Bot</p>
             </div>
           </div>
         </div>

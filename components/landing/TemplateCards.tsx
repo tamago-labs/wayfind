@@ -45,6 +45,7 @@ export default function TemplateCards() {
           {/* Download button */}
           <button
             disabled={!t.available}
+            onClick={() => { if (t.available) alert('Preparing — will be able to download in 2-3 days, come check again!'); }}
             className={`flex items-center gap-2 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-opacity shrink-0 ${
               t.available
                 ? 'bg-gradient-to-r from-zenblue to-zenpurple hover:opacity-90 cursor-pointer'

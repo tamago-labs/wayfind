@@ -44,7 +44,7 @@ const CHAIN_LOGOS: Record<number, string> = {
 const dataClient = generateClient<Schema>();
 
 const PAGE_TITLES: Record<string, string> = {
-  "/dashboard": "New Portfolio Review",
+  "/dashboard": "New Risk Assessment",
   "/dashboard/portfolio": "Portfolio Overview",
   "/dashboard/explore": "Explore Tokenized Stocks Across Web3",
   "/dashboard/pre-ipo": "Pre-IPO Markets via PreStocks",
