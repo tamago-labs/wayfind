@@ -37,7 +37,6 @@ const chatFunctionUrl = chatLambda.addFunctionUrl({
 
 const apiFunctionUrl = apiLambda.addFunctionUrl({
   authType: FunctionUrlAuthType.NONE,
-  invokeMode: InvokeMode.RESPONSE_STREAM,
   cors: {
     allowedOrigins: ["*"],
     allowedMethods: [HttpMethod.ALL],
