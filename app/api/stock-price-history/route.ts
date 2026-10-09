@@ -1,4 +1,7 @@
+import getConfig from "next/config";
 import { NextRequest, NextResponse } from "next/server";
+
+const { serverRuntimeConfig } = getConfig();
 
 interface CacheEntry {
   data: any;
@@ -22,7 +25,7 @@ function setCache(key: string, data: any) {
 }
 
 export async function GET(request: NextRequest) {
-  const apiKey = process.env.MASSIVE_API_KEY || "";
+  const apiKey = serverRuntimeConfig.MASSIVE_API_KEY || process.env.MASSIVE_API_KEY || "";
   const symbol = request.nextUrl.searchParams.get("symbol");
   const timespan = request.nextUrl.searchParams.get("timespan") || "day";
   const from = request.nextUrl.searchParams.get("from");

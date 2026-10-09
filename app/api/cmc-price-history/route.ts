@@ -1,4 +1,7 @@
+import getConfig from "next/config";
 import { NextRequest, NextResponse } from "next/server";
+
+const { serverRuntimeConfig } = getConfig();
 
 interface CacheEntry {
   data: any;
@@ -22,7 +25,7 @@ function setCache(key: string, data: any) {
 }
 
 export async function GET(request: NextRequest) {
-  const apiKey = process.env.CMC_API_KEY || "";
+  const apiKey = serverRuntimeConfig.CMC_API_KEY || process.env.CMC_API_KEY || "";
   const cryptoId = request.nextUrl.searchParams.get("crypto_id");
   const interval = request.nextUrl.searchParams.get("interval") || "1d";
   const count = request.nextUrl.searchParams.get("count") || "90";
