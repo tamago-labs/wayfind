@@ -6,7 +6,7 @@ export interface ConfigToken {
   crypto_id: number;
   issuer_name: string;
   logo: string | null;
-  addresses: { solana?: string; ethereum?: string; arbitrum?: string; bnb?: string; xlayer?: string };
+  addresses: { solana?: string; ethereum?: string; arbitrum?: string; bnb?: string; xlayer?: string; [key: string]: string | undefined };
 }
 
 export interface ConfigAsset {
