@@ -8,6 +8,7 @@ import { prestockTracker } from "./functions/prestock-tracker/resource";
 import { ohlcvFetcherFunction } from "./functions/ohlcv-fetcher/resource";
 import { riskReviewFunction } from "./functions/risk-review/resource";
 import { chatFurtherFunction } from "./functions/chat-further/resource";
+import { wayfindApiFunction } from "./functions/wayfind-api/resource";
 
 const backend = defineBackend({
   data,
@@ -16,9 +17,11 @@ const backend = defineBackend({
   ohlcvFetcherFunction,
   riskReviewFunction,
   chatFurtherFunction,
+  wayfindApiFunction,
 });
 
 const chatLambda = backend.chatFurtherFunction.resources.lambda as LambdaFunction;
+const apiLambda = backend.wayfindApiFunction.resources.lambda as LambdaFunction;
 
 const chatFunctionUrl = chatLambda.addFunctionUrl({
   authType: FunctionUrlAuthType.NONE,
@@ -38,6 +41,20 @@ backend.addOutput({
       functionUrl: chatFunctionUrl.url,
       region: Stack.of(chatLambda).region,
       functionName: chatLambda.functionName,
+    },
+    wayfindApi: {
+      functionUrl: apiLambda.addFunctionUrl({
+        authType: FunctionUrlAuthType.NONE,
+        invokeMode: InvokeMode.BUFFERED,
+        cors: {
+          allowedOrigins: ["*"],
+          allowedMethods: [HttpMethod.GET, HttpMethod.OPTIONS],
+          allowedHeaders: ["*"],
+          maxAge: Duration.minutes(5),
+        },
+      }).url,
+      region: Stack.of(apiLambda).region,
+      functionName: apiLambda.functionName,
     },
   },
 });

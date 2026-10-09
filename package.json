@@ -1,6 +1,6 @@
 {
-  "name": "zivic-amplify",
-  "version": "0.1.5",
+  "name": "wayfind-amplify",
+  "version": "0.1.6",
   "private": true,
   "scripts": {
     "dev": "next dev",
