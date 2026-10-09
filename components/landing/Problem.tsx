@@ -14,7 +14,7 @@ export default function Problem() {
             </Section>
             <Section>
               <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
-                Using AI to trade tokenized stocks is still incomplete
+                Using AI to Trade Tokenized Stocks Is Still Incomplete
               </h2>
             </Section>
           </div>
@@ -23,13 +23,13 @@ export default function Problem() {
           <div className="md:col-span-3">
             <Section>
               <p className="text-[15px] text-white/50 leading-relaxed">
-                AI agents can execute trades but lack the data and risk intelligence to evaluate <span className="text-accent font-semibold">tokenized stocks</span> — real companies with revenue, earnings, valuation, and onchain dynamics behind them.
+                One company like <span className="text-accent font-semibold">Tesla</span> can have multiple onchain representations — <span className="text-accent font-semibold">TSLAx</span>, <span className="text-accent font-semibold">TSLAon</span>, <span className="text-accent font-semibold">rTSLA</span>, and more. Each can have different prices, liquidity, issuers, and onchain dynamics. Knowing the stock isn't enough.
               </p>
             </Section>
 
             <Section>
               <p className="mt-6 text-lg md:text-xl font-display font-semibold text-white/80 leading-snug">
-                The data layer for AI trading doesn't exist yet.
+                Tokenized stock trading lacks a data layer for AI until now.
               </p>
             </Section>
 

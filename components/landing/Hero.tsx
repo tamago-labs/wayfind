@@ -34,7 +34,7 @@ export default function Hero() {
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent2" />
               <span className="flex items-center gap-1 text-[13px] text-white/35">
-                <span className="text-accent font-semibold">Grok Bot Native</span> <img src="/grok-bot-circle-neutral-blue.png" alt="Solana" className="w-4 h-4 inline-block rounded-full" /> <img src="/grok-bot-circle-neutral-orange.png" alt="Ethereum" className="w-4 h-4 inline-block rounded-full -ml-2.5" /> <img src="/grok-bot-circle-neutral-turquoise.png" alt="BNB Chain" className="w-4 h-4 inline-block rounded-full -ml-2.5" />
+                One-Click Import for <img src="/grok-bot-circle-neutral-blue.png" alt="Solana" className="w-4 h-4 inline-block rounded-full" /> <img src="/grok-bot-circle-neutral-orange.png" alt="Ethereum" className="w-4 h-4 inline-block rounded-full -ml-2.5" /> <img src="/grok-bot-circle-neutral-turquoise.png" alt="BNB Chain" className="w-4 h-4 inline-block rounded-full -ml-2.5" /> <span className="text-accent font-semibold">Grok Bot</span>
               </span>
             </li>
             <li className="flex items-center gap-2">

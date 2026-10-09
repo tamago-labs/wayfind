@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
   { href: '#how-it-works', label: 'How it works' },
-  { href: '/dashboard', label: 'New Review' },
   { href: '/dashboard/portfolio', label: 'Portfolio' },
   { href: '/dashboard/explore', label: 'Explore' },
   { href: '#faq', label: 'FAQ' },
@@ -34,7 +33,7 @@ export default function Header() {
 
         <div className="hidden md:flex items-center gap-4">
           <Link href="/dashboard" className="text-[13px] font-display font-medium bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent/80 transition-colors">
-            Launch App
+            Dashboard
           </Link>
         </div>
 
@@ -56,7 +55,7 @@ export default function Header() {
               <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="block text-[14px] text-white/50 hover:text-white font-display font-medium transition-colors">{link.label}</Link>
             ))}
             <Link href="/dashboard" onClick={() => setOpen(false)} className="block mt-4 text-center text-[13px] font-display font-medium bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent/80 transition-colors">
-              Launch App
+              Dashboard
             </Link>
           </motion.div>
         )}

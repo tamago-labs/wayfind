@@ -34,11 +34,11 @@ export default function TemplateCards() {
           <div className="flex items-center gap-3 min-w-[160px]">
             <img src={t.logo} alt={t.chain} className="w-8 h-8 rounded-full" />
             <span className="font-display font-semibold text-white text-sm">{t.chain}</span>
-            <span className="text-[10px] text-white/40 bg-white/[0.06] px-2 py-0.5 rounded-full">{t.version}</span>
+            <span className="text-[10px] text-white/40 bg-white/[0.06] px-2 py-0.5 rounded-full hidden md:inline">{t.version}</span>
           </div>
 
           {/* Description */}
-          <p className="text-[12px] text-white/40 leading-relaxed flex-1">
+          <p className="text-[12px] text-white/40 leading-relaxed flex-1 hidden md:block">
             {t.description}
           </p>
 
