@@ -49,7 +49,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/dashboard/explore": "Explore Tokenized Stocks Across Web3",
   "/dashboard/pre-ipo": "Pre-IPO Markets via PreStocks",
   "/dashboard/alerts": "Stay Notified",
-  "/dashboard/strategies": "Strategies",
+  "/dashboard/api-keys": "Your API Key",
   "/dashboard/review": "Portfolio Review",
 };
 

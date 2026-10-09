@@ -15,7 +15,7 @@ export default function DashboardLayout({
   const isNewChat = pathname === '/dashboard' || pathname === '/dashboard/';
   const isChatSession = pathname.startsWith('/dashboard/chats/');
   const isReview = pathname.startsWith('/dashboard/review');
-  const isStrategies = pathname.startsWith('/dashboard/strategies');
+  const isStrategies = pathname.startsWith('/dashboard/api-keys');
 
   return (
     <BaseTokenPriceProvider>

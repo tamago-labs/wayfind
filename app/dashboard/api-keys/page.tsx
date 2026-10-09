@@ -124,76 +124,75 @@ export default function ApiKeysPage() {
     : reviews;
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12">
-      <h1 className="font-display text-3xl font-bold text-white tracking-tight mb-3">API Keys</h1>
-      <p className="text-white/50 text-sm leading-relaxed mb-8">
-        Use it to integrate with Grok Bot for tokenized stock trading.
-      </p>
+    <div className="h-[calc(100vh-3.5rem)] relative overflow-hidden grid-bg">
+      <div className="absolute w-[500px] h-[500px] top-1/2 -translate-y-1/2 -left-48 rounded-full blur-[120px] opacity-25 bg-accent pointer-events-none" />
+      <div className="absolute w-[400px] h-[400px] top-1/2 -translate-y-1/2 -right-40 rounded-full blur-[120px] opacity-25 bg-zenpurple pointer-events-none" />
 
-      <div className="bg-white/[0.03] border border-border3 rounded-xl p-6 space-y-5">
-        {/* API Key */}
-        <div className="flex items-center justify-between">
-          <h2 className="font-display font-semibold text-white text-lg">Your API Key</h2>
-          <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${
-            apiKeyActive
-              ? 'bg-emerald-400/15 text-emerald-400'
-              : 'bg-white/[0.06] text-white/30'
-          }`}>
-            {apiKeyActive ? 'Active' : 'Inactive'}
-          </span>
-        </div>
-
-        {profileId ? (
-          <div className="flex items-center gap-3">
-            <code className="flex-1 bg-black/30 border border-border3 rounded-lg px-4 py-3 text-[13px] font-mono text-accent truncate">
-              {profileId}
-            </code>
-            <button
-              onClick={handleCopy}
-              className="flex items-center gap-1.5 bg-white/[0.06] border border-border3 text-white/70 text-sm font-medium px-4 py-3 rounded-lg hover:bg-white/[0.1] transition-colors shrink-0"
-            >
-              {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-              {copied ? 'Copied' : 'Copy'}
-            </button>
-          </div>
-        ) : (
-          <p className="text-white/40 text-sm">Connect wallet to see your API key.</p>
-        )}
-
-        {/* Default Risk Profile */}
-        <div className="border-t border-border3/30 pt-4">
+      <div className="relative z-1 h-full flex flex-col items-center justify-center px-6 max-w-3xl mx-auto">
+        <div className="w-full bg-surface border border-border3 rounded-2xl p-6 space-y-5">
           <div className="flex items-center justify-between">
-            <div>
-              <p className="text-[12px] font-medium text-white/50 mb-0.5">Default Risk Profile</p>
-              <p className="text-[13px] text-white/80">
-                {defaultReviewName ?? 'No profile selected'}
-              </p>
-            </div>
-            <button
-              onClick={() => setModalOpen(true)}
-              disabled={reviews.length === 0}
-              className="text-[12px] font-medium text-accent hover:text-accent/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              Change
-            </button>
-          </div>
-        </div>
-
-        {/* Activate/Deactivate */}
-        <div className="border-t border-border3/30 pt-4 flex items-center justify-between">
-          <button
-            onClick={handleToggle}
-            disabled={!profileId}
-            className={`flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg transition-colors ${
+            <h2 className="font-display font-semibold text-white text-lg">Your API Key for Wayfind MCP</h2>
+            <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${
               apiKeyActive
-                ? 'bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20'
-                : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20'
-            } disabled:opacity-40 disabled:cursor-not-allowed`}
-          >
-            <Power className="w-4 h-4" />
-            {apiKeyActive ? 'Deactivate' : 'Activate'}
-          </button>
-          <p className="text-[12px] text-white/30">Total requests: {totalRequests.toLocaleString()}</p>
+                ? 'bg-emerald-400/15 text-emerald-400'
+                : 'bg-white/[0.06] text-white/30'
+            }`}>
+              {apiKeyActive ? 'Active' : 'Inactive'}
+            </span>
+          </div>
+
+          {profileId ? (
+            <div className="flex items-center gap-3">
+              <code className="flex-1 bg-black/30 border border-border3 rounded-lg px-4 py-3 text-[13px] font-mono text-accent truncate">
+                {profileId}
+              </code>
+              <button
+                onClick={handleCopy}
+                className="flex items-center gap-1.5 bg-white/[0.06] border border-border3 text-white/70 text-sm font-medium px-4 py-3 rounded-lg hover:bg-white/[0.1] transition-colors shrink-0"
+              >
+                {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                {copied ? 'Copied' : 'Copy'}
+              </button>
+            </div>
+          ) : (
+            <p className="text-white/40 text-sm">Connect wallet to see your API key.</p>
+          )}
+
+          {/* Default Risk Profile */}
+          <div className="border-t border-border3/30 pt-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-[12px] font-medium text-white/50 mb-0.5">Default Risk Profile</p>
+                <p className="text-[13px] text-white/80">
+                  {defaultReviewName ?? 'No profile selected'}
+                </p>
+              </div>
+              <button
+                onClick={() => setModalOpen(true)}
+                disabled={reviews.length === 0}
+                className="text-[12px] font-medium text-accent hover:text-accent/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                Change
+              </button>
+            </div>
+          </div>
+
+          {/* Activate/Deactivate */}
+          <div className="border-t border-border3/30 pt-4 flex items-center justify-between">
+            <button
+              onClick={handleToggle}
+              disabled={!profileId}
+              className={`flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg transition-colors ${
+                apiKeyActive
+                  ? 'bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20'
+                  : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20'
+              } disabled:opacity-40 disabled:cursor-not-allowed`}
+            >
+              <Power className="w-4 h-4" />
+              {apiKeyActive ? 'Deactivate' : 'Activate'}
+            </button>
+            <p className="text-[12px] text-white/30">Total requests: {totalRequests.toLocaleString()}</p>
+          </div>
         </div>
       </div>
 
