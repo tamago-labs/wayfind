@@ -1,3 +1,7 @@
+// Wayfind API Test 1: Authentication
+// Tests API key validation (missing, invalid, valid)
+// Usage: npx tsx scripts/test-api/1-auth.ts
+
 import { test, assert, assertEquals, assertDefined, request } from "./config";
 
 export async function run() {
@@ -18,3 +22,5 @@ export async function run() {
     assertEquals(status, 200);
   });
 }
+
+run();

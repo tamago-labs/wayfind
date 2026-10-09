@@ -1,3 +1,8 @@
+// Wayfind API Test 3: Risk Profile
+// Tests GET /risk-profile — returns overallScore, overallLabel, answers
+// from the user's default saved review
+// Usage: npx tsx scripts/test-api/3-risk-profile.ts
+
 import { test, assert, assertEquals, assertDefined, request } from "./config";
 
 export async function run() {
@@ -18,3 +23,5 @@ export async function run() {
     assert(typeof body.data.overallLabel === "string", "overallLabel is not a string");
   });
 }
+
+run();

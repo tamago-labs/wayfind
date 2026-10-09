@@ -1,3 +1,8 @@
+// Wayfind API Test 5: Pre-IPO Markets
+// Tests GET /pre-ipo — returns PreStocks markets with mark price, token price,
+// valuation, and supply from the PreStock database
+// Usage: npx tsx scripts/test-api/5-pre-ipo.ts
+
 import { test, assert, assertEquals, assertDefined, request } from "./config";
 
 export async function run() {
@@ -20,3 +25,5 @@ export async function run() {
     }
   });
 }
+
+run();

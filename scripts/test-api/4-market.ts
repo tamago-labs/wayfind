@@ -1,3 +1,8 @@
+// Wayfind API Test 4: Market Overview
+// Tests GET /market-overview — returns total market cap, volume, token count,
+// gainers, losers, and trending tokens from PriceSnapshot database
+// Usage: npx tsx scripts/test-api/4-market.ts
+
 import { test, assert, assertEquals, assertDefined, request } from "./config";
 
 export async function run() {
@@ -25,3 +30,5 @@ export async function run() {
     assert(Array.isArray(body.data.trending), "trending is not an array");
   });
 }
+
+run();

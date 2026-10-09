@@ -1,3 +1,7 @@
+// Wayfind API Test Configuration
+// Shared config and test utilities for all API test scripts
+// Update API_URL and API_KEY here for your environment
+
 export const API_URL = "https://o3qftki5dtnlhqlrtvswt336bq0mwdye.lambda-url.ap-southeast-1.on.aws";
 export const API_KEY = "e1ee8520-305a-49b5-a2de-3e1a7e6078c0";
 
