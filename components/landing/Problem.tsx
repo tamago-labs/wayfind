@@ -14,7 +14,7 @@ export default function Problem() {
             </Section>
             <Section>
               <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
-                Crypto habits meet real-world assets
+                Using AI to trade tokenized stocks is still incomplete
               </h2>
             </Section>
           </div>
@@ -23,19 +23,19 @@ export default function Problem() {
           <div className="md:col-span-3">
             <Section>
               <p className="text-[15px] text-white/50 leading-relaxed">
-                Crypto markets have trained investors to make decisions around price, liquidity, and narrative. But a <span className="text-accent font-semibold">tokenized stock</span> represents exposure to a <span className="text-accent font-semibold">real company</span> with revenue, earnings, valuation, and traditional market dynamics behind it.
+                AI agents can execute trades but lack the data and risk intelligence to evaluate <span className="text-accent font-semibold">tokenized stocks</span> — real companies with revenue, earnings, valuation, and onchain dynamics behind them.
               </p>
             </Section>
 
             <Section>
               <p className="mt-6 text-lg md:text-xl font-display font-semibold text-white/80 leading-snug">
-                The tools shouldn't treat them the same way.
+                The data layer for AI trading doesn't exist yet.
               </p>
             </Section>
 
             <Section>
               <p className="mt-6 text-[15px] text-white/50 leading-relaxed">
-                Wayfind looks beyond what you hold. Connect your wallet, answer questions, and get a <span className="text-accent font-semibold">personalized</span> understanding of your holdings. See the risks that matter, then find paths to <span className="text-accent font-semibold">rebalance</span> or put assets to work.
+                Wayfind provides the data layer and trading tools for AI agents. Connect a wallet, get <span className="text-accent font-semibold">personalized risk intelligence</span>, and let your bot trade with context — see the risks, then <span className="text-accent font-semibold">rebalance</span> or put assets to work.
               </p>
             </Section>
           </div>

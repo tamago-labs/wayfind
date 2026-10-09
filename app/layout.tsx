@@ -6,9 +6,9 @@ import { PriceProvider } from "@/contexts/PriceContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Wayfind | AI Risk Engine for Tokenized Equities on Solana & Across Web3",
+  title: "Wayfind | Grok Bot Templates for Solana Tokenized Stocks",
   description:
-  "Wayfind uses AI to evaluate tokenized equity portfolios, uncover hidden risks, and find personalized ways to rebalance and put your assets to work across Web3.",
+    "Download Wayfind Bot templates for Grok to analyze risk, manage portfolios, rebalance positions, and trade tokenized stocks on Solana.",
 };
 
 export default function RootLayout({
