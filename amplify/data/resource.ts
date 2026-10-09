@@ -4,7 +4,7 @@ import { prestockTracker } from "../functions/prestock-tracker/resource";
 import { ohlcvFetcherFunction } from "../functions/ohlcv-fetcher/resource";
 import { riskReviewFunction } from "../functions/risk-review/resource";
 import { chatFurtherFunction } from "../functions/chat-further/resource";
-import { wayfindApiFunction } from "../functions/wayfind-api/resource";
+// import { wayfindApiFunction } from "../functions/wayfind-api/resource";
 
 const schema = a.schema({
   PriceSnapshot: a
@@ -157,7 +157,7 @@ const schema = a.schema({
   allow.resource(prestockTracker),
   allow.resource(riskReviewFunction),
   allow.resource(chatFurtherFunction),
-  allow.resource(wayfindApiFunction),
+  // allow.resource(wayfindApiFunction),
 ]);
 
 export type Schema = ClientSchema<typeof schema>;
