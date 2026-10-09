@@ -4,5 +4,7 @@ export const wayfindApiFunction = defineFunction({
   name: "wayfind-api",
   timeoutSeconds: 60,
   memoryMB: 512,
-  environment: {},
+  environment: {
+    WAYFIN_API: "true",
+  },
 });
