@@ -5,12 +5,14 @@ import { getAmplifyDataClientConfig } from "@aws-amplify/backend/function/runtim
 import { env } from "$amplify/env/wayfind-api";
 import type { Schema } from "../../data/resource";
 import listData from "./data/rwa-v1-list.json";
+import baseTokens from "./data/base-tokens.json";
+import crypto from "crypto";
 
 const { resourceConfig, libraryOptions } = await getAmplifyDataClientConfig(env as any);
 Amplify.configure(resourceConfig, libraryOptions);
 const dataClient = generateClient<Schema>();
 
-// ΓöÇΓöÇΓöÇ Config ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
 
 interface ConfigToken {
   symbol: string;
@@ -58,7 +60,31 @@ function mergeSnapshot(ct: ConfigToken, snapshot: any) {
   };
 }
 
-// ΓöÇΓöÇΓöÇ Auth ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+function resolveSolanaAddress(symbol: string): string | null {
+  const upper = symbol.toUpperCase();
+
+  const base = (baseTokens as any[]).find((t) => t.symbol.toUpperCase() === upper);
+  if (base?.addresses?.solana) return base.addresses.solana;
+
+  for (const asset of assets) {
+    for (const token of asset.tokens) {
+      if (token.symbol?.toUpperCase() === upper) {
+        if (token.addresses?.solana) return token.addresses.solana;
+      }
+    }
+  }
+
+  for (const asset of assets) {
+    if (asset.symbol.toUpperCase() === upper) {
+      const withSolana = asset.tokens.filter((t: any) => t.addresses?.solana);
+      if (withSolana.length === 0) return null;
+      withSolana.sort((a: any, b: any) => (b.market_cap ?? 0) - (a.market_cap ?? 0));
+      return withSolana[0].addresses.solana;
+    }
+  }
+
+  return null;
+}
 
 function json(statusCode: number, body: any): APIGatewayProxyStructuredResultV2 {
   return {
@@ -85,7 +111,6 @@ async function validateApiKey(apiKey: string): Promise<{ valid: boolean; profile
   }
 }
 
-// ΓöÇΓöÇΓöÇ Handler ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
 
 export const handler = async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyStructuredResultV2> => {
   if (event.requestContext.http.method === "OPTIONS") return json(200, {});
@@ -176,6 +201,107 @@ export const handler = async (event: APIGatewayProxyEventV2): Promise<APIGateway
         return { symbol, tokenPrice: latest.tokenPrice ?? null, markPrice: latest.markPrice ?? null, markValuation: latest.markValuation ?? null, impliedValuation: latest.impliedValuation ?? null, supply: latest.supply ?? null };
       });
       return json(200, { data: markets });
+    }
+
+    // GET /api/v1/swap-quote
+    if (path.endsWith("/swap-quote")) {
+      const OKX_API_KEY = env.OKX_API_KEY;
+      const OKX_SECRET_KEY = env.OKX_SECRET_KEY;
+      const OKX_PASSPHRASE = env.OKX_PASSPHRASE;
+
+      const fromTokenAddress = qs.fromTokenAddress ?? (qs.fromSymbol ? resolveSolanaAddress(qs.fromSymbol) : null);
+      const toTokenAddress = qs.toTokenAddress ?? (qs.toSymbol ? resolveSolanaAddress(qs.toSymbol) : null);
+      const amount = qs.amount;
+
+      if (!fromTokenAddress || !toTokenAddress || !amount) {
+        return json(400, { error: "Missing required parameters: fromTokenAddress/fromSymbol, toTokenAddress/toSymbol, amount" });
+      }
+
+      const url = new URL("https://web3.okx.com/api/v6/dex/aggregator/quote");
+      url.searchParams.set("chainIndex", "501");
+      url.searchParams.set("amount", amount);
+      url.searchParams.set("fromTokenAddress", fromTokenAddress);
+      url.searchParams.set("toTokenAddress", toTokenAddress);
+
+      const path = url.pathname + url.search;
+      const timestamp = new Date().toISOString();
+      const signature = crypto.createHmac("sha256", OKX_SECRET_KEY).update(timestamp + "GET" + path).digest("base64");
+
+      const res = await fetch(url.toString(), {
+        headers: {
+          Accept: "application/json",
+          "OK-ACCESS-KEY": OKX_API_KEY,
+          "OK-ACCESS-SIGN": signature,
+          "OK-ACCESS-PASSPHRASE": OKX_PASSPHRASE,
+          "OK-ACCESS-TIMESTAMP": timestamp,
+        },
+      });
+
+      if (!res.ok) return json(res.status, { error: `OKX API HTTP ${res.status}` });
+
+      const data = await res.json();
+      if (data.code !== "0") return json(400, { error: data.msg || "OKX API error" });
+
+      const quote = data.data?.[0];
+      if (!quote) return json(404, { error: "No quote available" });
+
+      return json(200, { data: quote });
+    }
+
+    // GET /api/v1/swap-instruction
+    if (path.endsWith("/swap-instruction")) {
+      const OKX_API_KEY = env.OKX_API_KEY;
+      const OKX_SECRET_KEY = env.OKX_SECRET_KEY;
+      const OKX_PASSPHRASE = env.OKX_PASSPHRASE;
+
+      const fromTokenAddress = qs.fromTokenAddress ?? (qs.fromSymbol ? resolveSolanaAddress(qs.fromSymbol) : null);
+      const toTokenAddress = qs.toTokenAddress ?? (qs.toSymbol ? resolveSolanaAddress(qs.toSymbol) : null);
+      const amount = qs.amount;
+      const userWalletAddress = qs.userWalletAddress;
+      const slippagePercent = qs.slippagePercent ?? "0.5";
+
+      if (!fromTokenAddress || !toTokenAddress || !amount || !userWalletAddress) {
+        return json(400, { error: "Missing required parameters: fromTokenAddress/fromSymbol, toTokenAddress/toSymbol, amount, userWalletAddress" });
+      }
+
+      const url = new URL("https://web3.okx.com/api/v6/dex/aggregator/swap");
+      url.searchParams.set("chainIndex", "501");
+      url.searchParams.set("amount", amount);
+      url.searchParams.set("fromTokenAddress", fromTokenAddress);
+      url.searchParams.set("toTokenAddress", toTokenAddress);
+      url.searchParams.set("userWalletAddress", userWalletAddress);
+      url.searchParams.set("slippagePercent", slippagePercent);
+      url.searchParams.set("autoSlippage", "true");
+
+      const path = url.pathname + url.search;
+      const timestamp = new Date().toISOString();
+      const signature = crypto.createHmac("sha256", OKX_SECRET_KEY).update(timestamp + "GET" + path).digest("base64");
+
+      const res = await fetch(url.toString(), {
+        headers: {
+          Accept: "application/json",
+          "OK-ACCESS-KEY": OKX_API_KEY,
+          "OK-ACCESS-SIGN": signature,
+          "OK-ACCESS-PASSPHRASE": OKX_PASSPHRASE,
+          "OK-ACCESS-TIMESTAMP": timestamp,
+        },
+      });
+
+      if (!res.ok) return json(res.status, { error: `OKX API HTTP ${res.status}` });
+
+      const data = await res.json();
+      if (data.code !== "0") return json(400, { error: data.msg || "OKX API error" });
+
+      const swapData = data.data?.[0];
+      if (!swapData) return json(404, { error: "No swap data available" });
+
+      return json(200, {
+        data: {
+          base58Transaction: swapData.tx?.data ?? "",
+          routerResult: swapData.routerResult,
+          minReceiveAmount: swapData.tx?.minReceiveAmount ?? "0",
+        },
+      });
     }
 
     return json(404, { error: "Not found" });
