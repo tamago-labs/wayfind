@@ -131,7 +131,7 @@ export default function ApiKeysPage() {
       <div className="relative z-1 h-full flex flex-col items-center justify-center px-6 max-w-3xl mx-auto">
         <div className="w-full bg-surface border border-border3 rounded-2xl p-6 space-y-5">
           <div className="flex items-center justify-between">
-            <h2 className="font-display font-semibold text-white text-lg">Your API Key for Wayfind MCP</h2>
+            <h2 className="font-display font-semibold text-white text-lg">Your API Key for Grok Bot</h2>
             <span className={`text-[11px] font-medium px-2.5 py-1 rounded-full ${
               apiKeyActive
                 ? 'bg-emerald-400/15 text-emerald-400'

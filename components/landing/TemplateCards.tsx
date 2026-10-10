@@ -43,18 +43,25 @@ export default function TemplateCards() {
           </p>
 
           {/* Download button */}
-          <button
-            disabled={!t.available}
-            onClick={() => { if (t.available) alert('Preparing — will be able to download in 2-3 days, come check again!'); }}
-            className={`flex items-center gap-2 text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-opacity shrink-0 ${
-              t.available
-                ? 'bg-gradient-to-r from-zenblue to-zenpurple hover:opacity-90 cursor-pointer'
-                : 'bg-white/[0.06] border border-border3/40 text-white/30 cursor-not-allowed'
-            }`}
-          >
-            <Download className="w-3.5 h-3.5" />
-            {t.available ? 'Download' : 'Download'}
-          </button>
+          {t.available ? (
+            <a
+              href="https://x.ai/bot/6XYAXUXmVwqL6xbxGYyu2"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-white text-xs font-semibold px-5 py-2.5 rounded-lg bg-gradient-to-r from-zenblue to-zenpurple hover:opacity-90 transition-opacity shrink-0"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Download
+            </a>
+          ) : (
+            <button
+              disabled
+              className="flex items-center gap-2 text-white/30 text-xs font-semibold px-5 py-2.5 rounded-lg bg-white/[0.06] border border-border3/40 cursor-not-allowed shrink-0"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Download
+            </button>
+          )}
         </div>
       ))}
     </div>

@@ -5,40 +5,40 @@ import Section from './Section';
 const steps = [
   {
     num: '01',
-    title: 'Build your portfolio',
+    title: 'Build your risk profile',
     description: (
       <>
-        Connect your wallet to discover your <span className="text-white/70 font-medium">tokenized equity holdings</span>, or simulate a portfolio to explore assets without connecting.
+        Answer a short AI questionnaire about your <span className="text-white/70 font-medium">goals, time horizon, and risk tolerance</span>. Wayfind creates a personalized risk profile that defines what risk means <span className="text-accent font-semibold">for you</span>.
       </>
     ),
     example: null,
   },
   {
     num: '02',
-    title: 'Tell us about you',
+    title: 'Get your API key',
     description: (
       <>
-        Answer a short AI questionnaire about your <span className="text-white/70 font-medium">goals, time horizon, and risk tolerance</span>. Wayfind uses your answers to understand what risk means <span className="text-accent font-semibold">for you</span>.
+        Your API key is tied to your risk profile. Set it as the default so every bot you deploy inherits your <span className="text-white/70 font-medium">risk intelligence</span> automatically.
       </>
     ),
     example: null,
   },
   {
     num: '03',
-    title: 'Understand your risk',
+    title: 'Set up your bot',
     description: (
       <>
-        AI evaluates your holdings across company fundamentals, market exposure, concentration, liquidity, issuer, and onchain factors — then gives you a <span className="text-white/70 font-medium">personalized risk score</span>.
+        Import a template, set your API key, and create an <span className="text-white/70 font-medium">agentic wallet</span> on the bot's computer. Then ask your agent anything — from listing every <span className="text-white/70 font-medium">TSLA</span> token to fetching live prices.
       </>
     ),
     example: null,
   },
   {
     num: '04',
-    title: 'Find your path',
+    title: 'Auto-rebalance to risk profile',
     description: (
       <>
-        Get tailored options to reduce risk, rebalance your portfolio, with direct execution through <span className="text-white/70 font-medium">OKX DEX Router</span>.
+        Your bot monitors your portfolio and <span className="text-white/70 font-medium">rebalances automatically</span> to match your risk profile — swapping through the <span className="text-white/70 font-medium">OKX DEX Router</span> when positions drift.
       </>
     ),
     example: null,
