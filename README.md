@@ -1,82 +1,64 @@
 # Wayfind
 
-**AI Risk Engine for Tokenized Equities on Solana & Across Web3**
+**AI Agent Infrastructure for Tokenized Stocks on Solana & Across Web3**
 
 ## Product Overview
 
-Wayfind is an AI risk intelligence platform that helps investors understand the risk of what they own — and find clearer paths forward.
+Wayfind gives AI agents the market data, portfolio intelligence, and trading tools they need to understand and manage tokenized stocks on Solana.
 
-Tokenized equities combine crypto-native infrastructure with exposure to real companies. Investors need to consider company fundamentals, market conditions, portfolio concentration, token liquidity, issuer risk, onchain factors, and their own risk tolerance. Wayfind brings these signals together into one personalized risk view.
+Use ready-to-run Grok Bot templates to analyze holdings, assess portfolio risk, execute supported trades, and rebalance positions. Under the hood, Wayfind combines tokenized-asset data from CoinMarketCap, personalized risk context, and OKX DEX trading integrations to help agents make decisions beyond ticker symbols alone.
 
-The platform has three layers:
+## What You Can Do
 
-* **Intelligence** — An AI Risk Engine analyzes holdings across fundamentals, market exposure, concentration, liquidity, issuer, and onchain factors.
-* **Review** — An AI Portfolio Review turns those signals into a personalized risk score, factor breakdown, and explanation of the risks that matter most.
-* **Action** — Rule-based strategies surface concentration alerts, risk-matching opportunities, and pre-IPO exposure, with token swapping available through OKX DEX Router.
+* **Trade with Grok Bot** — Use Wayfind templates to interact with tokenized stocks through natural-language instructions.
+* **Rebalance a Portfolio** — Use portfolio context and trading tools to adjust supported positions.
+* **Understand Portfolio Risk** — Generate personalized risk assessments, scores, and factor breakdowns.
+* **Explore Tokenized Stocks** — Discover assets and inspect market data across supported networks.
+* **Give AI Agents Better Data** — Access tokenized-asset intelligence through Wayfind's data layer and agent integrations.
 
 ## Background
 
 Tokenized equities are becoming a growing part of the real-world asset market. CoinGecko reported approximately $0.5B in tokenized equity market capitalization by Q1 2026, alongside $15.1B in spot trading volume during the quarter.
 
-As the market evolves beyond simply putting stocks onchain, holders need better ways to understand, manage, and use these assets.
+Simply putting stocks onchain isn't enough. The real unlock comes when AI agents can understand what they're holding, evaluate risk in context, and act on it. Wayfind gives Grok Bot the data layer and trading integrations to do exactly that — turning tokenized equities into something agents can actually trade.
 
 ### The Problem
 
-**Crypto habits meet real-world assets.**
+**AI agents can't trade what they don't understand.**
 
-Crypto markets have trained investors to make decisions around price, liquidity, and narrative. But a tokenized stock represents exposure to a real company — with revenue, earnings, valuation, business fundamentals, and traditional market dynamics behind it.
+A tokenized stock isn't just a ticker symbol onchain — it represents exposure to a real company with revenue, earnings, business fundamentals, and issuer risk. One company like Tesla can have multiple onchain versions (TSLAx, TSLAon, rTSLA) with different prices, liquidity, and issuers.
 
-The risk is therefore more than token price volatility.
-
-Wayfind looks beyond what you hold. Connect a wallet, answer a short set of adaptive questions, and get a personalized view of your portfolio risk. Understand the factors driving your score, uncover risks that may be easy to miss, and explore clearer paths to rebalance or put your assets to work.
-
-## Features
-
-* **AI Portfolio Review** — A two-turn risk assessment combining an adaptive questionnaire with portfolio analysis to produce a personalized risk score, factor breakdown, and hidden-risk analysis.
-* **Explainable Risk Engine** — Evaluates concentration, market exposure, volatility, liquidity, issuer, fundamentals, onchain factors, and other portfolio-specific risks.
-* **AI Specialists** — Continue the conversation after the review with AI specialists covering market research, news intelligence, and pre-IPO markets, powered by Frontier AI (GPT-6 Astra).
-* **Multi-chain Supported** — Track tokenized assets across Solana, Ethereum, BNB Chain, Arbitrum, and X Layer.
-* **Real-World Asset Data** — Explore tokenized equities, commodities, treasuries, funds, and issuers using CoinMarketCap RWA data.
-* **Pre-IPO Markets** — Explore and trade PreStocks markets on Solana with mark price, token price, implied valuation, and related market data.
-* **Actionable Strategies** — Rule-based signals for concentration risk, risk matching, and pre-IPO exposure help turn portfolio analysis into practical next steps.
-* **Token Swapping** — Swap supported assets into tokenized stock tokens through OKX DEX Router.
+Without market data, risk context, and trading integrations, agents are flying blind. Wayfind gives them the intelligence to evaluate what they hold, assess portfolio risk, and act on it.
 
 ## System Overview
 
-The system comprises three main components designed for scalable tokenized equity analysis:
+| Component | Repository | Description |
+|-----------|-----------|-------------|
+| **Platform** | [wayfind](https://github.com/tamago-labs/wayfind) | Next.js dashboard + AWS Amplify backend (Lambda, DynamoDB, scheduled trackers). Handles portfolio tracking, AI risk analysis, and market data ingestion. |
+| **MCP Server** | [wayfind-mcp](https://github.com/tamago-labs/wayfind-mcp) | MCP tools: wallet balances, swap quotes, tokenized stock data, risk profiles, agentic wallet. Published as `@tamago-labs/wayfind-mcp` on npm. |
+| **Agent Skills** | [wayfind-skills](https://github.com/tamago-labs/wayfind-skills) | Grok Bot plugin + skill definitions. Provides intent routing, setup guides, and tool references for AI agents. |
 
-- **Next.js Frontend (App Router)** — The main interface where users access portfolio tracking, risk analysis, token exploration, pre-IPO discovery, and AI chat. The dashboard reads on-chain wallet data, displays live market metrics from CoinMarketCap, and visualizes AI-generated risk reports.
-- **AWS Amplify Backend** — Handles data persistence, serverless compute, and scheduled data ingestion. DynamoDB stores price snapshots, pre-stock valuations, risk evaluations, user profiles, and chat sessions. Lambda functions run scheduled trackers for market data and AI-powered analysis agents.
-- **AI Agent System** — Powered by the OpenAI Agents SDK with a multi-agent architecture. A Triage Agent routes user requests to specialized agents, each with distinct tools and context. Agents have access to real-time market data, on-chain balances, and OKX DEX routing.
-
-The architecture enables continuous data ingestion from CoinMarketCap Pro and PreStocks API, AI analysis on demand, and real-time portfolio tracking through a unified dashboard.
+The platform is the data backbone — ingesting market data, running AI risk analysis, and persisting results. The MCP server is the agent interface — exposing wallet operations, market queries, and OKX DEX swaps as callable tools. The skills layer is the agent's playbook — defining how to route intents, configure env vars, and execute multi-step workflows. An agent with the Wayfind skill installed can go from "check my TSLAx balance" to "rebalance my portfolio" without leaving the chat.
 
 ## User Flow
 
-### 1. Build Your Portfolio
+### 1. Build Your Risk Profile
+* Answer a short AI questionnaire about your goals, time horizon, and risk tolerance
+* Wayfind creates a personalized risk profile that defines what risk means for you
 
-* Connect a wallet to automatically detect tokenized equity holdings, or
-* Simulate a portfolio without connecting a wallet
+### 2. Get Your API Key
+* Your API key is tied to your risk profile
+* Set it as the default so every bot you deploy inherits your risk intelligence automatically
 
-### 2. Personalize Your Review
+### 3. Set Up Your Bot
+* Import a Grok Bot template from the Wayfind landing page
+* Set your API key and create an agentic wallet on the bot's computer
+* Ask your agent anything — from listing every TSLA token to fetching live prices
 
-* Start a portfolio risk review
-* Answer 3–5 adaptive questions generated around your holdings and risk profile
-
-### 3. Understand Your Risk
-
+### 4. Auto-Rebalance to Risk Profile
+* Your bot monitors your portfolio and rebalances automatically to match your risk profile
 * The AI Risk Engine evaluates fundamentals, market exposure, concentration, liquidity, issuer risk, and onchain factors
-* Get a personalized **0–100 risk score** with dimensional breakdowns and hidden-risk insights
-
-### 4. Go Deeper
-
-* Continue the conversation with AI specialists after the review
-* Explore market research, news intelligence, and pre-IPO data through specialist handoffs
-
-### 5. Find Your Next Move
-
-* Explore rule-based strategy insights based on your portfolio and risk profile
-* Surface concentration alerts, risk-matching opportunities, and pre-IPO exposure
+* Swapping through the OKX DEX Router when positions drift
 
 ## Backend
 
@@ -319,6 +301,34 @@ npx ampx sandbox
 npm run dev
 ```
 
+### For AI Agents
+
+**Grok Bot:** Download a template from [wayfind.click](https://wayfind.click/) — Grok Bot will guide you through setup.
+
+**Other agents (Claude Code, Cursor, OpenCode):**
+
+1. Install the MCP server:
+
+```bash
+npm install -g @tamago-labs/wayfind-mcp
+```
+
+2. Get your API key from [wayfind.click](https://wayfind.click/) dashboard.
+
+3. Configure for your agent:
+
+```json
+{
+  "mcpServers": {
+    "wayfind-solana": {
+      "command": "npx",
+      "args": ["-y", "@tamago-labs/wayfind-mcp"],
+      "env": { "WAYFIND_API_KEY": "your_key_here" }
+    }
+  }
+}
+```
+
 ## Project Structure
 
 ```
@@ -365,6 +375,7 @@ Wayfind is currently free for all users. As we scale, usage-based pricing will b
 - **Frontend:** Next.js 15 (App Router), Tailwind CSS, Framer Motion
 - **Backend:** AWS Amplify Gen 2, AWS Lambda, DynamoDB
 - **AI:** OpenAI Agents SDK, multi-agent architecture with session memory, Frontier AI (GPT-6 Astra)
+- **Agent Infrastructure:** MCP Server (`@tamago-labs/wayfind-mcp`), Agent Skills (`wayfind-skills`) for Grok Bot, Claude Code, Cursor
 - **Blockchain:** Solana Web3.js, OKX DEX Router, multi-chain wallet support
 - **Data:** CoinMarketCap Pro (RWA + crypto endpoints), PreStocks API
 
