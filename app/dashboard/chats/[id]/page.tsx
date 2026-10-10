@@ -133,7 +133,9 @@ export default function ChatSession() {
           report: JSON.parse(res.data.report as string) as ReviewReport,
         });
         const chats = res.data.chats ? JSON.parse(res.data.chats as string) : [];
-        if (Array.isArray(chats) && chats.length > 0) setMessages(chats);
+        if (Array.isArray(chats) && chats.length > 0) {
+          setMessages(chats.map((c: any) => ({ ...c, role: c.role === "assistant" ? "ai" : c.role })));
+        }
       }
     }).catch(() => {});
   }, [id]);
