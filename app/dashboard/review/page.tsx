@@ -213,7 +213,7 @@ export default function ReviewPage() {
       }
       const res = await fetch(`${process.env.NEXT_PUBLIC_WAYFIND_API_URL}risk-review`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "x-api-key": data.userProfileId },
         body: JSON.stringify({
           action: "runAnalysis",
           userProfileId: data.userProfileId,
