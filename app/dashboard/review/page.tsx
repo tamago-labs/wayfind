@@ -211,15 +211,20 @@ export default function ReviewPage() {
       for (const q of data.questions) {
         enrichedAnswers[q.id] = { q: q.question, a: answers[q.id] ?? "" };
       }
-      const { data: resData, errors } = await dataClient.queries.riskReview({
-        action: 'runAnalysis',
-        userProfileId: data.userProfileId,
-        prompt: data.prompt,
-        holdings: JSON.stringify(data.holdings),
-        answers: JSON.stringify(enrichedAnswers),
+      const res = await fetch(`${process.env.NEXT_PUBLIC_WAYFIND_API_URL}risk-review`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "runAnalysis",
+          userProfileId: data.userProfileId,
+          prompt: data.prompt,
+          holdings: JSON.stringify(data.holdings),
+          answers: JSON.stringify(enrichedAnswers),
+        }),
       });
-      if (errors?.length) console.error('[Review] runAnalysis errors:', errors);
-      const parsed = typeof resData === 'string' ? JSON.parse(resData) : resData;
+      const json = await res.json();
+      if (json.error) console.error('[Review] runAnalysis error:', json.error);
+      const parsed = json.data;
       if (parsed?.overallScore != null) {
         setResult(parsed);
         setPhase('results');

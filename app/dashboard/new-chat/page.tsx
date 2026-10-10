@@ -201,13 +201,18 @@ function NewChatInner() {
         return;
       }
 
-      const { data, errors } = await dataClient.queries.riskReview({
-        userProfileId: profileId,
-        prompt: message,
-        holdings: JSON.stringify(holdings),
+      const res = await fetch(`${process.env.NEXT_PUBLIC_WAYFIND_API_URL}risk-review`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userProfileId: profileId,
+          prompt: message,
+          holdings: JSON.stringify(holdings),
+        }),
       });
-      if (errors?.length) console.error('[handleSend] riskReview errors:', errors);
-      const result = typeof data === 'string' ? JSON.parse(data) : data;
+      const json = await res.json();
+      if (json.error) console.error('[handleSend] riskReview error:', json.error);
+      const result = json.data;
       if (result?.questions?.length) {
         sessionStorage.setItem('wayfind-review', JSON.stringify({
           prompt: message,
