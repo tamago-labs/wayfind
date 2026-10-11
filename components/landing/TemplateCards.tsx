@@ -45,7 +45,7 @@ export default function TemplateCards() {
           {/* Download button */}
           {t.available ? (
             <a
-              href="https://x.ai/bot/6XYAXUXmVwqL6xbxGYyu2"
+              href="https://x.ai/bot/EpQzEq9pQvX_utfgsxzbj"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-white text-xs font-semibold px-5 py-2.5 rounded-lg bg-gradient-to-r from-zenblue to-zenpurple hover:opacity-90 transition-opacity shrink-0"

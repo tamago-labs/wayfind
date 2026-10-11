@@ -8,7 +8,7 @@ const steps = [
     title: 'Build your risk profile',
     description: (
       <>
-        Answer a short AI questionnaire about your <span className="text-white/70 font-medium">goals, time horizon, and risk tolerance</span>. Wayfind creates a personalized risk profile that defines what risk means <span className="text-accent font-semibold">for you</span>.
+        Answer a short AI questionnaire about your <span className="text-white/70 font-medium">goals, time horizon, and risk tolerance</span>. Wayfind uses your answers to understand what risk means <span className="text-accent font-semibold">for you</span>.
       </>
     ),
     example: null,
@@ -18,7 +18,7 @@ const steps = [
     title: 'Get your API key',
     description: (
       <>
-        Your API key is tied to your risk profile. Set it as the default so every bot you deploy inherits your <span className="text-white/70 font-medium">risk intelligence</span> automatically.
+        Your API key links your risk profile to every bot you create. One setup, all your bots trade with your <span className="text-white/70 font-medium">risk context</span>.
       </>
     ),
     example: null,
@@ -28,17 +28,17 @@ const steps = [
     title: 'Set up your bot',
     description: (
       <>
-        Import a template, set your API key, and create an <span className="text-white/70 font-medium">agentic wallet</span> on the bot's computer. Then ask your agent anything — from listing every <span className="text-white/70 font-medium">TSLA</span> token to fetching live prices.
+        Import a template, set your API key, and create an <span className="text-white/70 font-medium">agentic wallet</span> on the bot's computer. Then ask your agent anything.
       </>
     ),
     example: null,
   },
   {
     num: '04',
-    title: 'Auto-rebalance to risk profile',
+    title: 'Schedule rebalancing jobs',
     description: (
       <>
-        Your bot monitors your portfolio and <span className="text-white/70 font-medium">rebalances automatically</span> to match your risk profile — swapping through the <span className="text-white/70 font-medium">OKX DEX Router</span> when positions drift.
+        Your bot monitors your portfolio and <span className="text-white/70 font-medium">prepares swap quotes</span> through <span className="text-white/70 font-medium">OKX DEX</span> when positions drift. You review and approve each trade before it executes.
       </>
     ),
     example: null,
