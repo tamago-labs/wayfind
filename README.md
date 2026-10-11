@@ -4,17 +4,16 @@
 
 ## Product Overview
 
-Wayfind gives AI agents the market data, portfolio intelligence, and trading tools they need to understand and manage tokenized stocks on Solana.
+Grok Bot can do a lot, but managing tokenized stocks requires more than the ability to trade. Wayfind provides a one-click template that equips Grok Bot with the market data, personalized risk intelligence, and trading tools needed to navigate fragmented stock tokens on Solana. Users can monitor their holdings and rebalance portfolios based on their risk profiles, with swaps routed through the OKX DEX Swap Aggregator. Agents get everything they need to evaluate risk, generate trade quotes, and execute swaps — all from within Grok Bot.
 
-Use ready-to-run Grok Bot templates to analyze holdings, assess portfolio risk, execute supported trades, and rebalance positions. Under the hood, Wayfind combines tokenized-asset data from CoinMarketCap, personalized risk context, and OKX DEX trading integrations to help agents make decisions beyond ticker symbols alone.
+## Quick Links
 
-## What You Can Do
-
-* **Trade with Grok Bot** — Use Wayfind templates to interact with tokenized stocks through natural-language instructions.
-* **Rebalance a Portfolio** — Use portfolio context and trading tools to adjust supported positions.
-* **Understand Portfolio Risk** — Generate personalized risk assessments, scores, and factor breakdowns.
-* **Explore Tokenized Stocks** — Discover assets and inspect market data across supported networks.
-* **Give AI Agents Better Data** — Access tokenized-asset intelligence through Wayfind's data layer and agent integrations.
+| Resource | Link |
+|----------|------|
+| Product Intro (2 min) | https://youtu.be/fIqc5UmxoAc |
+| Product Demo (3 min) | https://youtu.be/mHYqAJk5OsE |
+| Twitter / X | https://x.com/WayfindZZZ |
+| Grok Bot Template | https://x.ai/bot/EpQzEq9pQvX_utfgsxzbj |
 
 ## Background
 
@@ -38,27 +37,42 @@ Without market data, risk context, and trading integrations, agents are flying b
 | **MCP Server** | [wayfind-mcp](https://github.com/tamago-labs/wayfind-mcp) | MCP tools: wallet balances, swap quotes, tokenized stock data, risk profiles, agentic wallet. Published as `@tamago-labs/wayfind-mcp` on npm. |
 | **Agent Skills** | [wayfind-skills](https://github.com/tamago-labs/wayfind-skills) | Grok Bot plugin + skill definitions. Provides intent routing, setup guides, and tool references for AI agents. |
 
-The platform is the data backbone — ingesting market data, running AI risk analysis, and persisting results. The MCP server is the agent interface — exposing wallet operations, market queries, and OKX DEX swaps as callable tools. The skills layer is the agent's playbook — defining how to route intents, configure env vars, and execute multi-step workflows. An agent with the Wayfind skill installed can go from "check my TSLAx balance" to "rebalance my portfolio" without leaving the chat.
+The platform is the data backbone — ingesting market data, running AI risk analysis, and persisting results. The MCP server reads on-chain wallet balances, SPL token holdings, and transaction history directly from Solana RPC. Swaps are executed through OKX DEX Router, signing and sending transactions from the Grok Bot's container. 
 
 ## User Flow
 
 ### 1. Build Your Risk Profile
 * Answer a short AI questionnaire about your goals, time horizon, and risk tolerance
-* Wayfind creates a personalized risk profile that defines what risk means for you
+* Wayfind uses your answers to understand what risk means for you
 
 ### 2. Get Your API Key
-* Your API key is tied to your risk profile
-* Set it as the default so every bot you deploy inherits your risk intelligence automatically
+* Your API key links your risk profile to every bot you create
+* One setup, all your bots trade with your risk context
 
 ### 3. Set Up Your Bot
 * Import a Grok Bot template from the Wayfind landing page
 * Set your API key and create an agentic wallet on the bot's computer
-* Ask your agent anything — from listing every TSLA token to fetching live prices
+* Then ask your agent anything
 
-### 4. Auto-Rebalance to Risk Profile
-* Your bot monitors your portfolio and rebalances automatically to match your risk profile
-* The AI Risk Engine evaluates fundamentals, market exposure, concentration, liquidity, issuer risk, and onchain factors
-* Swapping through the OKX DEX Router when positions drift
+### 4. Schedule Rebalancing Jobs
+* Your bot monitors your portfolio and prepares swap quotes through OKX DEX when positions drift
+* You review and approve each trade before it executes
+
+## On-Chain Transactions
+
+Wayfind enables real on-chain transactions on Solana Mainnet. The AI agent acquires tokens through the OKX DEX Router with user approval at every step.
+
+### Example: Acquiring SpaceX xStock (SPCXx)
+
+The AI agent routed through OKX DEX to acquire SpaceX tokenized stock on Solana Mainnet:
+
+https://solscan.io/tx/C66pxEPJgdKkGWtqDpUBLJZxJX3hYa5XiZx4uXa4qXxcbtVof81P3pbFrVzEPBd5ymJKPQgHydkxPj1QqivqHuH
+
+### Example: Acquiring Anduril PreStocks (ANDURIL)
+
+The AI agent acquired Anduril PreStocks (pre-IPO token) via OKX DEX Router on Solana Mainnet:
+
+https://solscan.io/tx/4gVjrdLeB7MmnWSvPM3a43GdVMdma3LWan3J4Sccf73ADnHu8GqbGn4G8GbTzWhE9KGhdFhVtDGie82V4EdAAfoH
 
 ## Backend
 
