@@ -31,13 +31,17 @@ Without market data, risk context, and trading integrations, agents are flying b
 
 ## System Overview
 
+Wayfind is **a tokenized stock toolkit built for Grok Bot**. It gives your bot the market context, the risk awareness and the trading rails to manage a tokenized stock portfolio on Solana.
+
+The system comprises the following components:
+
 | Component | Repository | Description |
 |-----------|-----------|-------------|
 | **Platform** | [wayfind](https://github.com/tamago-labs/wayfind) | Next.js dashboard + AWS Amplify backend (Lambda, DynamoDB, scheduled trackers). Handles portfolio tracking, AI risk analysis, and market data ingestion. |
 | **MCP Server** | [wayfind-mcp](https://github.com/tamago-labs/wayfind-mcp) | MCP tools: wallet balances, swap quotes, tokenized stock data, risk profiles, agentic wallet. Published as `@tamago-labs/wayfind-mcp` on npm. |
 | **Agent Skills** | [wayfind-skills](https://github.com/tamago-labs/wayfind-skills) | Grok Bot plugin + skill definitions. Provides intent routing, setup guides, and tool references for AI agents. |
 
-The platform is the data backbone — ingesting market data, running AI risk analysis, and persisting results. The MCP server reads on-chain wallet balances, SPL token holdings, and transaction history directly from Solana RPC. Swaps are executed through OKX DEX Router, signing and sending transactions from the Grok Bot's container. 
+The platform is the data backbone — ingesting market data, running AI risk analysis, and persisting results. The MCP server reads on-chain wallet balances, SPL token holdings, and transaction history directly from Solana RPC. Swaps are executed through OKX DEX Router, signing and sending transactions from the Grok Bot's container.
 
 ## User Flow
 
@@ -60,19 +64,10 @@ The platform is the data backbone — ingesting market data, running AI risk ana
 
 ## On-Chain Transactions
 
-Wayfind enables real on-chain transactions on Solana Mainnet. The AI agent acquires tokens through the OKX DEX Router with user approval at every step.
+Wayfind has already executed real swaps on Solana mainnet through the OKX DEX Router from Grok Bot:
 
-### Example: Acquiring SpaceX xStock (SPCXx)
-
-The AI agent routed through OKX DEX to acquire SpaceX tokenized stock on Solana Mainnet:
-
-https://solscan.io/tx/C66pxEPJgdKkGWtqDpUBLJZxJX3hYa5XiZx4uXa4qXxcbtVof81P3pbFrVzEPBd5ymJKPQgHydkxPj1QqivqHuH
-
-### Example: Acquiring Anduril PreStocks (ANDURIL)
-
-The AI agent acquired Anduril PreStocks (pre-IPO token) via OKX DEX Router on Solana Mainnet:
-
-https://solscan.io/tx/4gVjrdLeB7MmnWSvPM3a43GdVMdma3LWan3J4Sccf73ADnHu8GqbGn4G8GbTzWhE9KGhdFhVtDGie82V4EdAAfoH
+* **SpaceX xStock (SPCXx)** — [view on Solscan](https://solscan.io/tx/C66pxEPJgdKkGWtqDpUBLJZxJX3hYa5XiZx4uXa4qXxcbtVof81P3pbFrVzEPBd5ymJKPQgHydkxPj1QqivqHuH)
+* **Anduril via PreStocks (pre-IPO)** — [view on Solscan](https://solscan.io/tx/4gVjrdLeB7MmnWSvPM3a43GdVMdma3LWan3J4Sccf73ADnHu8GqbGn4G8GbTzWhE9KGhdFhVtDGie82V4EdAAfoH)
 
 ## Backend
 
@@ -84,10 +79,11 @@ Wayfind's backend uses **AWS Amplify Gen 2** with serverless functions, DynamoDB
 |-------|---------|
 | **PriceSnapshot** | Stores CoinMarketCap market data per tokenized stock (price, market_cap, volume_24h, percent changes, supply). Updated hourly by scheduled tracker. |
 | **PreStock** | Tracks pre-IPO token valuations (markPrice, tokenPrice, markValuation, impliedValuation, supply). Updated hourly from PreStocks API. |
-| **UserProfile** | User profiles with wallet address, AI credits, experience level, writing style, and linked portfolios/reviews. |
-| **Portfolio** | User-created portfolios (real or simulated) with custom token allocations. |
-| **SavedReview** | Persists AI-generated risk reviews per portfolio, including risk score, factor breakdown, hidden risks, and chat history. |
-| **AgentSession** | Stores chat conversation history for the multi-agent AI chat system. |
+| **UserProfile** | User profiles with wallet address, profile name, AI credits, experience level, writing style, sources, API key status, and linked registries/portfolios/reviews. |
+| **UserTokenRegistry** | Tracks token addresses per user (symbol, name, decimals, chain) for wallet discovery and balance resolution. |
+| **Portfolio** | User-created portfolios (real or simulated). Each portfolio contains portfolio token allocations. |
+| **PortfolioToken** | Individual token entry in a portfolio with symbol, name, and custom value allocation. |
+| **SavedReview** | Persists AI-generated risk reviews per portfolio, including prompt, holdings, questionnaire answers, full report, risk score/label, and chat history. |
 
 ### Scheduled Trackers
 
