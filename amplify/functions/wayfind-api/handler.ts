@@ -130,7 +130,8 @@ export const handler = async (event: APIGatewayProxyEventV2): Promise<APIGateway
       for (const ct of configTokens) {
         try {
           const { data } = await dataClient.models.PriceSnapshot.byTokenSymbol({ token_symbol: ct.symbol });
-          const merged = mergeSnapshot(ct, data?.[0]);
+          const latest = data?.slice().sort((a: any, b: any) => (b.createdAt ?? "") > (a.createdAt ?? "") ? 1 : -1)[0];
+          const merged = mergeSnapshot(ct, latest);
           if (merged) results.push(merged);
         } catch {}
       }
@@ -146,7 +147,8 @@ export const handler = async (event: APIGatewayProxyEventV2): Promise<APIGateway
       for (const ct of configTokens) {
         try {
           const { data } = await dataClient.models.PriceSnapshot.byTokenSymbol({ token_symbol: ct.symbol });
-          const merged = mergeSnapshot(ct, data?.[0]);
+          const latest = data?.slice().sort((a: any, b: any) => (b.createdAt ?? "") > (a.createdAt ?? "") ? 1 : -1)[0];
+          const merged = mergeSnapshot(ct, latest);
           if (merged) results.push(merged);
         } catch {}
       }
