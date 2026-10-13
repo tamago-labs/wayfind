@@ -10,7 +10,7 @@ Grok Bot can do a lot, but managing tokenized stocks requires more than the abil
 
 | Resource | Link |
 |----------|------|
-| Video Demo (5 mins.) | https://www.youtube.com/watch?v=zF3BPiorAFc |
+| Video Demo (5 mins.) | https://www.youtube.com/watch?v=NG1Jbp9PFlo |
 | Twitter / X | https://x.com/WayfindZZZ |
 | Grok Bot Template | https://x.ai/bot/EpQzEq9pQvX_utfgsxzbj |
 
