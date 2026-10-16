@@ -6,7 +6,7 @@ import { PriceProvider } from "@/contexts/PriceContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Wayfind | Grok Bot Templates for Solana Tokenized Stocks",
+  title: "Wayfind | Grok Bot Templates for Web3",
   description:
     "Download Wayfind Bot templates for Grok to analyze risk, manage portfolios, rebalance positions, and trade tokenized stocks on Solana.",
 };
