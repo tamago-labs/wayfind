@@ -2,14 +2,14 @@
 
 import Header from '@/components/landing/Header';
 import Footer from '@/components/landing/Footer';
+import PageHero from '@/components/landing/PageHero';
 
 export default function ShowcasesPage() {
   return (
     <>
       <Header />
-      <main className="max-w-[1200px] mx-auto px-6 py-20">
-        <h1 className="text-3xl font-display font-bold mb-4">Showcases</h1>
-        <p className="text-white/50">Coming soon.</p>
+      <main>
+        <PageHero title="Showcases" subtitle="Discover what the community has built with Wayfind" />
       </main>
       <Footer />
     </>
