@@ -5,8 +5,6 @@ import { Duration } from "aws-cdk-lib";
 import { data } from "./data/resource";
 import { priceTracker } from "./functions/price-tracker/resource";
 import { prestockTracker } from "./functions/prestock-tracker/resource";
-import { ohlcvFetcherFunction } from "./functions/ohlcv-fetcher/resource";
-import { riskReviewFunction } from "./functions/risk-review/resource";
 import { chatFurtherFunction } from "./functions/chat-further/resource";
 import { wayfindApiFunction } from "./functions/wayfind-api/resource";
 
@@ -14,8 +12,6 @@ const backend = defineBackend({
   data,
   priceTracker,
   prestockTracker,
-  ohlcvFetcherFunction,
-  riskReviewFunction,
   chatFurtherFunction,
   wayfindApiFunction,
 });
