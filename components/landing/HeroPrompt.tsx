@@ -128,13 +128,18 @@ export default function HeroPrompt() {
         balance: t.amount,
         price: t.price ?? 0,
       }));
-      const { data, errors } = await dataClient.queries.riskReview({
-        userProfileId: attached.userProfileId,
-        prompt,
-        holdings: JSON.stringify(holdings),
+      const res = await fetch(`${process.env.NEXT_PUBLIC_WAYFIND_API_URL}risk-review`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-api-key": attached.userProfileId },
+        body: JSON.stringify({
+          userProfileId: attached.userProfileId,
+          prompt,
+          holdings: JSON.stringify(holdings),
+        }),
       });
-      if (errors?.length) console.error('[HeroPrompt] riskReview errors:', errors);
-      const result = typeof data === 'string' ? JSON.parse(data) : data;
+      const json = await res.json();
+      if (json.error) console.error('[HeroPrompt] riskReview error:', json.error);
+      const result = json.data;
       if (result?.questions?.length) {
         sessionStorage.setItem('wayfind-review', JSON.stringify({
           prompt,
