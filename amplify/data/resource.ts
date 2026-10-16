@@ -1,8 +1,6 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 import { priceTracker } from "../functions/price-tracker/resource";
 import { prestockTracker } from "../functions/prestock-tracker/resource";
-import { ohlcvFetcherFunction } from "../functions/ohlcv-fetcher/resource";
-import { riskReviewFunction } from "../functions/risk-review/resource";
 import { chatFurtherFunction } from "../functions/chat-further/resource";
 import { wayfindApiFunction } from "../functions/wayfind-api/resource";
 
@@ -115,47 +113,9 @@ const schema = a.schema({
     .authorization((allow) => [allow.publicApiKey().to(["read", "create", "update", "delete"])])
     .secondaryIndexes((index) => [index("userProfileId").queryField("bySavedReviewUser")]),
 
-  AgentSession: a
-    .model({
-      walletAddress: a.string().required(),
-      sessionName: a.string().required(),
-      items: a.json().required(),
-      transactions: a.json(),
-    })
-    .authorization((allow) => [allow.publicApiKey().to(["read", "create", "update", "delete"])])
-    .secondaryIndexes((index) => [
-      index("walletAddress").queryField("bySessionWallet"),
-    ]),
-
-  ohlcvFetcher: a
-    .query()
-    .arguments({
-      cryptoId: a.string(),
-      interval: a.string(),
-      timeStart: a.string(),
-      timeEnd: a.string(),
-    })
-    .returns(a.json())
-    .authorization((allow) => [allow.publicApiKey()])
-    .handler(a.handler.function(ohlcvFetcherFunction)),
-
-  riskReview: a
-    .query()
-    .arguments({
-      action: a.string(),
-      userProfileId: a.string().required(),
-      prompt: a.string().required(),
-      holdings: a.string().required(),
-      answers: a.string(),
-    })
-    .returns(a.json())
-    .authorization((allow) => [allow.publicApiKey()])
-    .handler(a.handler.function(riskReviewFunction)),
-
 }).authorization((allow) => [
   allow.resource(priceTracker),
   allow.resource(prestockTracker),
-  allow.resource(riskReviewFunction),
   allow.resource(chatFurtherFunction),
   allow.resource(wayfindApiFunction),
 ]);
