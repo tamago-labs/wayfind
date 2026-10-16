@@ -2,11 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createChart, ColorType, CandlestickSeries, type UTCTimestamp } from "lightweight-charts";
-import { generateClient } from "aws-amplify/data";
-import type { Schema } from "@/amplify/data/resource";
 import type { Token } from "@/lib/types/token";
-
-const dataClient = generateClient<Schema>();
 
 type Timeframe = "1D" | "7D" | "30D" | "90D";
 
@@ -37,19 +33,21 @@ export default function PriceChart({ token }: { token: Token }) {
     const end = new Date();
     const start = new Date(end.getTime() - tf.hours * 60 * 60 * 1000);
 
-    dataClient.queries.ohlcvFetcher({
-      cryptoId: String(token.crypto_id),
+    const params = new URLSearchParams({
+      crypto_id: String(token.crypto_id),
       interval: tf.interval,
-      timeStart: start.toISOString(),
-      timeEnd: end.toISOString(),
-    }).then((res: any) => {
-      const parsed = typeof res?.data === 'string' ? JSON.parse(res.data) : res;
-      setCandles(parsed?.data ?? []);
-    }).catch(() => {
-      setCandles([]);
-    }).finally(() => {
-      setLoading(false);
+      time_start: start.toISOString(),
+      time_end: end.toISOString(),
     });
+
+    fetch(`/api/ohlcv?${params.toString()}`)
+      .then(async (res) => {
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error || "OHLCV fetch failed");
+        setCandles(json.data ?? []);
+      })
+      .catch(() => setCandles([]))
+      .finally(() => setLoading(false));
 
     return () => {
       if (fetchedRef.current !== key) controller.abort();
