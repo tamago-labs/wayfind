@@ -3,6 +3,7 @@
 import Header from '@/components/landing/Header';
 import Hero from '@/components/landing/Hero';
 import Background from '@/components/landing/Background';
+import CompatibleWith from '@/components/landing/CompatibleWith';
 import HowItWorks from '@/components/landing/HowItWorks';
 import CTA from '@/components/landing/CTA';
 import Pricing from '@/components/landing/Pricing';
@@ -23,6 +24,7 @@ export default function Home() {
         </section>
 
         <Background />
+        <CompatibleWith />
         <HowItWorks />
         <Pricing />
         <VideoSection />
