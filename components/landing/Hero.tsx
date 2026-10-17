@@ -1,6 +1,8 @@
 'use client';
 
-import TokenShowcase from './TokenShowcase';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import HeroChatMockup from './HeroChatMockup';
 import Section from './Section';
 import TemplateCards from './TemplateCards';
 
@@ -25,12 +27,22 @@ export default function Hero() {
           </p>
         </Section>
 
+<<<<<<< HEAD
         <Section className="w-full max-w-3xl mx-auto mt-5">
           <TemplateCards />
         </Section>
 
+        <div className="mt-6 flex items-center gap-3">
+          <Link href="/templates" className="text-[13px] font-display font-medium bg-accent text-white px-5 py-2.5 rounded-lg hover:bg-accent/80 transition-colors">
+            Browse Templates
+          </Link>
+          <Link href="/showcases" className="text-[13px] font-display font-medium bg-white/[0.06] text-white/70 px-5 py-2.5 rounded-lg hover:bg-white/[0.1] transition-colors border border-white/[0.08]">
+            View Showcases
+          </Link>
+        </div>
+
         <Section>
-          <ul className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13px] text-white/35">
+          <ul className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13px] text-white/35">
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent2" />
               <span className="flex items-center gap-1 text-[13px] text-white/35">

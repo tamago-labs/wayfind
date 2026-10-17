@@ -2,7 +2,7 @@
 
 import Header from '@/components/landing/Header';
 import Hero from '@/components/landing/Hero';
-import Problem from '@/components/landing/Problem';
+import Background from '@/components/landing/Background';
 import HowItWorks from '@/components/landing/HowItWorks';
 import CTA from '@/components/landing/CTA';
 import Pricing from '@/components/landing/Pricing';
@@ -22,7 +22,7 @@ export default function Home() {
           <Hero />
         </section>
 
-        <Problem />
+        <Background />
         <HowItWorks />
         <Pricing />
         <VideoSection />
