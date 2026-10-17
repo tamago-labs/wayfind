@@ -57,7 +57,7 @@ export default function CompatibleWith() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
               <div className="absolute top-0 left-0 right-0 p-4 flex items-center justify-between">
                 <span className="text-[15px] font-display font-semibold text-white">{card.name}</span>
-                <div className="w-7 h-7 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/[0.08] group-hover:bg-white/20 transition-colors">
+                <div className="w-7 h-7 rounded-full  flex items-center justify-center  group-hover:bg-white/20 transition-colors">
                   <ArrowUpRight className="w-3.5 h-3.5 text-white/70" />
                 </div>
               </div>

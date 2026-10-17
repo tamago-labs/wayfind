@@ -2,13 +2,14 @@
 
 import Section from './Section';
 
+
 const steps = [
   {
     num: '01',
-    title: 'Build your risk profile',
+    title: 'Browse bot templates',
     description: (
       <>
-        Answer a short AI questionnaire about your <span className="text-white/70 font-medium">goals, time horizon, and risk tolerance</span>. Wayfind uses your answers to understand what risk means <span className="text-accent font-semibold">for you</span>.
+        Browse bot templates spanning <span className="text-white/70 font-medium">Solana Tokenized Stocks</span> to <span className="text-white/70 font-medium">Circle USDC-Centric</span>, each with skills and memory included.
       </>
     ),
     example: null,
@@ -18,27 +19,27 @@ const steps = [
     title: 'Get your API key',
     description: (
       <>
-        Your API key links your risk profile to every bot you create. One setup, all your bots trade with your <span className="text-white/70 font-medium">risk context</span>.
+        Ask your bot to setup and access Wayfind's <span className="text-white/70 font-medium">indexed onchain data and APIs</span>. All sensitive data remaining on its own computer.
       </>
     ),
     example: null,
   },
   {
     num: '03',
-    title: 'Set up your bot',
+    title: 'Put your bots to work',
     description: (
       <>
-        Import a template, set your API key, and create an <span className="text-white/70 font-medium">agentic wallet</span> on the bot's computer. Then ask your agent anything.
+        Build a bot team. Name a <span className="text-white/70 font-medium">CFO</span> to manage treasury, an <span className="text-white/70 font-medium">HR</span> to run payroll, a <span className="text-white/70 font-medium">Research</span> to track data. They coordinate tasks and execute onchain around the clock.
       </>
     ),
     example: null,
   },
   {
     num: '04',
-    title: 'Schedule rebalancing jobs',
+    title: 'Share your Web3 service',
     description: (
       <>
-        Your bot monitors your portfolio and <span className="text-white/70 font-medium">prepares swap quotes</span> through <span className="text-white/70 font-medium">OKX DEX</span> when positions drift. You review and approve each trade before it executes.
+        Publish your Web3 service to the showcase for visibility. Whether it's a <span className="text-white/70 font-medium">WhatsApp bot</span> or <span className="text-white/70 font-medium">web dashboard</span>, let other users see what your bots can do and get inspired to build their own.
       </>
     ),
     example: null,

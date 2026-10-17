@@ -4,10 +4,10 @@ import Header from '@/components/landing/Header';
 import Hero from '@/components/landing/Hero';
 import Background from '@/components/landing/Background';
 import CompatibleWith from '@/components/landing/CompatibleWith';
+import BotCapabilities from '@/components/landing/BotCapabilities';
 import HowItWorks from '@/components/landing/HowItWorks';
 import CTA from '@/components/landing/CTA';
 import Pricing from '@/components/landing/Pricing';
-import VideoSection from '@/components/landing/VideoSection';
 import FAQ from '@/components/landing/FAQ';
 import Footer from '@/components/landing/Footer';
 
@@ -25,9 +25,9 @@ export default function Home() {
 
         <Background />
         <CompatibleWith />
+        <BotCapabilities />
         <HowItWorks />
         <Pricing />
-        <VideoSection />
         <FAQ />
         <CTA />
         <Footer />
