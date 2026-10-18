@@ -10,6 +10,12 @@ export const templates = [
     tags: ['xStocks', 'Ondo Stocks', 'Trading'],
     featured: false,
     link: 'https://x.ai/bot/EpQzEq9pQvX_utfgsxzbj',
+    features: [
+      'Resolves onchain token representations for equities like TSLA',
+      'Tracks prices, liquidity, and issuer data across Solana',
+      'Executes swaps via OKX DEX Router',
+      'MCP server reads wallet balances and transaction history',
+    ],
   },
   {
     id: 2,
@@ -22,5 +28,11 @@ export const templates = [
     tags: ['USDC', 'EURC', 'DeFi'],
     featured: false,
     link: 'https://x.ai/bot/IX2bDYMLKqQhe1hYFnXdi',
+    features: [
+      'One unified balance across 10+ chains',
+      'Send and receive USDC and EURC',
+      'Swap tokens via Circle Swap Kit',
+      'Earn yield through Morpho and other vaults'
+    ],
   },
 ];

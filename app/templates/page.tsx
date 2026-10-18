@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { Search, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, ChevronDown, X, Download, Check } from 'lucide-react';
 import Header from '@/components/landing/Header';
 import Footer from '@/components/landing/Footer';
 import PageHero from '@/components/landing/PageHero';
@@ -31,6 +31,7 @@ export default function TemplatesPage() {
   const [search, setSearch] = useState('');
   const [selectedChain, setSelectedChain] = useState<string | null>(null);
   const [chainDropdownOpen, setChainDropdownOpen] = useState(false);
+  const [activeTemplate, setActiveTemplate] = useState<typeof templates[number] | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -42,6 +43,15 @@ export default function TemplatesPage() {
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
   }, []);
+
+  useEffect(() => {
+    if (activeTemplate) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [activeTemplate]);
 
   let filtered = templates.filter((t) => {
     if (search) {
@@ -158,13 +168,9 @@ export default function TemplatesPage() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: i * 0.05 }}
+                onClick={() => setActiveTemplate(t)}
+                className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden hover:border-white/[0.1] transition-colors group cursor-pointer"
               >
-                <a
-                  href={t.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden hover:border-white/[0.1] transition-colors group block"
-                >
                 <div className="aspect-video relative overflow-hidden">
                   <img
                     src={t.image}
@@ -222,7 +228,6 @@ export default function TemplatesPage() {
                     })}
                   </div>
                 </div>
-                </a>
               </motion.div>
             ))}
           </div>
@@ -233,6 +238,81 @@ export default function TemplatesPage() {
         </div>
       </main>
       <Footer />
+
+      <AnimatePresence>
+        {activeTemplate && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            onClick={() => setActiveTemplate(null)}
+          >
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-surface border border-white/[0.08] rounded-2xl shadow-2xl"
+            >
+              <button
+                onClick={() => setActiveTemplate(null)}
+                className="absolute top-4 right-4 p-2 rounded-lg text-white/40 hover:text-white/80 hover:bg-white/[0.06] transition-colors z-10"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="p-6 md:p-8">
+                <h2 className="text-[22px] font-display font-bold mb-3 pr-10">{activeTemplate.title}</h2>
+                <p className="text-[14px] text-white/50 leading-relaxed mb-6">{activeTemplate.description}</p>
+
+                <div className="mb-6">
+                  <h4 className="text-[13px] font-medium text-white/70 mb-3">What's included</h4>
+                  <ul className="space-y-2">
+                    {activeTemplate.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-[13px] text-white/50">
+                        <Check className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mb-8">
+                  <h4 className="text-[13px] font-medium text-white/70 mb-3">Supported chains</h4>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {activeTemplate.chains.map((chain) => {
+                      const icon = chainIcons[chain];
+                      return (
+                        <div key={chain} className="flex items-center gap-1.5 px-2.5 py-1 bg-white/[0.04] border border-white/[0.06] rounded-full">
+                          {icon ? (
+                            <img src={icon} alt={chain} className="w-3.5 h-3.5 rounded-full" />
+                          ) : (
+                            <span className="w-3.5 h-3.5 rounded-full bg-white/[0.08]" />
+                          )}
+                          <span className="text-[12px] text-white/70">{chain}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <a
+                  href={activeTemplate.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-3 text-[14px] font-medium bg-accent text-white rounded-lg hover:bg-accent/80 transition-colors"
+                >
+                  <Download className="w-4 h-4" />
+                  Download Template
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
