@@ -46,7 +46,7 @@ export default function HeroChatMockup() {
             </div>
           </div>
 
-          <div className="px-3 py-4 space-y-2 min-h-[340px]">
+<div ref={chatRef} className="px-3 py-4 space-y-2 h-[340px] overflow-y-auto scrollbar-hide">
             {visibleSteps > 0 && chatSteps.slice(0, visibleSteps).map((step, i) => (
                   <motion.div
                     key={i}
