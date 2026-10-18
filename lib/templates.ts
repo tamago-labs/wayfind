@@ -17,7 +17,7 @@ export const templates = [
       'MCP server reads wallet balances and transaction history',
     ],
     setup: {
-      instruction: 'Use Agent Skills',
+      instruction: 'Use with Non-Grok Bot',
       prompt: 'Install agent skills from https://github.com/tamago-labs/wayfind-skills',
     },
   },
@@ -37,10 +37,9 @@ export const templates = [
       'Send and receive USDC and EURC',
 'Swap tokens via Circle App Kit',
       'Earn yield through Morpho and other vaults',
-      'Operate 24/7 on the bot\'s dedicated computer',
     ],
     setup: {
-      instruction: 'Find Agent Skills',
+      instruction: 'Use with Non-Grok Bot',
       prompt: 'Find skills on https://github.com/tamago-labs/wayfind-arc',
     },
   },
