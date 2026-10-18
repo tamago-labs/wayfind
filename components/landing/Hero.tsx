@@ -3,46 +3,39 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import HeroChatMockup from './HeroChatMockup';
-import Section from './Section';
-import TemplateCards from './TemplateCards';
 
 export default function Hero() {
   return (
-    <section className="max-w-6xl mx-auto px-6 pt-10 pb-24 relative grid-bg">
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-accent/8 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="relative flex flex-col items-center text-center">
-        <Section className="max-w-2xl">
-          <h1 className="font-display text-3xl md:text-5xl font-bold tracking-tight leading-[1.1]">
-            Grok Bot Templates for<br />
+    <section className="relative grid-bg">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-2 pt-12 pb-20 relative z-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        {/* Left column */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="font-display text-3xl md:text-5xl font-bold tracking-tight leading-[1.15]">
+            Put Grok Bot to Work{' '}
             <span className="bg-gradient-to-r from-zenblue via-accent to-accent2 bg-clip-text text-transparent">
-              Solana Trading
+              Across Web3
             </span>
           </h1>
-        </Section>
 
-        <Section className="max-w-2xl">
-          <p className="mt-5 text-[11px] sm:text-[15px] text-white/50 leading-relaxed">
-            Download bot templates to trade, rebalance, and manage <span className="text-accent font-semibold">tokenized stocks</span> using Wayfind's data layer and trading tools for AI agents.
+            <p className="mt-5 text-[14px] md:text-[15px] text-white/50 leading-relaxed max-w-md">
+            Download bot templates that give <span className="text-accent font-semibold">Grok Bot</span> the skills and tools to access blockchain data, execute transactions, and automate onchain trading, from <span className="text-accent font-semibold">tokenized stocks</span> to multi-chain finance.
           </p>
-        </Section>
 
-<<<<<<< HEAD
-        <Section className="w-full max-w-3xl mx-auto mt-5">
-          <TemplateCards />
-        </Section>
+          <div className="mt-6 flex items-center gap-3">
+            <Link href="/templates" className="text-[13px] font-display font-medium bg-accent text-white px-5 py-2.5 rounded-lg hover:bg-accent/80 transition-colors">
+              Browse Templates
+            </Link>
+            <Link href="/showcases" className="text-[13px] font-display font-medium bg-white/[0.06] text-white/70 px-5 py-2.5 rounded-lg hover:bg-white/[0.1] transition-colors border border-white/[0.08]">
+              View Showcases
+            </Link>
+          </div>
 
-        <div className="mt-6 flex items-center gap-3">
-          <Link href="/templates" className="text-[13px] font-display font-medium bg-accent text-white px-5 py-2.5 rounded-lg hover:bg-accent/80 transition-colors">
-            Browse Templates
-          </Link>
-          <Link href="/showcases" className="text-[13px] font-display font-medium bg-white/[0.06] text-white/70 px-5 py-2.5 rounded-lg hover:bg-white/[0.1] transition-colors border border-white/[0.08]">
-            View Showcases
-          </Link>
-        </div>
-
-        <Section>
-          <ul className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13px] text-white/35">
+          <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-[12px] text-white/35">
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent2" />
               <span className="flex items-center gap-1 text-[12px] text-white/35">
@@ -51,16 +44,32 @@ export default function Hero() {
             </li>
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent2" />
-              Real-Time Data by <img src="data:image/webp;base64,UklGRpABAABXRUJQVlA4IIQBAACQCACdASocABwAPtEutFooIagoGAEAGglsAJ0yhHVmgr0u2A3AG8jbyMSqrxp/Q2/A/YAVxwJw+yloJ8smrpKqFYWRvVgPnY0CG+B4AAD+Ctjsye/cX1TUx/xyKUIg9Ud32p9rJksmCygByiPDZFVXIusKLNlU/ZYW654rHaxRl+81N+ap6z5/+JUP85O4X9LOTiHyYhIS+Uv0SbUMOlRY5nwz++/kUpwVj7HrZvaoS6CMjojqhvH70H0o2n+lj1mVb8fn4F//afX8GlQuLQ++sH/FV/wsDf0/sw7GHQkWO9SfjH5O7wBfAYag/NcAisPc06GbPrnCrictkX8eI2RAd6t4KuNhlUlp2SGRV1LTnkMrY8Weg17US9j97ZZMSCoqc37qX4VhuMeYDv/xXYCbiJwHo/7m/9tn1N/6Lxa0GzOaixvJugxQ1/fMJncLK31Qx0a/dRjeeaySYZCWqSBrAU4Gn9gwt+x/z/zSoUNDUfjex7f0/z6I3nYWKUpL+weT4AAA" alt="CoinMarketCap" className="w-4 h-4 inline-block rounded-full" /> <span className="text-accent font-semibold">CoinMarketCap</span>
+              <span className="flex items-center gap-1 text-[12px] text-white/35">
+                Works Across{' '}
+                <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png" alt="Solana" className="w-4 h-4 inline-block rounded-full relative z-30" />
+                <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png" alt="Ethereum" className="w-4 h-4 inline-block rounded-full -ml-2.5 relative z-20" />
+                <img src="https://assets.coingecko.com/coins/images/1/standard/bitcoin.png?1696501400" alt="Bitcoin" className="w-4 h-4 inline-block rounded-full -ml-2.5 relative z-10" />{' '}
+                <span className="text-accent font-semibold">10+ Networks</span>
+              </span>
             </li>
-            <li className="flex items-center gap-2">
+            {/*<li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent2" />
               Risk Analysis with <span className="w-4 h-4 rounded-full bg-white inline-flex items-center justify-center"><img src="https://openrouter.ai/images/icons/OpenAI.svg" alt="OpenAI" className="w-3 h-3" /></span> <span className="text-accent font-semibold">GPT-6 Astra</span>
-            </li>
+            </li>*/}
           </ul>
-        </Section>
+        </motion.div>
+
+        {/* Right column */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex justify-center"
+        >
+          <HeroChatMockup />
+        </motion.div>
       </div>
- 
+      </div>
     </section>
   );
 }

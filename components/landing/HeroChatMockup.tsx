@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const chatSteps = [
 { type: 'ai', text: 'Hi, I\'m Wayfind 👋 I can pull tokenized-stock data and handle Solana swaps. What do you want to start with?' },
@@ -15,6 +15,7 @@ const chatSteps = [
 
 export default function HeroChatMockup() {
   const [visibleSteps, setVisibleSteps] = useState(0);
+  const chatRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const timers: ReturnType<typeof setTimeout>[] = [];
