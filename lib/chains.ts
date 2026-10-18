@@ -69,3 +69,20 @@ export function getAddChainParams(chain: ChainConfig) {
     blockExplorerUrls: [chain.explorerUrl],
   };
 }
+
+export const chainIcons: Record<string, string | null> = {
+  Solana: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png',
+  Ethereum: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png',
+  Base: 'https://icons.llamao.fi/icons/chains/rsz_base?w=48&h=48',
+  Arbitrum: 'https://icons.llamao.fi/icons/chains/rsz_arbitrum?w=48&h=48',
+  Polygon: 'https://icons.llamao.fi/icons/chains/rsz_polygon?w=48&h=48',
+  Bitcoin: 'https://token-icons.llamao.fi/icons/tokens/gecko/bitcoin?w=48&h=48',
+  Avalanche: 'https://icons.llamao.fi/icons/chains/rsz_avalanche?w=48&h=48',
+  Optimism: 'https://token-icons.llamao.fi/icons/tokens/gecko/optimism?w=48&h=48',
+  Arc: 'https://icons.llamao.fi/icons/chains/rsz_arc?w=48&h=48',
+  HyperEVM: 'https://icons.llamao.fi/icons/protocols/hyperliquid?w=48&h=48',
+  Sei: 'https://icons.llamao.fi/icons/chains/rsz_sei?w=48&h=48',
+  Sonic: 'https://icons.llamao.fi/icons/chains/rsz_sonic?w=48&h=48',
+  Unichain: 'https://icons.llamao.fi/icons/chains/rsz_unichain?w=48&h=48',
+  World: 'https://icons.llamao.fi/icons/chains/rsz_world%20chain?w=48&h=48',
+};
