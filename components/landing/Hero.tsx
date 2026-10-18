@@ -45,8 +45,8 @@ export default function Hero() {
           <ul className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13px] text-white/35">
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent2" />
-              <span className="flex items-center gap-1 text-[13px] text-white/35">
-                One-Click Import for <img src="/grok-bot-circle-neutral-blue.png" alt="Solana" className="w-4 h-4 inline-block rounded-full" /> <img src="/grok-bot-circle-neutral-orange.png" alt="Ethereum" className="w-4 h-4 inline-block rounded-full -ml-2.5" /> <img src="/grok-bot-circle-neutral-turquoise.png" alt="BNB Chain" className="w-4 h-4 inline-block rounded-full -ml-2.5" /> <span className="text-accent font-semibold">Grok Bot</span>
+              <span className="flex items-center gap-1 text-[12px] text-white/35">
+                One-Click Import for <img src="/grok-bot-circle-neutral-blue.png" alt="Solana" className="w-4 h-4 inline-block rounded-full z-30" /> <img src="/grok-bot-circle-neutral-orange.png" alt="Ethereum" className="w-4 h-4 z-20 inline-block rounded-full -ml-2.5" /> <img src="/grok-bot-circle-neutral-turquoise.png" alt="BNB Chain" className="w-4 h-4 z-10 inline-block rounded-full -ml-2.5" /> <span className="text-accent font-semibold">Grok Bot</span>
               </span>
             </li>
             <li className="flex items-center gap-2">
