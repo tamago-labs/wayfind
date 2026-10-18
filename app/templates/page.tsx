@@ -158,8 +158,13 @@ export default function TemplatesPage() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: i * 0.05 }}
-                className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden hover:border-white/[0.1] transition-colors group"
               >
+                <a
+                  href={t.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-xl border border-white/[0.06] bg-white/[0.02] overflow-hidden hover:border-white/[0.1] transition-colors group block"
+                >
                 <div className="aspect-video relative overflow-hidden">
                   <img
                     src={t.image}
@@ -217,6 +222,7 @@ export default function TemplatesPage() {
                     })}
                   </div>
                 </div>
+                </a>
               </motion.div>
             ))}
           </div>

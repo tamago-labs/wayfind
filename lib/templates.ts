@@ -7,8 +7,9 @@ export const templates = [
     creator: 'Wayfind',
     publishedAt: '2026-9-17',
     chains: ['Solana'],
-    tags: ['xStocks', 'Ondo Stocks' , 'Trading'],
+    tags: ['xStocks', 'Ondo Stocks', 'Trading'],
     featured: false,
+    link: 'https://x.ai/bot/EpQzEq9pQvX_utfgsxzbj',
   },
   {
     id: 2,
@@ -17,8 +18,9 @@ export const templates = [
     image: '/template-circle-usdc.png',
     creator: 'Wayfind',
     publishedAt: '2026-9-17',
-    chains: ['Arc','Ethereum', 'Solana', 'Base', 'Arbitrum', 'Polygon', 'Avalanche', 'Optimism', 'Sonic', 'Unichain', 'World', 'Sei', 'HyperEVM'],
-    tags: ['USDC', 'EURC ', 'DeFi'],
+    chains: ['Arc', 'Ethereum', 'Solana', 'Base', 'Arbitrum', 'Polygon', 'Avalanche', 'Optimism', 'Sonic', 'Unichain', 'World', 'Sei', 'HyperEVM'],
+    tags: ['USDC', 'EURC', 'DeFi'],
     featured: false,
+    link: 'https://x.ai/bot/IX2bDYMLKqQhe1hYFnXdi',
   },
 ];
