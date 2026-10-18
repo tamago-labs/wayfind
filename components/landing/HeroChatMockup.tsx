@@ -4,9 +4,13 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const chatSteps = [
-  { type: 'user', text: 'Set up payroll for my team in USDC' },
-  { type: 'ai', text: 'Connected to Circle — unified balance ready across 10+ chains.' },
-  { type: 'ai', text: 'HR bot configured. Freelancer payments, onchain payslips, and USDC transfers are now automated. I\'ll coordinate with your CFO bot for treasury oversight.' },
+{ type: 'ai', text: 'Hi, I\'m Wayfind 👋 I can pull tokenized-stock data and handle Solana swaps. What do you want to start with?' },
+  { type: 'user', text: 'List TSLA related tokens and give me a brief summary' },
+  { type: 'ai', text: 'Pulling the TSLA tokens now.' },
+  { type: 'ai', text: 'Wayfind tracks 7 tokenized TSLA versions. All trade near $382.6–$383.0, up ~0.1% in 24h, ~4% over 7 days, and ~4.7–5% over 30 days.' },
+  { type: 'user', text: 'Can I buy TSLAX with 1 SOL?' },
+  { type: 'ai', text: 'Getting you a quote on OKX DEX Router...' },
+  { type: 'ai', text: '1 SOL ≈ 2.1 TSLAX at $382.9 each. Slippage: 0.5%. Ready to execute — approve the swap?' },
 ];
 
 export default function HeroChatMockup() {
@@ -15,7 +19,7 @@ export default function HeroChatMockup() {
   useEffect(() => {
     const timers: ReturnType<typeof setTimeout>[] = [];
     chatSteps.forEach((_, i) => {
-      timers.push(setTimeout(() => setVisibleSteps(i + 1), (i + 1) * 1200));
+      timers.push(setTimeout(() => setVisibleSteps(i + 1), (i + 1) * 2000));
     });
     return () => timers.forEach(clearTimeout);
   }, []);
