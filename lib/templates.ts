@@ -16,6 +16,10 @@ export const templates = [
       'Executes swaps via OKX DEX Router',
       'MCP server reads wallet balances and transaction history',
     ],
+    setup: {
+      instruction: 'Use Agent Skills',
+      prompt: 'Install agent skills from https://github.com/tamago-labs/wayfind-skills',
+    },
   },
   {
     id: 2,
@@ -31,8 +35,13 @@ export const templates = [
     features: [
       'One unified balance across 10+ chains',
       'Send and receive USDC and EURC',
-      'Swap tokens via Circle Swap Kit',
-      'Earn yield through Morpho and other vaults'
+'Swap tokens via Circle App Kit',
+      'Earn yield through Morpho and other vaults',
+      'Operate 24/7 on the bot\'s dedicated computer',
     ],
+    setup: {
+      instruction: 'Find Agent Skills',
+      prompt: 'Find skills on https://github.com/tamago-labs/wayfind-arc',
+    },
   },
 ];

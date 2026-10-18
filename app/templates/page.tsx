@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, ChevronDown, X, Download, Check } from 'lucide-react';
+import { Search, ChevronDown, X, Download, Check, Copy } from 'lucide-react';
 import Header from '@/components/landing/Header';
 import Footer from '@/components/landing/Footer';
 import PageHero from '@/components/landing/PageHero';
@@ -308,6 +308,22 @@ export default function TemplatesPage() {
                   <Download className="w-4 h-4" />
                   Download Template
                 </a>
+
+                {activeTemplate.setup && (
+                  <div className="mt-5 pt-5 border-t border-white/[0.06]">
+                    <h4 className="text-[13px] font-medium text-white/70 mb-2">{activeTemplate.setup.instruction}</h4>
+                    <div className="flex items-center gap-2 px-3 py-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg">
+                      <p className="text-[12px] text-white/40 flex-1 break-all">{activeTemplate.setup.prompt}</p>
+                      <button
+                        onClick={() => navigator.clipboard.writeText(activeTemplate.setup.prompt)}
+                        className="shrink-0 p-1.5 rounded-md text-white/40 hover:text-white/80 hover:bg-white/[0.06] transition-colors"
+                        title="Copy"
+                      >
+                        <Copy className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </motion.div>
           </motion.div>
