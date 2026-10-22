@@ -10,7 +10,7 @@ const navLinks = [
   { href: '/showcases', label: 'Showcases' },
   { href: '/templates', label: 'Templates' },
   
-  { href: '/#pricing', label: 'Pricing' },
+  { href: '/#demo', label: 'Video Demo' },
   { href: '/#faq', label: 'FAQ' },
 ];
 
