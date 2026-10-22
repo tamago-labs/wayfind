@@ -85,4 +85,6 @@ export const chainIcons: Record<string, string | null> = {
   Sonic: 'https://icons.llamao.fi/icons/chains/rsz_sonic?w=48&h=48',
   Unichain: 'https://icons.llamao.fi/icons/chains/rsz_unichain?w=48&h=48',
   World: 'https://icons.llamao.fi/icons/chains/rsz_world%20chain?w=48&h=48',
+  Mezo: 'https://s2.coinmarketcap.com/static/img/coins/64x64/39727.png',
+  BNB: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png'
 };

@@ -299,15 +299,21 @@ export default function TemplatesPage() {
                   </div>
                 </div>
 
-                <a
-                  href={activeTemplate.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-3 text-[14px] font-medium bg-accent text-white rounded-lg hover:bg-accent/80 transition-colors"
-                >
-                  <Download className="w-4 h-4" />
-                  Download Template
-                </a>
+                {activeTemplate.link ? (
+                  <a
+                    href={activeTemplate.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full py-3 text-[14px] font-medium bg-accent text-white rounded-lg hover:bg-accent/80 transition-colors"
+                  >
+                    <Download className="w-4 h-4" />
+                    Download Template
+                  </a>
+                ) : (
+                  <div className="flex items-center justify-center gap-2 w-full py-3 text-[14px] font-medium bg-white/[0.04] text-white/30 rounded-lg cursor-not-allowed">
+                    Template not yet available — try agent skills
+                  </div>
+                )}
 
                 {activeTemplate.setup && (
                   <div className="mt-5 pt-5 border-t border-white/[0.06]">

@@ -6,20 +6,20 @@ import Section from './Section';
 const steps = [
   {
     num: '01',
-    title: 'Browse bot templates',
+    title: 'Download bot templates',
     description: (
       <>
-        Browse bot templates spanning <span className="text-white/70 font-medium">Solana Tokenized Stocks</span> to <span className="text-white/70 font-medium">Circle USDC-Centric</span>, each with skills and memory included.
+        Browse bot templates spanning <span className="text-white/70 font-medium">Solana Tokenized Stocks</span> to <span className="text-white/70 font-medium">Circle USDC Payments</span>, each with skills and memory included.
       </>
     ),
     example: null,
   },
   {
     num: '02',
-    title: 'Get your API key',
+    title: 'Create your agentic wallet',
     description: (
       <>
-        Ask your bot to setup and access Wayfind's <span className="text-white/70 font-medium">indexed onchain data and APIs</span>. All sensitive data remaining on its own computer.
+        Your bot creates an encrypted wallet on <span className="text-white/70 font-medium">bot&apos;s computer</span>. Provide a Wayfind API key (optional) to access <span className="text-white/70 font-medium">tokenized stocks data</span>.
       </>
     ),
     example: null,
@@ -39,7 +39,7 @@ const steps = [
     title: 'Share your Web3 service',
     description: (
       <>
-        Publish your Web3 service to the showcase for visibility. Whether it's a <span className="text-white/70 font-medium">WhatsApp bot</span> or <span className="text-white/70 font-medium">web dashboard</span>, let other users see what your bots can do and get inspired to build their own.
+        Whether it's a <span className="text-white/70 font-medium">WhatsApp bot</span> or <span className="text-white/70 font-medium">web dashboard</span>, let other users see what your bots can do and get inspired to build their own.
       </>
     ),
     example: null,

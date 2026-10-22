@@ -21,7 +21,7 @@ export default function PageHero({ title, subtitle }: PageHeroProps) {
           initial={{ opacity: 0, x: 8 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="text-3xl md:text-4xl font-display font-semibold tracking-tight"
+          className="text-2xl md:text-3xl font-display font-semibold tracking-tight"
         >
           {title}
         </motion.h1>

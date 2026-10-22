@@ -1,10 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const chatSteps = [
-{ type: 'ai', text: 'Hi, I\'m Wayfind 👋 I can pull tokenized-stock data and handle Solana swaps. What do you want to start with?' },
+  { type: 'ai', text: 'Hi, I\'m Wayfind 👋 I can pull tokenized-stock data and handle Solana swaps. What do you want to start with?' },
   { type: 'user', text: 'List TSLA related tokens and give me a brief summary' },
   { type: 'ai', text: 'Pulling the TSLA tokens now.' },
   { type: 'ai', text: 'Wayfind tracks 7 tokenized TSLA versions. All trade near $382.6–$383.0, up ~0.1% in 24h, ~4% over 7 days, and ~4.7–5% over 30 days.' },
@@ -25,6 +25,12 @@ export default function HeroChatMockup() {
     return () => timers.forEach(clearTimeout);
   }, []);
 
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [visibleSteps]);
+
   return (
     <div className="mx-auto w-full max-w-[280px]">
       <div className="relative rounded-[28px] border border-white/[0.08] bg-[#0a0a0f] p-2 shadow-2xl">
@@ -41,9 +47,7 @@ export default function HeroChatMockup() {
 
           <div className="px-4 pb-3 border-b border-white/[0.06]">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-zenblue to-zenpurple flex items-center justify-center">
-                <span className="text-[8px] font-bold text-white">W</span>
-              </div>
+              <img src="/grok-bot-circle-neutral-turquoise.png" alt="Wayfind" className="w-6 h-6 rounded-full" />
               <div>
                  <p className="text-[11px] font-semibold text-white/90">Wayfind Demo</p>
                 <p className="text-[9px] text-accent">online</p>
@@ -51,7 +55,7 @@ export default function HeroChatMockup() {
             </div>
           </div>
 
-<div ref={chatRef} className="px-3 py-4 space-y-2 h-[340px] overflow-y-auto scrollbar-hide">
+          <div ref={chatRef} className="px-3 py-4 space-y-2 h-[340px] overflow-y-auto scrollbar-hide">
             {visibleSteps > 0 && chatSteps.slice(0, visibleSteps).map((step, i) => (
                   <motion.div
                     key={i}
