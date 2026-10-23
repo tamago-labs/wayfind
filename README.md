@@ -100,178 +100,6 @@ Wayfind's backend uses **AWS Amplify Gen 2** with serverless functions, DynamoDB
 | **chat-further** | SSE streaming Lambda for post-review AI chat. Triage agent hands off to specialist agents (market research, news intelligence, pre-IPO markets). Powered by OpenAI Agents SDK. |
 | **ohlcv-fetcher** | Retrieves historical price data from CoinMarketCap for chart rendering. |
 
-## CoinMarketCap API Integration
-
-Wayfind uses CoinMarketCap Pro API across 3 categories: Real World Assets (RWA), Cryptocurrency quotes, and OHLCV historical data.
-
-### Endpoints Used
-
-| File | CMC Endpoint | Purpose |
-|------|-------------|---------|
-| `scripts/fetch-all.ts` | `GET /v5/real-world-assets/map` | List all stock RWAs with pagination |
-| `scripts/rwa-filter.ts` | `GET /v5/real-world-assets/quotes/latest` | Filter active stocks by price > 0 |
-| `scripts/rwa-info-final.ts` | `GET /v5/real-world-assets/info` | Fetch metadata (website, industry, description) |
-| `app/api/crypto-prices/route.ts` | `GET /v2/cryptocurrency/quotes/latest` | Client-side base token prices (SOL, USDC, USDT) |
-| `amplify/functions/price-tracker/handler.ts` | `GET /v2/cryptocurrency/quotes/latest` | Scheduled batch price tracking for all RWA tokens |
-| `amplify/functions/ohlcv-fetcher/handler.ts` | `GET /v2/cryptocurrency/ohlcv/historical` | OHLCV historical data for price charts |
-
-### Frontend Data Consumers
-
-| File | Source | Purpose |
-|------|--------|---------|
-| `contexts/BaseTokenPriceProvider.tsx` | Calls `/api/crypto-prices` | React context providing base token prices |
-| `app/dashboard/explore/page.tsx` | Reads `PriceSnapshot` from DB | Displays CMC-sourced price data in explore table |
-| `components/dashboard/portfolio/*` | Reads prices from context/DB | Portfolio stats, holdings with live values |
-| `components/dashboard/token-detail/*` | Reads `PriceSnapshot` from DB | Token detail pages with price history |
-
-### Evidence of Real API Calls
-
-#### 1. RWA Map — Discover Tokenized Stocks
-
-**Code** (`scripts/fetch-all.ts`):
-```typescript
-const url = new URL(`${BASE_URL}/v5/real-world-assets/map`);
-url.searchParams.set("asset_type", "stock");
-url.searchParams.set("limit", "250");
-url.searchParams.set("start", String(start));
-url.searchParams.set("sort", "rwa_rank");
-
-const res = await fetch(url.toString(), {
-  headers: { "X-CMC_PRO_API_KEY": CMC_API_KEY, Accept: "application/json" },
-});
-```
-
-**Response**:
-```json
-{
-  "data": {
-    "rwa_assets": [
-      {
-        "name": "Nvidia Corp",
-        "symbol": "NVDA",
-        "slug": "nvidia",
-        "rwa_id": 2,
-        "rwa_rank": 2,
-        "has_tokens": true
-      },
-      {
-        "name": "Apple Inc.",
-        "symbol": "AAPL",
-        "rwa_id": 3,
-        "rwa_rank": 3
-      }
-    ],
-    "total_size": 4686
-  }
-}
-```
-
-#### 2. RWA Quotes — Live Tokenized Prices
-
-**Code** (`scripts/rwa-filter.ts`):
-```typescript
-const url = new URL(`${BASE_URL}/v5/real-world-assets/quotes/latest`);
-url.searchParams.set("symbol", symbols.join(","));
-url.searchParams.set("convert", "USD");
-```
-
-**Response**:
-```json
-{
-  "data": {
-    "rwa_assets": [
-      {
-        "symbol": "NVDA",
-        "name": "Nvidia Corp",
-        "average_tokenized_price": 230.48,
-        "tokenized_market_cap": 136929862.56,
-        "tokenized_volume_24h": 177615573.63,
-        "tokens": [
-          { "symbol": "NVDAX", "price": 230.49, "issuer_name": "Backed Assets" },
-          { "symbol": "NVDAon", "price": 230.28, "issuer_name": "Ondo Assets" }
-        ]
-      }
-    ]
-  }
-}
-```
-
-#### 3. Cryptocurrency Quotes — Base Token Prices
-
-**Code** (`app/api/crypto-prices/route.ts`):
-```typescript
-const url = new URL("https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest");
-url.searchParams.set("id", ids);
-url.searchParams.set("convert", "USD");
-```
-
-**Response** (truncated):
-```json
-{
-  "data": {
-    "5426": {
-      "name": "Solana",
-      "symbol": "SOL",
-      "quote": {
-        "USD": {
-          "price": 119.57,
-          "percent_change_24h": 1.53,
-          "market_cap": 70287482433.59
-        }
-      }
-    }
-  },
-  "status": { "credit_count": 1 }
-}
-```
-
-#### 4. OHLCV Historical — Price Chart Data
-
-**Code** (`amplify/functions/ohlcv-fetcher/handler.ts`):
-```typescript
-const url = new URL(`${BASE_URL}/v2/cryptocurrency/ohlcv/historical`);
-url.searchParams.set("id", String(cryptoId));
-url.searchParams.set("convert", "USD");
-url.searchParams.set("time_start", timeStart);
-url.searchParams.set("time_end", timeEnd);
-url.searchParams.set("interval", interval);
-```
-
-**Response** (truncated):
-```json
-{
-  "data": {
-    "id": 5426,
-    "symbol": "SOL",
-    "quotes": [
-      {
-        "time_open": "2026-09-21T00:00:00.000Z",
-        "quote": {
-          "USD": {
-            "open": 111.13,
-            "high": 119.81,
-            "low": 110.96,
-            "close": 118.75,
-            "volume": 6854063256.49
-          }
-        }
-      }
-    ]
-  }
-}
-```
-
-### How CoinMarketCap API Shaped Wayfind
-
-CoinMarketCap's RWA and market-data APIs were central to Wayfind's asset discovery and risk intelligence layer.
-
-* **RWA Discovery** — `/v5/real-world-assets/map` provides a paginated catalog of tokenized assets, allowing us to discover and track 534+ active tokenized equities from 4,686+ RWA records.
-* **Metadata Enrichment** — `/v5/real-world-assets/info` provides company and asset metadata such as website, industry, founding date, employee count, and exchange information without requiring custom scraping.
-* **Live Market Data** — `/v2/cryptocurrency/quotes/latest` provides price, market cap, volume, and percentage changes for both underlying crypto assets and tokenized assets.
-* **Historical Data** — `/v2/cryptocurrency/ohlcv/historical` powers historical price and candlestick data used in portfolio analysis and exploration.
-
-Working with the API also introduced several practical engineering constraints. RWA endpoints are separate from standard cryptocurrency endpoints, supply fields can be incomplete for some tokenized assets, and differences between CMC API versions required explicit response mapping. Rate limits also required us to batch requests and introduce delays when synchronizing large asset sets. These constraints shaped our caching, batching, and data-normalization approach.
-
 ## Getting Started
 
 1. Install packages. This project requires Node.js >= 18.0.0.
@@ -283,9 +111,6 @@ npm install
 2. Add `.env.local` file with required environment variables:
 
 ```bash
-# CoinMarketCap Pro API
-CMC_API_KEY=your_cmc_api_key
-
 # OKX DEX Router
 OKX_API_KEY=your_okx_api_key
 OKX_SECRET_KEY=your_okx_secret_key
@@ -352,22 +177,22 @@ app/
     chats/[id]/     # Chat Further (post-review discussion)
     token/[slug]/[crypto_id]/  # Token Detail
   api/
-    crypto-prices/  # CMC proxy route
+    crypto-prices/  # Price proxy route
     swap-instruction/ # OKX DEX swap
 components/
   dashboard/        # Dashboard-specific components
   landing/          # Landing page components
 amplify/
   functions/
-    price-tracker/  # Scheduled CMC price fetcher
-    ohlcv-fetcher/  # OHLCV historical data fetcher
+    price-tracker/  # Scheduled price fetcher
+    ohlcv-fetcher/  # Historical data fetcher
     risk-review/    # AI Risk Engine Lambda
     chat-further/   # Post-review chat Lambda
   data/             # Data models and schema
 scripts/
-  fetch-all.ts      # Fetch all stock RWAs from CMC
+  fetch-all.ts      # Fetch all stock RWAs
   rwa-filter.ts     # Filter active stocks by price
-  rwa-info-final.ts # Fetch RWA metadata from CMC
+  rwa-info-final.ts # Fetch RWA metadata
 lib/
   data/
     rwa-v1-list.json  # Generated token registry (534 tokens)
@@ -386,7 +211,7 @@ Wayfind is currently free for all users. As we scale, usage-based pricing will b
 - **AI:** OpenAI Agents SDK, multi-agent architecture with session memory, Frontier AI (GPT-6 Astra)
 - **Agent Infrastructure:** MCP Server (`@tamago-labs/wayfind-mcp`), Agent Skills (`wayfind-skills`) for Grok Bot, Claude Code, Cursor
 - **Blockchain:** Solana Web3.js, OKX DEX Router, multi-chain wallet support
-- **Data:** CoinMarketCap Pro (RWA + crypto endpoints), PreStocks API
+- **Data:** CoinGecko (RWA + crypto endpoints), PreStocks API
 
 ## License
 

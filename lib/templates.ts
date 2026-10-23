@@ -51,7 +51,7 @@ export const templates = [
     creator: 'Wayfind',
     publishedAt: '2026-10-20',
     chains: ['Bitcoin', 'Mezo'],
-    tags: ['BTC', 'mUSD', 'Staking'],
+    tags: ['BTC', 'MUSD', 'Staking'],
     featured: false,
     link: '',
     features: [

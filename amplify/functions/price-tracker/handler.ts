@@ -6,9 +6,9 @@ import { getAmplifyDataClientConfig } from "@aws-amplify/backend/function/runtim
 import { env } from "$amplify/env/price-tracker";
 import listData from "./rwa-v1-list.json";
 
-const CMC_API_KEY = env.CMC_API_KEY;
-const BASE_URL = "https://pro-api.coinmarketcap.com";
-const BATCH_SIZE = 25;
+const COINGECKO_API_KEY = env.COINGECKO_API_KEY;
+const BASE_URL = "https://api.coingecko.com/api/v3";
+const BATCH_SIZE = 100;
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -17,6 +17,7 @@ interface Token {
   name: string;
   price: number | null;
   crypto_id: string;
+  coingecko_id: string | null;
   issuer_id: string;
   issuer_name: string;
   market_cap: number | null;
@@ -38,25 +39,26 @@ interface ActiveAsset {
   description: string | null;
 }
 
-async function fetchCryptoQuotes(cryptoIds: number[]): Promise<any[]> {
-  const url = new URL(`${BASE_URL}/v2/cryptocurrency/quotes/latest`);
-  url.searchParams.set("id", cryptoIds.join(","));
-  url.searchParams.set("convert", "USD");
+async function fetchCryptoMarkets(coinIds: string[]): Promise<any[]> {
+  const url = new URL(`${BASE_URL}/coins/markets`);
+  url.searchParams.set("vs_currency", "usd");
+  url.searchParams.set("ids", coinIds.join(","));
+  url.searchParams.set("price_change_percentage", "1h,24h,7d,30d");
+  url.searchParams.set("per_page", "250");
 
-  const res = await fetch(url.toString(), {
-    headers: {
-      "X-CMC_PRO_API_KEY": CMC_API_KEY,
-      Accept: "application/json",
-    },
-  });
+  const headers: Record<string, string> = { Accept: "application/json" };
+  if (COINGECKO_API_KEY) {
+    headers["x-cg-demo-api-key"] = COINGECKO_API_KEY;
+  }
+
+  const res = await fetch(url.toString(), { headers });
 
   if (!res.ok) {
     console.error(`HTTP ${res.status}: ${await res.text()}`);
     return [];
   }
 
-  const data = await res.json();
-  return Object.values(data.data ?? {});
+  return await res.json();
 }
 
 export const handler: EventBridgeHandler<"Scheduled Event", null, void> = async (event) => {
@@ -72,7 +74,7 @@ export const handler: EventBridgeHandler<"Scheduled Event", null, void> = async 
   const allTokens: { token: Token; rwa_id: number }[] = [];
   for (const asset of assets) {
     for (const token of asset.tokens) {
-      if (token.crypto_id) {
+      if (token.coingecko_id) {
         allTokens.push({ token, rwa_id: asset.rwa_id });
       }
     }
@@ -89,36 +91,35 @@ export const handler: EventBridgeHandler<"Scheduled Event", null, void> = async 
     console.log(`  ${progress}/${allTokens.length}`);
 
     try {
-      const ids = batch.map((b) => Number(b.token.crypto_id));
-      const quotes = await fetchCryptoQuotes(ids);
-      const quoteMap = new Map<number, any>();
-      for (const q of quotes) {
-        quoteMap.set(q.id, q);
+      const ids = batch.map((b) => b.token.coingecko_id!);
+      const markets = await fetchCryptoMarkets(ids);
+      const marketMap = new Map<string, any>();
+      for (const m of markets) {
+        marketMap.set(m.id, m);
       }
 
       for (const { token, rwa_id } of batch) {
-        const quote = quoteMap.get(Number(token.crypto_id));
-        if (!quote) {
+        const market = marketMap.get(token.coingecko_id!);
+        if (!market) {
           errors.push(token.symbol);
           continue;
         }
 
-        const usd = quote.quote?.USD;
         try {
           await client.models.PriceSnapshot.create({
             symbol: assets.find((a) => a.rwa_id === rwa_id)?.symbol ?? "",
             rwa_id,
             token_symbol: token.symbol,
             crypto_id: Number(token.crypto_id),
-            price: usd?.price ?? null,
-            market_cap: usd?.market_cap ?? null,
-            volume_24h: usd?.volume_24h ?? null,
-            percent_1h: usd?.percent_change_1h ?? null,
-            percent_24h: usd?.percent_change_24h ?? null,
-            percent_7d: usd?.percent_change_7d ?? null,
-            percent_30d: usd?.percent_change_30d ?? null,
-            circulating_supply: quote.circulating_supply ?? null,
-            total_supply: quote.total_supply ?? null,
+            price: market.current_price ?? null,
+            market_cap: market.market_cap ?? null,
+            volume_24h: market.total_volume ?? null,
+            percent_1h: market.price_change_percentage_1h_in_currency ?? null,
+            percent_24h: market.price_change_percentage_24h_in_currency ?? null,
+            percent_7d: market.price_change_percentage_7d_in_currency ?? null,
+            percent_30d: market.price_change_percentage_30d_in_currency ?? null,
+            circulating_supply: market.circulating_supply ?? null,
+            total_supply: market.total_supply ?? null,
           });
           saved++;
         } catch (err) {
@@ -131,7 +132,7 @@ export const handler: EventBridgeHandler<"Scheduled Event", null, void> = async 
     }
 
     if (i + BATCH_SIZE < allTokens.length) {
-      await sleep(2500);
+      await sleep(2000);
     }
   }
 
