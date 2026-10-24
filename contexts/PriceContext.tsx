@@ -49,9 +49,12 @@ export function PriceProvider({ children }: { children: ReactNode }) {
       try {
         const allRecords: any[] = [];
         let cursor: string | null = null;
+        const now = new Date();
+        const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
         do {
           const result: any = await client.models.PriceSnapshot.list({
+            filter: { createdAt: { ge: oneDayAgo.toISOString() } },
             nextToken: cursor,
             limit: 100,
           });
