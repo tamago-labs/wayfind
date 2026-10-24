@@ -13,7 +13,7 @@ import type { AppClient } from '@/components/SolanaWalletProvider';
 
 const navItems = [
   { href: '/dashboard', label: 'Home', icon: Home },
-  { href: '/dashboard/explore', label: 'Tokenized Stocks', icon: Compass },
+  { href: '/dashboard/explore', label: 'Explore', icon: Compass },
   { href: '/dashboard/portfolio', label: 'Portfolio', icon: PieChart },
 ];
 

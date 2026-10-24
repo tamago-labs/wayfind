@@ -33,12 +33,12 @@ for (const asset of (listData as any).assets) {
   }
 }
 
-const CHAIN_LOGOS: Record<number, string> = {
+export const CHAIN_LOGOS: Record<number, string> = {
   5426: "https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png",
   1027: "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
   1839: "https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
   11841: "https://s2.coinmarketcap.com/static/img/coins/64x64/11841.png",
-  3897: "https://s2.coinmarketcap.com/static/img/coins/64x64/3897.png",
+  3897: "https://s2.coinmarketcap.com/static/img/coins/64x64/3897.png"
 };
 
 const dataClient = generateClient<Schema>();
@@ -46,7 +46,7 @@ const dataClient = generateClient<Schema>();
 const PAGE_TITLES: Record<string, string> = {
   "/dashboard": "Home",
   "/dashboard/portfolio": "Portfolio Overview",
-  "/dashboard/explore": "Tokenized Stocks Across Web3",
+  "/dashboard/explore": "Explore Real-Time Data for Bots",
   "/dashboard/new-chat": "New Risk Assessment",
   "/dashboard/alerts": "Stay Notified",
   "/dashboard/api-keys": "Use in Your Bot",
