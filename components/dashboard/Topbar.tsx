@@ -44,12 +44,12 @@ const CHAIN_LOGOS: Record<number, string> = {
 const dataClient = generateClient<Schema>();
 
 const PAGE_TITLES: Record<string, string> = {
-  "/dashboard": "New Risk Assessment",
+  "/dashboard": "Home",
   "/dashboard/portfolio": "Portfolio Overview",
-  "/dashboard/explore": "Explore Tokenized Stocks Across Web3",
-  "/dashboard/pre-ipo": "Pre-IPO Markets via PreStocks",
+  "/dashboard/explore": "Tokenized Stocks Across Web3",
+  "/dashboard/new-chat": "New Risk Assessment",
   "/dashboard/alerts": "Stay Notified",
-  "/dashboard/api-keys": "Your API Key",
+  "/dashboard/api-keys": "Use in Your Bot",
   "/dashboard/review": "Portfolio Review",
 };
 

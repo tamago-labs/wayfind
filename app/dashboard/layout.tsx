@@ -12,7 +12,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isNewChat = pathname === '/dashboard' || pathname === '/dashboard/';
+  const isNewChat = pathname.startsWith('/dashboard/new-chat');
   const isChatSession = pathname.startsWith('/dashboard/chats/');
   const isReview = pathname.startsWith('/dashboard/review');
   const isStrategies = pathname.startsWith('/dashboard/api-keys');

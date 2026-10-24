@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { PieChart, Compass, Rocket, Bell, List, ChevronDown, BookCheck, Lightbulb, Key, Plus } from 'lucide-react';
+import { PieChart, Compass, Rocket, Bell, List, ChevronDown, BookCheck, Lightbulb, Key, Plus, Home } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useClient } from '@solana/react';
 import { useConnectedWallet } from '@solana/kit-plugin-wallet/react';
@@ -12,12 +12,13 @@ import type { Schema } from '@/amplify/data/resource';
 import type { AppClient } from '@/components/SolanaWalletProvider';
 
 const navItems = [
-  { href: '/dashboard', label: 'Risk Profile', icon: Plus },
+  { href: '/dashboard', label: 'Home', icon: Home },
+  { href: '/dashboard/explore', label: 'Tokenized Stocks', icon: Compass },
   { href: '/dashboard/portfolio', label: 'Portfolio', icon: PieChart },
-  { href: '/dashboard/explore', label: 'Explore', icon: Compass },
-  { href: '/dashboard/pre-ipo', label: 'Pre-IPO', icon: Rocket },
-  { href: '/dashboard/api-keys', label: 'API Key', icon: Key },
+];
 
+const apiNavItems = [
+  { href: '/dashboard/api-keys', label: 'API Key for Bot', icon: Key },
 ];
 
 function relativeTime(dateStr: string): string {
@@ -40,6 +41,7 @@ export default function Sidebar() {
   const connected = useConnectedWallet(client);
   const walletAddress = connected ? String(connected.account.address) : null;
   const [chatsOpen, setChatsOpen] = useState(false);
+  const [newOpen, setNewOpen] = useState(false);
   const [profileId, setProfileId] = useState<string | null>(null);
   const [reviews, setReviews] = useState<Array<{ id: string; portfolioName: string; overallScore: number; overallLabel: string; createdAt: string }>>([]);
   const [loading, setLoading] = useState(false);
@@ -77,7 +79,7 @@ export default function Sidebar() {
   return (
     <aside className="w-56 h-screen border-r border-border3/50 bg-surface flex flex-col fixed left-0 top-0">
       <Link href="/" className="px-5 h-14 flex items-center gap-2 border-b border-border3/50 hover:bg-white/[0.02] transition-colors">
-         <div className="w-7 h-7 rounded-full bg-gradient-to-br from-zenblue to-zenpurple flex">
+         <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-zenblue to-zenpurple flex">
            <span className="text-[20px] font-brand text-center mx-auto rotate-[-10deg] ml-[5px] mt-[1px]">W</span>
          </div>
          <span className="font-display text-lg font-semibold tracking-tight">Wayfind</span>
@@ -87,9 +89,7 @@ export default function Sidebar() {
         {navItems.map((item) => {
           const isActive = item.href === "/dashboard/explore"
             ? pathname === item.href || pathname?.startsWith("/dashboard/token/")
-            : item.href === "/dashboard/pre-ipo"
-              ? pathname === item.href || pathname?.startsWith("/dashboard/pre-ipo/")
-              : pathname === item.href;
+            : pathname === item.href;
           const Icon = item.icon;
           return (
             <Link
@@ -105,9 +105,51 @@ export default function Sidebar() {
               <span className={isActive ? 'text-white' : ''}>{item.label}</span>
             </Link>
           );
-        })}
+         })}
 
-        {/* Chats accordion */}
+         {/* + New accordion */}
+         <div>
+           <button
+             onClick={() => setNewOpen(!newOpen)}
+             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-display font-medium text-white/50 hover:text-white hover:bg-white/[0.03] transition-colors"
+           >
+             <Plus className="w-4 h-4" />
+             <span className="flex-1 text-left">New</span>
+             <motion.div
+               animate={{ rotate: newOpen ? 180 : 0 }}
+               transition={{ duration: 0.2 }}
+             >
+               <ChevronDown className="w-3 h-3" />
+             </motion.div>
+           </button>
+
+           <AnimatePresence>
+             {newOpen && (
+               <motion.div
+                 initial={{ height: 0, opacity: 0 }}
+                 animate={{ height: 'auto', opacity: 1 }}
+                 exit={{ height: 0, opacity: 0 }}
+                 transition={{ duration: 0.2 }}
+                 className="overflow-hidden"
+               >
+                 <div className="pl-10 pr-3 py-1 space-y-0.5">
+                   <Link
+                     href="/dashboard/new-chat"
+                     className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-[12px] transition-colors ${
+                       pathname === "/dashboard/new-chat"
+                         ? 'bg-accent/10 text-accent'
+                         : 'text-white/40 hover:text-white/70 hover:bg-white/[0.02]'
+                     }`}
+                   >
+                     <span className="truncate flex-1 text-[12px]">Risk Profile</span>
+                   </Link>
+                 </div>
+               </motion.div>
+             )}
+           </AnimatePresence>
+         </div>
+
+         {/* Chats accordion */}
         <div>
           <button
             onClick={() => setChatsOpen(!chatsOpen)}
@@ -165,6 +207,27 @@ export default function Sidebar() {
           </AnimatePresence>
         </div>
       </nav>
+
+      <div className="px-3 py-2 border-t border-border3/50">
+        {apiNavItems.map((item) => {
+          const isActive = pathname === item.href;
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-display font-medium transition-colors ${
+                isActive
+                  ? 'bg-gradient-to-r from-zenblue/25 via-accent/15 to-accent2/20'
+                  : 'text-white/50 hover:text-white hover:bg-white/[0.03]'
+              }`}
+            >
+              <Icon className={`w-4 h-4 ${isActive ? 'text-white' : ''}`} />
+              <span className={isActive ? 'text-white' : ''}>{item.label}</span>
+            </Link>
+          );
+        })}
+      </div>
     </aside>
   );
 }
