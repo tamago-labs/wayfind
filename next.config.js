@@ -14,7 +14,8 @@ const nextConfig = {
   },
   serverRuntimeConfig: {
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
-    CMC_API_KEY: process.env.CMC_API_KEY,
+     CMC_API_KEY: process.env.CMC_API_KEY,
+     COINGECKO_API_KEY: process.env.COINGECKO_API_KEY,
     OKX_API_KEY: process.env.OKX_API_KEY,
     OKX_SECRET_KEY: process.env.OKX_SECRET_KEY,
     OKX_PASSPHRASE: process.env.OKX_PASSPHRASE,

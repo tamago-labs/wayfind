@@ -2,6 +2,7 @@ export interface Token {
   symbol: string;
   name: string;
   crypto_id: string;
+  coingecko_id?: string | null;
   issuer_name: string;
   logo?: string | null;
   description?: string | null;

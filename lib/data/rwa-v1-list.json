@@ -44,7 +44,8 @@
             "arbitrum": "0xfebded1b0986a8ee107f5ab1a1c5a813491deceb",
             "bnb": "0xfebded1b0986a8ee107f5ab1a1c5a813491deceb",
             "xlayer": "0xfEbDEd1B0986a8ee107f5AB1a1c5a813491DeCEB"
-          }
+          },
+          "coingecko_id": "circle-xstock"
         },
         {
           "symbol": "CRCLon",
@@ -80,7 +81,8 @@
             "arbitrum": null,
             "bnb": "0x992879cd8ce0c312d98648875b5a8d6d042cbf34",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "circle-internet-group-ondo-tokenized-stock"
         },
         {
           "symbol": "CRCLB",
@@ -113,7 +115,8 @@
             "arbitrum": null,
             "bnb": "0x80f3d493ebce97e343c53d29a137942416b4ffc0",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "circle-internet-group-bstock"
         },
         {
           "symbol": "rCRCL",
@@ -145,7 +148,8 @@
             "arbitrum": "0x861a85a78c371bc0a02675bbe00a4cbc0826b421",
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "circle-rstock-2"
         },
         {
           "symbol": "CRCL",
@@ -174,7 +178,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "circle-internet-group-robinhood-tokenized-stock"
         },
         {
           "symbol": "wCRCLx",
@@ -205,7 +210,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": "0xb11134f14d5b94db60d4599dfdc3bf1bba2150e8"
-          }
+          },
+          "coingecko_id": "wrapped-circle-xstock"
         }
       ],
       "website": "https://www.circle.com",
@@ -314,7 +320,8 @@
             "arbitrum": null,
             "bnb": "0xbe9d156892e55e7154bcd3cb0fea677f9d3103e1",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "spacex-bstocks-tokenized-stock"
         },
         {
           "symbol": "SPCXx",
@@ -352,7 +359,8 @@
             "arbitrum": "0x68fa48b1c2fe52b3d776e1953e0e782b5044ce28",
             "bnb": "0x68fa48b1c2fe52b3d776e1953e0e782b5044ce28",
             "xlayer": "0x8e2eed8b8b5e13ea7bf38e50d7821d2c57309072"
-          }
+          },
+          "coingecko_id": "spacex-xstocks"
         },
         {
           "symbol": "SPCXon",
@@ -385,7 +393,8 @@
             "arbitrum": null,
             "bnb": "0xd0a58BC9D88D3FF48C0294Cb7e45937d0E41A928",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "spacex-ondo-tokenized-stock"
         },
         {
           "symbol": "SPCX",
@@ -415,7 +424,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "spacex-robinhood-tokenized-stock"
         },
         {
           "symbol": "preSPCX",
@@ -479,7 +489,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "spacex-reality-protocol"
         },
         {
           "symbol": "SPCX",
@@ -511,7 +522,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "spacex-robinhood-tokenized-stock"
         },
         {
           "symbol": "wSPCXx",
@@ -542,7 +554,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": "0x8e2eed8b8b5e13ea7bf38e50d7821d2c57309072"
-          }
+          },
+          "coingecko_id": "wrapped-spacex-xstock"
         }
       ],
       "website": "https://www.spacex.com/",
@@ -594,7 +607,8 @@
             "arbitrum": "0xae2f842ef90c0d5213259ab82639d5bbf649b08e",
             "bnb": "0xae2f842ef90c0d5213259ab82639d5bbf649b08e",
             "xlayer": "0xAE2f842EF90C0d5213259Ab82639D5BBF649b08E"
-          }
+          },
+          "coingecko_id": "microstrategy-xstock"
         },
         {
           "symbol": "MSTRon",
@@ -630,7 +644,8 @@
             "arbitrum": null,
             "bnb": "0x7313ea16493b2f55054df0131a3a14b043ec8992",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "microstrategy-ondo-tokenized-stock"
         },
         {
           "symbol": "MSTRB",
@@ -663,7 +678,8 @@
             "arbitrum": null,
             "bnb": "0xe87afb3076aeb0f9b14e368de8145ae6a2826a14",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "strategy-tokenized-bstocks"
         },
         {
           "symbol": "rMSTR",
@@ -695,7 +711,8 @@
             "arbitrum": "0x10fe806857055d3b5ae00d2eabafd3e61f0e89aa",
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "microstrategy-rstock"
         },
         {
           "symbol": "MSTR",
@@ -724,7 +741,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "strategy-inc-robinhood-tokenized-stock"
         },
         {
           "symbol": "WMSTRX",
@@ -755,7 +773,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": "0x30987adf0b11dc698438a99ba04ec3a1ab2c7eab"
-          }
+          },
+          "coingecko_id": "wrapped-microstrategy-xstock"
         }
       ],
       "website": "https://www.strategy.com",
@@ -807,7 +826,8 @@
             "arbitrum": null,
             "bnb": "0xc845b2894dbddd03858fd2d643b4ef725fe0849d",
             "xlayer": "0xc845b2894dBddd03858fd2D643B4eF725fE0849d"
-          }
+          },
+          "coingecko_id": "nvidia-xstock"
         },
         {
           "symbol": "NVDAon",
@@ -843,7 +863,8 @@
             "arbitrum": null,
             "bnb": "0xa9ee28c80f960b889dfbd1902055218cba016f75",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "nvidia-ondo-tokenized-stock"
         },
         {
           "symbol": "NVDAB",
@@ -876,7 +897,8 @@
             "arbitrum": null,
             "bnb": "0x02fca66c1d1afb4e2a7884261eb00f63598a7436",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "nvidia-bstocks"
         },
         {
           "symbol": "rNVDA",
@@ -908,7 +930,8 @@
             "arbitrum": "0x0a85b6ebe3c150a1979a65656e304033d62b1e12",
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "nvidia-rstock-2"
         },
         {
           "symbol": "NVDA",
@@ -937,7 +960,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "nvidia-robinhood-tokenized-stock"
         },
         {
           "symbol": "WNVDAX",
@@ -968,7 +992,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": "0xa8ddb5cd96b5222afe198316e9a57caa642850d5"
-          }
+          },
+          "coingecko_id": "wrapped-nvidia-xstock"
         }
       ],
       "website": "https://www.nvidia.com",
@@ -1019,7 +1044,8 @@
             "arbitrum": null,
             "bnb": "0x8b6acf6041a81567f012ff6a4c6d96d5818d74bf",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "micron-technology-ondo-tokenized-stock"
         },
         {
           "symbol": "MUx",
@@ -1057,7 +1083,8 @@
             "arbitrum": "0xf6a873bae4ba1b304e45df52a4b7d176e1c6a8c4",
             "bnb": "0xf6a873bae4ba1b304e45df52a4b7d176e1c6a8c4",
             "xlayer": "0xe2047ee3bddb5c99ae428ab83df63f8730698e30"
-          }
+          },
+          "coingecko_id": "micron-technology-xstock"
         },
         {
           "symbol": "MUB",
@@ -1090,7 +1117,8 @@
             "arbitrum": null,
             "bnb": "0xcdf2f3e0fa43c47a6662a91c9e4a7c5f69762699",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "micron-technology-bstock"
         },
         {
           "symbol": "rMU",
@@ -1122,7 +1150,8 @@
             "arbitrum": "0x548cc634a64301a346f174071a90efa93dae4eb3",
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "micron-technology-rstock"
         },
         {
           "symbol": "MU",
@@ -1151,7 +1180,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "micron-technology-backpack-securities"
         },
         {
           "symbol": "MU",
@@ -1181,7 +1211,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "micron-technology-backpack-securities"
         },
         {
           "symbol": "wMUx",
@@ -1264,7 +1295,8 @@
             "arbitrum": "0x8ad3c73f833d3f9a523ab01476625f269aeb7cf0",
             "bnb": "0x8ad3c73f833d3f9a523ab01476625f269aeb7cf0",
             "xlayer": "0x8aD3c73F833d3F9A523aB01476625F269aEB7Cf0"
-          }
+          },
+          "coingecko_id": "tesla-xstock"
         },
         {
           "symbol": "TSLAon",
@@ -1300,7 +1332,8 @@
             "arbitrum": null,
             "bnb": "0x2494b603319d4d9f9715c9f4496d9e0364b59d93",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "tesla-ondo-tokenized-stock"
         },
         {
           "symbol": "TSLA",
@@ -1331,7 +1364,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "tesla-robinhood-tokenized-stock"
         },
         {
           "symbol": "TSLAB",
@@ -1364,7 +1398,8 @@
             "arbitrum": null,
             "bnb": "0x5b1910eaad6450e50f816082aa078c41f10c292f",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "tesla-bstocks-tokenized-stock"
         },
         {
           "symbol": "rTSLA",
@@ -1396,7 +1431,8 @@
             "arbitrum": "0xf912911c9c8d5131929c758e66e6dc54e65cf3ba",
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "tesla-rstock-2"
         },
         {
           "symbol": "TSLA",
@@ -1425,7 +1461,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "tesla-robinhood-tokenized-stock"
         },
         {
           "symbol": "WTSLAX",
@@ -1508,7 +1545,8 @@
             "arbitrum": "0xe92f673Ca36C5E2Efd2DE7628f815f84807e803F",
             "bnb": "0xe92f673ca36c5e2efd2de7628f815f84807e803f",
             "xlayer": "0xe92f673Ca36C5E2Efd2DE7628f815f84807e803F"
-          }
+          },
+          "coingecko_id": "alphabet-xstock"
         },
         {
           "symbol": "GOOGLon",
@@ -1544,7 +1582,8 @@
             "arbitrum": null,
             "bnb": "0x091fc7778e6932d4009b087b191d1ee3bac5729a",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "alphabet-class-a-ondo-tokenized-stock"
         },
         {
           "symbol": "GOOGL",
@@ -1575,7 +1614,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "alphabet-class-a-robinhood-tokenized-stock"
         },
         {
           "symbol": "rGOOGL",
@@ -1607,7 +1647,8 @@
             "arbitrum": "0xca1942edeb697a85af98ef8c74c4910fe9587afb",
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "alphabet-rstock"
         },
         {
           "symbol": "GOOGL",
@@ -1636,7 +1677,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "alphabet-class-a-robinhood-tokenized-stock"
         },
         {
           "symbol": "GOOGLB",
@@ -1669,7 +1711,8 @@
             "arbitrum": null,
             "bnb": "0x3f53de71c126bdabae20f9cd64848d317f6c3238",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "alphabet-bstocks-tokenized-stock"
         },
         {
           "symbol": "WGOOGLX",
@@ -1733,7 +1776,8 @@
             "arbitrum": null,
             "bnb": "0x817f1f6780F99BCaAc394A59CB0261962df5Da8b",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "alphabet-class-c-ondo-tokenized-stock"
         }
       ],
       "website": "https://www.abc.xyz",
@@ -1784,7 +1828,8 @@
             "arbitrum": null,
             "bnb": "0xa528caaa2f96090e379d43f90834c75df54d6e74",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "intel-ondo-tokenized-stock"
         },
         {
           "symbol": "INTCX",
@@ -1821,7 +1866,8 @@
             "arbitrum": "0xf8a80d1cb9cfd70d03d655d9df42339846f3b3c8",
             "bnb": "0xf8a80d1cb9cfd70d03d655d9df42339846f3b3c8",
             "xlayer": "0xf8A80D1cb9cFD70D03D655D9dF42339846F3B3C8"
-          }
+          },
+          "coingecko_id": "intel-xstock"
         },
         {
           "symbol": "INTCB",
@@ -1854,7 +1900,8 @@
             "arbitrum": null,
             "bnb": "0xe614e2fc6c787035ff51f452e8e826bfd32d5283",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "intel-tokenized-bstocks"
         },
         {
           "symbol": "rINTC",
@@ -1886,7 +1933,8 @@
             "arbitrum": "0xafa43b4badfd062f5f1891a398a0579c904da776",
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "intel-rstock"
         },
         {
           "symbol": "INTC",
@@ -1915,7 +1963,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "intel-robinhood-tokenized-stock"
         },
         {
           "symbol": "WINTCX",
@@ -1995,7 +2044,8 @@
             "arbitrum": null,
             "bnb": "0x4Fd67CB8CFEdc718BAc984b5936abE3330d0a2A4",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "sandisk-ondo-tokenized"
         },
         {
           "symbol": "SNDKX",
@@ -2027,7 +2077,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "sandisk-corporation-xstock"
         },
         {
           "symbol": "SNDKB",
@@ -2060,7 +2111,8 @@
             "arbitrum": null,
             "bnb": "0x3ee4df61bd4f867e349beae8bfe07bc31b4850fb",
             "xlayer": null
-          }
+          },
+          "coingecko_id": "sandisk-bstocks-tokenized-stock"
         },
         {
           "symbol": "rSNDK",
@@ -2092,7 +2144,8 @@
             "arbitrum": "0xc78c5a7be0e8d72cdda205e53d1147aaacf5a075",
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "sandisk-rstock"
         },
         {
           "symbol": "SNDK",
@@ -2121,7 +2174,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "sandisk-backpack-securities"
         },
         {
           "symbol": "SNDK",
@@ -2151,7 +2205,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "sandisk-backpack-securities"
         },
         {
           "symbol": "wSNDKx",
@@ -2234,7 +2289,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "coinbase-xstock"
         },
         {
           "symbol": "COINon",
@@ -2270,7 +2326,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "coinbase-ondo-tokenized-stock"
         },
         {
           "symbol": "rCOIN",
@@ -2302,7 +2359,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "coinbase-rstock"
         },
         {
           "symbol": "COIN",
@@ -2331,7 +2389,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "coinbase-robinhood-tokenized-stock"
         },
         {
           "symbol": "COINB",
@@ -2364,7 +2423,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "coinbase-bstocks-tokenized-stock"
         },
         {
           "symbol": "WCOINX",
@@ -2445,7 +2505,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "marvell-technology-ondo-tokenized-stock"
         },
         {
           "symbol": "MRVLX",
@@ -2482,7 +2543,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "marvell-xstock"
         },
         {
           "symbol": "rMRVL",
@@ -2514,7 +2576,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "marvell-technology-rstock"
         },
         {
           "symbol": "MRVL",
@@ -2543,7 +2606,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "marvell-technology-robinhood-tokenized-stock"
         },
         {
           "symbol": "MRVLB",
@@ -2576,7 +2640,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "marvell-technology-bstocks-tokenized-stock"
         },
         {
           "symbol": "WMRVLX",
@@ -2659,7 +2724,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "apple-xstock"
         },
         {
           "symbol": "AAPLon",
@@ -2695,7 +2761,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "apple-ondo-tokenized-stock"
         },
         {
           "symbol": "AAPL",
@@ -2726,7 +2793,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "apple-robinhood-tokenized-stock"
         },
         {
           "symbol": "rAAPL",
@@ -2755,7 +2823,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "apple-reality-protocol"
         },
         {
           "symbol": "AAPL",
@@ -2784,7 +2853,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "apple-robinhood-tokenized-stock"
         },
         {
           "symbol": "AAPLB",
@@ -2817,7 +2887,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "apple-bstocks-tokenized-stock"
         },
         {
           "symbol": "WAAPLX",
@@ -2898,7 +2969,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "hims-hers-health-ondo-tokenized-stock"
         },
         {
           "symbol": "HIMSx",
@@ -2935,7 +3007,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "hims-hers-xstock"
         },
         {
           "symbol": "HIMS",
@@ -2966,7 +3039,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "hims-hers-health-inc-robinhood-token"
         },
         {
           "symbol": "HIMSB",
@@ -2999,7 +3073,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "hims-hers-bstocks-tokenized-stock"
         }
       ],
       "website": "https://www.forhims.com",
@@ -3051,7 +3126,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "meta-xstock"
         },
         {
           "symbol": "METAon",
@@ -3087,7 +3163,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "meta-platforms-ondo-tokenized-stock"
         },
         {
           "symbol": "META",
@@ -3118,7 +3195,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "meta-platforms-robinhood-tokenized-stock"
         },
         {
           "symbol": "METAB",
@@ -3151,7 +3229,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "meta-platforms-bstocks-tokenized-stock"
         },
         {
           "symbol": "rMETA",
@@ -3183,7 +3262,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "meta-platforms-rstock"
         },
         {
           "symbol": "META",
@@ -3212,7 +3292,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "meta-platforms-robinhood-tokenized-stock"
         },
         {
           "symbol": "WMETAX",
@@ -3291,7 +3372,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "cea-industries-bstocks-tokenized-stock"
         }
       ],
       "website": null,
@@ -3343,7 +3425,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "broadcom-xstock"
         },
         {
           "symbol": "AVGOon",
@@ -3378,7 +3461,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "broadcom-ondo-tokenized-stock"
         },
         {
           "symbol": "rAVGO",
@@ -3410,7 +3494,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "broadcom-rstock"
         },
         {
           "symbol": "AVGO",
@@ -3439,7 +3524,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "broadcom-robinhood-tokenized-stock"
         },
         {
           "symbol": "AVGOB",
@@ -3472,7 +3558,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "broadcom-bstocks-tokenized-stock"
         },
         {
           "symbol": "WAVGOX",
@@ -3555,7 +3642,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "robinhood-xstock"
         },
         {
           "symbol": "HOODon",
@@ -3591,7 +3679,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "robinhood-markets-ondo-tokenized-stock"
         },
         {
           "symbol": "HOOD",
@@ -3653,7 +3742,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "robinhood-rstock"
         },
         {
           "symbol": "HOODB",
@@ -3686,7 +3776,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "robinhood-bstocks-tokenized-stock"
         },
         {
           "symbol": "WHOODX",
@@ -3771,7 +3862,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": "0x6215a58ed045d71f2561aaabe54f4c885c522998"
-          }
+          },
+          "coingecko_id": "sk-hynix-xstock"
         },
         {
           "symbol": "SKHYB",
@@ -3804,7 +3896,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "sk-hynix-bstocks-tokenized-stock"
         },
         {
           "symbol": "SKHYon",
@@ -3837,7 +3930,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "sk-hynix-ondo-tokenized"
         },
         {
           "symbol": "SKHY",
@@ -3867,7 +3961,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "sk-hynix-backpack-securities"
         },
         {
           "symbol": "wSKHYx",
@@ -3950,7 +4045,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "microsoft-xstock"
         },
         {
           "symbol": "MSFTon",
@@ -3986,7 +4082,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "microsoft-ondo-tokenized-stock"
         },
         {
           "symbol": "MSFT",
@@ -4017,7 +4114,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "microsoft-robinhood-tokenized-stock"
         },
         {
           "symbol": "MSFTB",
@@ -4050,7 +4148,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "microsoft-bstocks-tokenized-stock"
         },
         {
           "symbol": "rMSFT",
@@ -4082,7 +4181,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "microsoft-rstock"
         },
         {
           "symbol": "MSFT",
@@ -4111,7 +4211,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "microsoft-robinhood-tokenized-stock"
         },
         {
           "symbol": "WMSFTX",
@@ -4194,7 +4295,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "amazon-xstock"
         },
         {
           "symbol": "AMZNon",
@@ -4230,7 +4332,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "amazon-ondo-tokenized-stock"
         },
         {
           "symbol": "AMZN",
@@ -4261,7 +4364,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "amazon-robinhood-tokenized-stock"
         },
         {
           "symbol": "rAMZN",
@@ -4293,7 +4397,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "amazon-rstock"
         },
         {
           "symbol": "AMZN",
@@ -4322,7 +4427,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "amazon-robinhood-tokenized-stock"
         },
         {
           "symbol": "AMZNB",
@@ -4355,7 +4461,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "amazon-bstocks-tokenized-stock"
         },
         {
           "symbol": "WAMZNX",
@@ -4437,7 +4544,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "amd-ondo-tokenized-stock"
         },
         {
           "symbol": "AMDB",
@@ -4470,7 +4578,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "advanced-micro-devices-bstocks-tokenized-stock"
         },
         {
           "symbol": "rAMD",
@@ -4502,7 +4611,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "advanced-micro-devices-rstock"
         },
         {
           "symbol": "AMD",
@@ -4531,7 +4641,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "amd-robinhood-tokenized-stock"
         },
         {
           "symbol": "wAMDx",
@@ -4612,7 +4723,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "bitmine-immersion-technologies-ondo-tokenized-stocks"
         },
         {
           "symbol": "BMNRB",
@@ -4645,7 +4757,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "bitmine-immersion-technologies-bstocks-tokenized-stock"
         },
         {
           "symbol": "wBMNRx",
@@ -4727,7 +4840,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "taiwan-semiconductor-manufacturing-ondo-tokenized-stock"
         },
         {
           "symbol": "rTSM",
@@ -4759,7 +4873,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "taiwan-semiconductor-rstock"
         },
         {
           "symbol": "TSM",
@@ -4788,7 +4903,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "taiwan-semiconductor-manufacturing-robinhood-tokenized-stock"
         },
         {
           "symbol": "TSMB",
@@ -4821,7 +4937,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "tsmc-bstocks-tokenized-stock"
         },
         {
           "symbol": "wTSMx",
@@ -4903,7 +5020,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "oracle-ondo-tokenized-stock"
         },
         {
           "symbol": "ORCLX",
@@ -4940,7 +5058,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "oracle-xstock"
         },
         {
           "symbol": "rORCL",
@@ -4972,7 +5091,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "oracle-rstock"
         },
         {
           "symbol": "ORCL",
@@ -5001,7 +5121,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "oracle-robinhood-tokenized-stock"
         },
         {
           "symbol": "ORCLB",
@@ -5034,7 +5155,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "oracle-bstocks-tokenized-stock"
         },
         {
           "symbol": "WORCLX",
@@ -5116,7 +5238,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "gamestop-xstock"
         },
         {
           "symbol": "GMEon",
@@ -5151,7 +5274,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "gamestop-ondo-tokenized-stock"
         },
         {
           "symbol": "GME",
@@ -5180,7 +5304,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "gamestop-robinhood-tokenized-stock"
         },
         {
           "symbol": "GMEB",
@@ -5213,7 +5338,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "gamestop-bstocks-tokenized-stock"
         },
         {
           "symbol": "WGMEX",
@@ -5295,7 +5421,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "palantir-technologies-ondo-tokenized-stock"
         },
         {
           "symbol": "PLTRX",
@@ -5332,7 +5459,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "palantir-xstock"
         },
         {
           "symbol": "PLTRB",
@@ -5365,7 +5493,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "palantir-technologies-bstocks-tokenized-stock"
         },
         {
           "symbol": "rPLTR",
@@ -5397,7 +5526,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "palantir-rstock"
         },
         {
           "symbol": "PLTR",
@@ -5426,7 +5556,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "palantir-technologies-robinhood-tokenized-stock"
         },
         {
           "symbol": "WPLTRX",
@@ -5503,7 +5634,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "sofi-technologies-ondo-tokenized-stock"
         },
         {
           "symbol": "rSOFI",
@@ -5535,7 +5667,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "sofi-technologies-rstock"
         },
         {
           "symbol": "SOFI",
@@ -5564,7 +5697,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "sofi-technologies-robinhood-tokenized-stock"
         }
       ],
       "website": "https://www.sofi.com",
@@ -5615,7 +5749,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "alibaba-ondo-tokenized-stock"
         },
         {
           "symbol": "rBABA",
@@ -5647,7 +5782,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "alibaba-rstock"
         },
         {
           "symbol": "BABA",
@@ -5676,7 +5812,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "alibaba-robinhood-tokenized-stock"
         },
         {
           "symbol": "BABAB",
@@ -5709,7 +5846,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "alibaba-bstocks-tokenized-stock"
         }
       ],
       "website": "https://www.alibabagroup.com",
@@ -5757,7 +5895,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "pdd-holdings-ondo-tokenized"
         }
       ],
       "website": "https://www.pddholdings.com",
@@ -5807,7 +5946,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "asml-holding-nv-ondo-tokenized-stock"
         },
         {
           "symbol": "ASMLx",
@@ -5845,7 +5985,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": "0x9147b03c16b18fc4f686f610f189f91ddf4347b4"
-          }
+          },
+          "coingecko_id": "asml-xstock"
         },
         {
           "symbol": "rASML",
@@ -5877,7 +6018,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "asml-holding-rstock"
         },
         {
           "symbol": "ASML",
@@ -5906,7 +6048,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "asml-holding-nv-robinhood-tokenized-stock"
         },
         {
           "symbol": "ASMLB",
@@ -5939,7 +6082,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "asml-bstocks-tokenized-stock"
         },
         {
           "symbol": "wASMLx",
@@ -6020,7 +6164,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "qualcomm-ondo-tokenized-stock"
         },
         {
           "symbol": "rQCOM",
@@ -6052,7 +6197,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "qualcomm-rstock"
         },
         {
           "symbol": "QCOM",
@@ -6081,7 +6227,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "qualcomm-robinhood-tokenized-stock"
         },
         {
           "symbol": "QCOMB",
@@ -6114,7 +6261,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "qualcomm-bstocks-tokenized-stock"
         },
         {
           "symbol": "QCOMx",
@@ -6151,7 +6299,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "qualcomm-xstock"
         }
       ],
       "website": "https://www.qualcomm.com",
@@ -6201,7 +6350,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "lumentum-holdings-inc-xstock"
         },
         {
           "symbol": "LITEB",
@@ -6234,7 +6384,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "lumentum-holdings-bstocks-tokenized-stock"
         },
         {
           "symbol": "rLITE",
@@ -6266,7 +6417,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "lumentum-rstock"
         },
         {
           "symbol": "LITE",
@@ -6295,7 +6447,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "lumentum-robinhood-tokenized-stock"
         }
       ],
       "website": null,
@@ -6389,7 +6542,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "nebius-rstock"
         },
         {
           "symbol": "NBIS",
@@ -6418,7 +6572,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "nebius-group-robinhood-tokenized-stock"
         },
         {
           "symbol": "NBISB",
@@ -6451,7 +6606,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "nebius-bstocks-tokenized-stock"
         },
         {
           "symbol": "wNBISx",
@@ -6532,7 +6688,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "eli-lilly-ondo-tokenized-stock"
         },
         {
           "symbol": "LLYX",
@@ -6568,7 +6725,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "eli-lilly-xstock"
         },
         {
           "symbol": "rLLY",
@@ -6600,7 +6758,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "eli-lilly-and-co-rstock"
         },
         {
           "symbol": "LLY",
@@ -6629,7 +6788,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "eli-lilly-robinhood-tokenized-stock"
         }
       ],
       "website": "https://www.lilly.com",
@@ -6679,7 +6839,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "arm-holdings-plc-ondo-tokenized-stock"
         },
         {
           "symbol": "rARM",
@@ -6711,7 +6872,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "arm-holdings-rstock"
         },
         {
           "symbol": "ARMB",
@@ -6744,7 +6906,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "arm-bstocks-tokenized-stock"
         }
       ],
       "website": "https://www.arm.com",
@@ -6792,7 +6955,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "coherent-ondo-tokenized"
         },
         {
           "symbol": "rCOHR",
@@ -6824,7 +6988,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "coherent-rstock"
         },
         {
           "symbol": "COHRB",
@@ -6857,7 +7022,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "coherent-bstocks-tokenized-stock"
         }
       ],
       "website": "https://www.coherent.com",
@@ -6905,7 +7071,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "iren-ondo-tokenized-stock"
         },
         {
           "symbol": "IRENx",
@@ -6942,7 +7109,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": "0xb3a16db475a9cb321fc8956aa2cb01385a022e75"
-          }
+          },
+          "coingecko_id": "iren-xstock"
         },
         {
           "symbol": "rIREN",
@@ -6974,7 +7142,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "iren-rstock"
         },
         {
           "symbol": "IREN",
@@ -7003,7 +7172,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "iren-limited-robinhood-tokenized-stock"
         },
         {
           "symbol": "IRENB",
@@ -7036,7 +7206,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "iren-limited-bstocks-tokenized-stock"
         },
         {
           "symbol": "wIRENx",
@@ -7117,7 +7288,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "coca-cola-ondo-tokenized-stock"
         },
         {
           "symbol": "KOX",
@@ -7153,7 +7325,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "coca-cola-xstock"
         },
         {
           "symbol": "WKOX",
@@ -7231,7 +7404,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "applied-optoelectronics-rstock"
         },
         {
           "symbol": "AAOI",
@@ -7260,7 +7434,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "applied-optoelectronics-robinhood-tokenized-stock"
         },
         {
           "symbol": "AAOIB",
@@ -7293,7 +7468,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "applied-optoelectronics-bstocks-tokenized-stock"
         }
       ],
       "website": null,
@@ -7344,7 +7520,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "mcdonald-s-xstock"
         },
         {
           "symbol": "MCDon",
@@ -7374,7 +7551,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "mcdonald-s-ondo-tokenized-stock"
         },
         {
           "symbol": "WMCDX",
@@ -7455,7 +7633,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "super-micro-computer-ondo-tokenized-stock"
         },
         {
           "symbol": "SMCIx",
@@ -7490,7 +7669,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": "0xd89556e08fdc04e5a2d9344eb06568a043001166"
-          }
+          },
+          "coingecko_id": "super-micro-computer-inc-xstock"
         },
         {
           "symbol": "rSMCI",
@@ -7522,7 +7702,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "super-micro-computer-rstock"
         },
         {
           "symbol": "SMCI",
@@ -7551,7 +7732,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "super-micro-computer-robinhood-tokenized-stock"
         },
         {
           "symbol": "SMCIB",
@@ -7584,7 +7766,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "super-micro-computer-bstocks-tokenized-stock"
         },
         {
           "symbol": "wSMCIx",
@@ -7665,7 +7848,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "applied-materials-ondo-tokenized-stocks"
         },
         {
           "symbol": "AMATx",
@@ -7700,7 +7884,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "applied-materials-inc-xstock"
         },
         {
           "symbol": "rAMAT",
@@ -7732,7 +7917,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "applied-materials-rstock"
         },
         {
           "symbol": "AMAT",
@@ -7761,7 +7947,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "applied-materials-robinhood-tokenized-stock"
         },
         {
           "symbol": "AMATB",
@@ -7794,7 +7981,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "applied-materials-bstocks-tokenized-stock"
         }
       ],
       "website": "https://www.appliedmaterials.com",
@@ -7845,7 +8033,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "netflix-xstock"
         },
         {
           "symbol": "NFLXon",
@@ -7881,7 +8070,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "netflix-ondo-tokenized-stock"
         },
         {
           "symbol": "NFLX",
@@ -7910,7 +8100,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "netflix-robinhood-tokenized-stock"
         },
         {
           "symbol": "NFLXB",
@@ -7943,7 +8134,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "netflix-bstocks-tokenized-stock"
         }
       ],
       "website": "https://www.netflix.com",
@@ -7990,7 +8182,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "rocket-lab-rstock"
         },
         {
           "symbol": "RKLB",
@@ -8019,7 +8212,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "rocket-lab-bstocks-tokenized-stock"
         },
         {
           "symbol": "RKLBB",
@@ -8052,7 +8246,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "rocket-lab-bstocks-tokenized-stock"
         },
         {
           "symbol": "wRKLBx",
@@ -8130,7 +8325,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "axt-inc-rstock"
         },
         {
           "symbol": "AXTIB",
@@ -8163,7 +8359,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "axt-bstocks-tokenized-stock"
         }
       ],
       "website": null,
@@ -8211,7 +8408,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "ibm-ondo-tokenized-stock"
         },
         {
           "symbol": "IBMX",
@@ -8248,7 +8446,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "international-business-machines-xstock"
         },
         {
           "symbol": "rIBM",
@@ -8280,7 +8479,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "ibm-rstock"
         },
         {
           "symbol": "IBMB",
@@ -8313,7 +8513,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "ibm-bstocks-tokenized-stock"
         },
         {
           "symbol": "wIBMx",
@@ -8375,7 +8576,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "international-business-machines-corporation-robinhood-token"
         }
       ],
       "website": "https://www.ibm.com",
@@ -8422,7 +8624,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "bloom-energy-rstock"
         },
         {
           "symbol": "BE",
@@ -8451,7 +8654,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "bloom-energy-robinhood-tokenized-stock"
         },
         {
           "symbol": "BEB",
@@ -8484,7 +8688,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "bloom-energy-bstocks-tokenized-stock"
         }
       ],
       "website": null,
@@ -8534,7 +8739,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "pfizer-ondo-tokenized-stock"
         },
         {
           "symbol": "PFEX",
@@ -8570,7 +8776,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "pfizer-xstock"
         }
       ],
       "website": "https://www.pfizer.com",
@@ -8620,7 +8827,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "lockheed-ondo-tokenized-stock"
         }
       ],
       "website": "https://www.lockheedmartin.com",
@@ -8717,7 +8925,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "chevron-ondo-tokenized-stock"
         },
         {
           "symbol": "CVXX",
@@ -8753,7 +8962,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "chevron-xstock"
         }
       ],
       "website": "https://www.chevron.com",
@@ -8801,7 +9011,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "reddit-ondo-tokenized-stock"
         },
         {
           "symbol": "RDDT",
@@ -8830,7 +9041,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "reddit-robinhood-tokenized-stock"
         },
         {
           "symbol": "wRDDTx",
@@ -8894,7 +9106,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "reddit-bstocks-tokenized-stock"
         }
       ],
       "website": "https://www.redditinc.com",
@@ -8945,7 +9158,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": "0x04db4384013664baa627c1a3fa4ff0c50f37cfd3"
-          }
+          },
+          "coingecko_id": "dell-technologies-inc-xstock"
         },
         {
           "symbol": "rDELL",
@@ -8977,7 +9191,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "dell-rstock"
         },
         {
           "symbol": "DELL",
@@ -9006,7 +9221,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "dell-robinhood-tokenized-stock"
         },
         {
           "symbol": "DELLB",
@@ -9039,7 +9255,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "dell-bstocks-tokenized-stock"
         },
         {
           "symbol": "wDELLx",
@@ -9118,7 +9335,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "cisco-systems-ondo-tokenized-stock"
         },
         {
           "symbol": "CSCOX",
@@ -9154,7 +9372,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "cisco-xstock"
         },
         {
           "symbol": "rCSCO",
@@ -9185,7 +9404,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "cisco-rstock"
         }
       ],
       "website": "https://www.cisco.com",
@@ -9233,7 +9453,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "oklo-ondo-tokenized"
         },
         {
           "symbol": "rOKLO",
@@ -9265,7 +9486,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "oklo-inc-rstock"
         }
       ],
       "website": "https://www.oklo.com",
@@ -9317,7 +9539,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "jpmorgan-chase-xstock"
         },
         {
           "symbol": "JPMon",
@@ -9350,7 +9573,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "jpmorgan-chase-ondo-tokenized-stock"
         }
       ],
       "website": "https://www.jpmorganchase.com",
@@ -9398,7 +9622,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "procter-gamble-ondo-tokenized-stock"
         },
         {
           "symbol": "PGX",
@@ -9434,7 +9659,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "procter-gamble-xstock"
         }
       ],
       "website": "https://us.pg.com",
@@ -9482,7 +9708,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "palo-alto-networks-ondo-tokenized-stock"
         }
       ],
       "website": "https://www.paloaltonetworks.com",
@@ -9529,7 +9756,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "western-digital-rstock"
         },
         {
           "symbol": "WDCB",
@@ -9562,7 +9790,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "western-digital-bstocks-tokenized-stock"
         },
         {
           "symbol": "WDCx",
@@ -9599,7 +9828,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "western-digital-xstock"
         }
       ],
       "website": null,
@@ -9649,7 +9879,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "novo-nordisk-ondo-tokenized-stock"
         },
         {
           "symbol": "NVOX",
@@ -9685,7 +9916,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "novo-nordisk-xstock"
         }
       ],
       "website": "https://www.novonordisk.com",
@@ -9732,7 +9964,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "nokia-rstock"
         },
         {
           "symbol": "NOKB",
@@ -9765,7 +9998,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "nokia-bstocks-tokenized-stock"
         }
       ],
       "website": null,
@@ -9815,7 +10049,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "costco-ondo-tokenized-stock"
         },
         {
           "symbol": "COST",
@@ -9844,7 +10079,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "costco-robinhood-tokenized-stock"
         }
       ],
       "website": "https://www.costco.com",
@@ -9895,7 +10131,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "visa-xstock"
         },
         {
           "symbol": "Von",
@@ -9925,7 +10162,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "visa-ondo-tokenized-stock"
         }
       ],
       "website": "https://www.usa.visa.com",
@@ -9976,7 +10214,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "walmart-xstock"
         },
         {
           "symbol": "WMTon",
@@ -10009,7 +10248,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "walmart-ondo-tokenized-stock"
         },
         {
           "symbol": "WWMTX",
@@ -10090,7 +10330,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "petrobras-ondo-tokenized-stock"
         }
       ],
       "website": "https://www.petrobras.com.br",
@@ -10138,7 +10379,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "pepsico-ondo-tokenized-stock"
         },
         {
           "symbol": "PEPX",
@@ -10174,7 +10416,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "pepsico-xstock"
         }
       ],
       "website": "https://www.pepsico.com",
@@ -10221,7 +10464,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "coreweave-rstock"
         },
         {
           "symbol": "CRWV",
@@ -10250,7 +10494,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "coreweave-robinhood-tokenized-stock"
         },
         {
           "symbol": "CRWVB",
@@ -10283,7 +10528,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "coreweave-bstocks-tokenized-stock"
         },
         {
           "symbol": "wCRWVx",
@@ -10358,7 +10604,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "corning-robinhood-tokenized-stock"
         },
         {
           "symbol": "GLWB",
@@ -10391,7 +10638,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "corning-bstocks-tokenized-stock"
         },
         {
           "symbol": "GLWx",
@@ -10428,7 +10676,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "corning-xstock"
         }
       ],
       "website": null,
@@ -10731,7 +10980,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "goldman-sachs-ondo-tokenized-stock"
         },
         {
           "symbol": "GSX",
@@ -10768,7 +11018,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "goldman-sachs-xstock"
         },
         {
           "symbol": "GSB",
@@ -10801,7 +11052,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "goldman-sachs-bstocks-tokenized-stock"
         }
       ],
       "website": "https://www.goldmansachs.com",
@@ -10851,7 +11103,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "paypal-ondo-tokenized-stock"
         },
         {
           "symbol": "PYPLx",
@@ -10971,7 +11224,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "salesforce-ondo-tokenized-stock"
         },
         {
           "symbol": "CRMX",
@@ -11007,7 +11261,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "salesforce-xstock"
         },
         {
           "symbol": "CRMB",
@@ -11040,7 +11295,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "salesforce-bstocks-tokenized-stock"
         }
       ],
       "website": "https://www.salesforce.com",
@@ -11391,7 +11647,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "berkshire-hathaway-xstock"
         },
         {
           "symbol": "WBRK.BX",
@@ -11692,7 +11949,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "linde-plc-ondo-tokenized-stock"
         },
         {
           "symbol": "LINX",
@@ -11728,7 +11986,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "linde-xstock"
         }
       ],
       "website": "https://www.linde.com",
@@ -11779,7 +12038,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "unitedhealth-xstock"
         },
         {
           "symbol": "UNHon",
@@ -11814,7 +12074,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "unitedhealth-ondo-tokenized-stock"
         }
       ],
       "website": "https://www.unitedhealthgroup.com",
@@ -11862,7 +12123,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "trump-media-technology-group-cord-bstocks-tokenized-stock"
         },
         {
           "symbol": "DJT",
@@ -11893,7 +12155,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "trump-media-technology-group-corp-robinhood-token"
         }
       ],
       "website": null,
@@ -11941,7 +12204,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "vertiv-ondo-tokenized"
         },
         {
           "symbol": "VRTx",
@@ -12506,7 +12770,8 @@
             "arbitrum": null,
             "bnb": null,
             "xlayer": null
-          }
+          },
+          "coingecko_id": "mastercard-ondo-tokenized-stock"
         },
         {
           "symbol": "MAX",
