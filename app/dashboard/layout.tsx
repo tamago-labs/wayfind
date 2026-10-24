@@ -22,7 +22,7 @@ export default function DashboardLayout({
       <WalletProvider>
         <div className="min-h-screen bg-dark">
           <Sidebar />
-          <div className={`ml-56 flex flex-col ${isNewChat || isChatSession || isReview || isStrategies ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
+          <div className={`ml-16 md:ml-56 flex flex-col ${isNewChat || isChatSession || isReview || isStrategies ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
             <Topbar />
             <main className={isNewChat || isChatSession || isReview || isStrategies ? 'h-screen' : 'p-6'}>{children}</main>
           </div>

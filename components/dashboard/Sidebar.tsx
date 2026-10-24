@@ -77,15 +77,15 @@ export default function Sidebar() {
   }, [profileId, pathname, chatsOpen]);
 
   return (
-    <aside className="w-56 h-screen border-r border-border3/50 bg-surface flex flex-col fixed left-0 top-0">
-      <Link href="/" className="px-5 h-14 flex items-center gap-2 border-b border-border3/50 hover:bg-white/[0.02] transition-colors">
-         <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-zenblue to-zenpurple flex">
+    <aside className="w-16 md:w-56 h-screen border-r border-border3/50 bg-surface flex flex-col fixed left-0 top-0 z-40">
+      <Link href="/" className="px-3 md:px-5 h-14 flex items-center gap-2 border-b border-border3/50 hover:bg-white/[0.02] transition-colors">
+         <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-zenblue to-zenpurple flex shrink-0">
            <span className="text-[20px] font-brand text-center mx-auto rotate-[-10deg] ml-[5px] mt-[1px]">W</span>
          </div>
-         <span className="font-display text-lg font-semibold tracking-tight">Wayfind</span>
+         <span className="font-display text-lg font-semibold tracking-tight hidden md:inline">Wayfind</span>
       </Link>
 
-      <nav className="flex-1 py-4 px-3 space-y-1">
+      <nav className="flex-1 py-4 md:px-3 space-y-1 px-2 md:px-3">
         {navItems.map((item) => {
           const isActive = item.href === "/dashboard/explore"
             ? pathname === item.href || pathname?.startsWith("/dashboard/token/")
@@ -95,14 +95,14 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-display font-medium transition-colors ${
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-display font-medium transition-colors justify-center md:justify-start ${
                 isActive
                   ? 'bg-gradient-to-r from-zenblue/25 via-accent/15 to-accent2/20'
                   : 'text-white/50 hover:text-white hover:bg-white/[0.03]'
               }`}
             >
-              <Icon className={`w-4 h-4 ${isActive ? 'text-white' : ''}`} />
-              <span className={isActive ? 'text-white' : ''}>{item.label}</span>
+              <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-white' : ''}`} />
+              <span className={`hidden md:inline ${isActive ? 'text-white' : ''}`}>{item.label}</span>
             </Link>
           );
          })}
@@ -111,15 +111,15 @@ export default function Sidebar() {
          <div>
            <button
              onClick={() => setNewOpen(!newOpen)}
-             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-display font-medium text-white/50 hover:text-white hover:bg-white/[0.03] transition-colors"
+             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-display font-medium text-white/50 hover:text-white hover:bg-white/[0.03] transition-colors justify-center md:justify-start"
            >
-             <Plus className="w-4 h-4" />
-             <span className="flex-1 text-left">New</span>
+             <Plus className="w-4 h-4 shrink-0" />
+             <span className="flex-1 text-left hidden md:inline">New</span>
              <motion.div
                animate={{ rotate: newOpen ? 180 : 0 }}
                transition={{ duration: 0.2 }}
              >
-               <ChevronDown className="w-3 h-3" />
+               <ChevronDown className="w-3 h-3 hidden md:inline" />
              </motion.div>
            </button>
 
@@ -132,18 +132,19 @@ export default function Sidebar() {
                  transition={{ duration: 0.2 }}
                  className="overflow-hidden"
                >
-                 <div className="pl-10 pr-3 py-1 space-y-0.5">
-                   <Link
-                     href="/dashboard/new-chat"
-                     className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-[12px] transition-colors ${
-                       pathname === "/dashboard/new-chat"
-                         ? 'bg-accent/10 text-accent'
-                         : 'text-white/40 hover:text-white/70 hover:bg-white/[0.02]'
-                     }`}
-                   >
-                     <span className="truncate flex-1 text-[12px]">Risk Profile</span>
-                   </Link>
-                 </div>
+                  <div className="pl-10 pr-3 py-1 space-y-0.5">
+                    <Link
+                      href="/dashboard/new-chat"
+                      className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-[12px] transition-colors ${
+                        pathname === "/dashboard/new-chat"
+                          ? 'bg-accent/10 text-accent'
+                          : 'text-white/40 hover:text-white/70 hover:bg-white/[0.02]'
+                      }`}
+                    >
+                      <span className="truncate flex-1 text-[12px] hidden md:inline">Risk Profile</span>
+                      <span className="md:hidden text-[10px] text-white/40">Risk</span>
+                    </Link>
+                  </div>
                </motion.div>
              )}
            </AnimatePresence>
@@ -153,15 +154,15 @@ export default function Sidebar() {
         <div>
           <button
             onClick={() => setChatsOpen(!chatsOpen)}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-display font-medium text-white/50 hover:text-white hover:bg-white/[0.03] transition-colors"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-display font-medium text-white/50 hover:text-white hover:bg-white/[0.03] transition-colors justify-center md:justify-start"
           >
-            <BookCheck className="w-4 h-4" />
-            <span className="flex-1 text-left">Saved Reviews</span>
+            <BookCheck className="w-4 h-4 shrink-0" />
+            <span className="flex-1 text-left hidden md:inline">Saved Reviews</span>
             <motion.div
               animate={{ rotate: chatsOpen ? 180 : 0 }}
               transition={{ duration: 0.2 }}
             >
-              <ChevronDown className="w-3 h-3" />
+              <ChevronDown className="w-3 h-3 hidden md:inline" />
             </motion.div>
           </button>
 
@@ -208,7 +209,7 @@ export default function Sidebar() {
         </div>
       </nav>
 
-      <div className="px-3 py-2 border-t border-border3/50">
+      <div className="px-2 md:px-3 py-2 border-t border-border3/50">
         {apiNavItems.map((item) => {
           const isActive = pathname === item.href;
           const Icon = item.icon;
@@ -216,14 +217,14 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-display font-medium transition-colors ${
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-display font-medium transition-colors justify-center md:justify-start ${
                 isActive
                   ? 'bg-gradient-to-r from-zenblue/25 via-accent/15 to-accent2/20'
                   : 'text-white/50 hover:text-white hover:bg-white/[0.03]'
               }`}
             >
-              <Icon className={`w-4 h-4 ${isActive ? 'text-white' : ''}`} />
-              <span className={isActive ? 'text-white' : ''}>{item.label}</span>
+              <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-white' : ''}`} />
+              <span className={`hidden md:inline ${isActive ? 'text-white' : ''}`}>{item.label}</span>
             </Link>
           );
         })}

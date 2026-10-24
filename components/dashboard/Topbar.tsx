@@ -139,7 +139,7 @@ export default function Topbar() {
           initial={{ opacity: 0, filter: "blur(8px)" }}
           animate={{ opacity: 1, filter: "blur(0px)" }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="text-lg font-display font-semibold text-white/70 px-2 ml-5"
+          className="text-xs sm:text-lg font-display font-semibold text-white/70 px-2 ml-5"
         >
           {PAGE_TITLES[pathname]}
         </motion.h1>
